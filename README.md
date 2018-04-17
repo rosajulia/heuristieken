@@ -1,6 +1,6 @@
 # Heuristieken
-Rebecca de Feijter, Jesse Haenen, Julia Jelgerhuis
-Case: Space Freight
+Rebecca de Feijter, Jesse Haenen, Julia Jelgerhuis <br />
+Case: Space Freight <br />
 http://heuristieken.nl/wiki/index.php?title=Space_Freight
 
 ## Structure of repository 
