@@ -17,8 +17,6 @@ Our repository consists of the following folders:
 
 ## Script
 Libraries used:
-* 
-* 
-* 
+* pandas: update numeric tables and time series
 
 # Use of program
