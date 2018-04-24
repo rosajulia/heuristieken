@@ -1,5 +1,6 @@
 import csv
 from classes import classes
+from calculations import minmaxcosts
 
 with open("data/spacecrafts.csv") as file_space:
     reader = csv.DictReader(file_space)
