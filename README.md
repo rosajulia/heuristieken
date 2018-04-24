@@ -15,11 +15,14 @@ Our repository consists of the following folders:
 * Calculations: calculation important for our algorithms are stored here
 * Other: other files, like our to do list + division of tasks.
 
-* Repository also contains a main.py file that will be used to call
+* Repository also contains a main.py file that will be used to run the program
+  and call all other files
 
 ## Script
 Libraries used:
 * pandas: update numeric tables and time series
 
 # Use of program
-Run program in main.py with cargolist to use as command-line argument.
+Right now we are only using one cargolist and a set of four spaceships.
+Later, program will probably be run in main.py with "cargolist to use" and
+"spaceship list to use" as command-line argument.
