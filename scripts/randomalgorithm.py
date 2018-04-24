@@ -16,20 +16,23 @@
 
 
 # create 4 random solutions
-for i in range(4):
+def random_algorithm(self, dict_space, dict_parcel)
+    self.dict_space = dict_space
+    self.dict_parcel = dict_parcel
 
+for i in range(4):
     ship_counter = 1
     parcel_amount = 0
     current_weight = 0
     current_volume = 0
     # continue adding parcels until reach of maximum payload mass or volume
-    while (current_weight <= max_weight && current_volume <= max_volume):
+    while (current_weight <= self.dict_space[i]["max_weight"] && current_volume <= self.dict_space[i]["max_volume"]):
 
         # choose random parcel id to add to ship
         parcel_to_add = random.randint(0,100)
 
         # change location of parcel to correct ship
-        parcel_to_add's location = ship_counter
+        parcel_location = ship_counter
 
         # OR array/list of parcels in 4 ships
 
