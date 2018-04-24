@@ -1,5 +1,6 @@
 import csv
 from classes import classes
+from scripts import randomalgorithm
 
 with open("data/spacecrafts.csv") as file_space:
     reader = csv.DictReader(file_space)
@@ -13,3 +14,5 @@ print(data_space[0]["nation"])
 
 cygnus = classes.Spaceship(1,1,1,1,1,1)
 print(str(cygnus))
+
+random_algorithm(data_space, data_parcel)
