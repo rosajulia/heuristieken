@@ -11,4 +11,3 @@ with open("data/CargoList1.csv") as fParcel:
 print(dataSpace[2]["nation"])
 print(str(dataSpace))
 print(str(dataParcel))
-
