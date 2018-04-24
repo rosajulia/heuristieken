@@ -11,3 +11,7 @@ with open("data/CargoList1.csv") as fParcel:
 print(dataSpace[2]["nation"])
 print(str(dataSpace))
 print(str(dataParcel))
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9e961297553b1f92a46588bd1f069459955411cd
