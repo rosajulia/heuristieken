@@ -25,7 +25,7 @@ def random_algorithm(self, dict_space, dict_parcel):
         current_volume = 0
         
         # continue adding parcels until reach of maximum payload mass or volume
-        while (current_weight <= self.dict_space[i]["max_weight"]) and (current_volume <= self.dict_space[i]["max_volume"]):
+        while (current_weight <= dict_space[i]["max_weight"]) and (current_volume <= dict_space[i]["max_volume"]):
 
             # choose random parcel id to add to ship
             add_ID = dict_parcel[(random.randint(0,100))]["parcel_ID"]
