@@ -9,7 +9,6 @@ with open("data/CargoList1.csv") as file_parcel:
     reader = csv.DictReader(file_parcel)
     data_parcel = [r for r in reader]
 
-print(data_space[2]["nation"])
 print(file_space[0]["nation"])
 
 cygnus = classes.Spaceship(1,1,1,1,1,1)
