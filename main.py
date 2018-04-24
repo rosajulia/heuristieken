@@ -1,4 +1,5 @@
 import csv
+from classes import classes
 
 with open("data/spacecrafts.csv") as file_space:
     reader = csv.DictReader(file_space)
