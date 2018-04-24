@@ -16,39 +16,43 @@
 
 
 # create 4 random solutions
-for i in range(4):
+def random_algorithm(self, dict_space, dict_parcel):
 
-    ship_counter = 1
-    parcel_amount = 0
-    current_weight = 0
-    current_volume = 0
-    # continue adding parcels until reach of maximum payload mass or volume
-    while (current_weight <= max_weight && current_volume <= max_volume):
+    for i in range(4):
+        ship_counter = 1
+        parcel_amount = 0
+        current_weight = 0
+        current_volume = 0
+        
+        # continue adding parcels until reach of maximum payload mass or volume
+        while (current_weight <= self.dict_space[i]["max_weight"]) and (current_volume <= self.dict_space[i]["max_volume"]):
 
-        # choose random parcel id to add to ship
-        parcel_to_add = random.randint(0,100)
+            # choose random parcel id to add to ship
+            add_ID = dict_parcel[(random.randint(0,100))]["parcel_ID"]
 
-        # change location of parcel to correct ship
-        parcel_to_add's location = ship_counter
+            # change location of parcel to correct ship
+            dict_parcel[add_ID]["location"] = ship_counter
 
-        # OR array/list of parcels in 4 ships
+            # OR array/list of parcels in 4 ships
 
-        # update spaceships current mass and volume
-        spaceship ship_counter's current_weight += parcel_to_add's weight
-        spaceship ship_counter's current_volume += parcel_to_add's volume
+            # update spaceships current mass and volume
+            current_weight += dict_parcel[add_ID]["weight"]
+            current_volume += dict_parcel[add_ID]["volume"]
 
-        # keep track of amount of parcels in current solution
-        parcel_amount += 1
+            # keep track of amount of parcels in current solution
+            parcel_amount += 1
 
-        # itirate over ship to add parcel to
-        if (ship_counter == 4):
-            ship_counter = 1
-        else:
-            ship_counter += 1
+            # itirate over ship to add parcel to
+            if (ship_counter == 4):
+                ship_counter = 1
+            else:
+                ship_counter += 1
 
-    # display locations of loaded parcels
-    print({"parcel_amount" : parcel_amount})
-    print("locations:")
-    for parcel in parcels:
-        if (parcel.location != 0):
-            print({parcel.id : parcel.location})
+        # display locations of loaded parcels
+        print({"parcel_amount" : parcel_amount})
+        print("locations:")
+        for parcel in parcels:
+            if (parcel.location != 0):
+                print({parcel.id : parcel.location})
+
+
