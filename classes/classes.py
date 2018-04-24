@@ -18,8 +18,8 @@ with open("spacecrafts.csv") as f_space:
     reader = csv.DictReader(f_space)
     data_space = [r for r in reader]
 
-print(data_space[2]["nation"])
-print(str(data_space))
+# remove first line of data_space
+print(data_space)
 
 class Parcel():
     """Parcel object with properties from CSV file."""
@@ -37,14 +37,13 @@ with open("CargoList1.csv") as f_parcel:
     reader = csv.DictReader(f_parcel)
     data_parcel = [r for r in reader]
 
-print(str(data_parcel))
-
 class Inventory():
     """Inventory."""
-    def __init__(self, arg):
-        self.arg = arg
-        self.name = dataSpace[0]["name"], dataSpace[1]["name"], dataSpace[2]["name"], dataSpace[3]["name"]
-    def calculate_fuel_weight():
-        fuel_weight = (self.mass + self.max_weight) * self.ftw / (1-self.ftw)
-    def calculate_fuel_costs():
-        fuel_cost = self.base_cost + roundup(fuel_weight * 100) * 5
+    def __init__(self, id_space, dict_space, dict_parcel):
+        self.id_space = id_space
+        self.dict_space = dict_space
+        self.dict_parcel = dict_parcel
+    def calculate_fuel_weight(self):
+        fuel_weight = (dict_space[id_space]["mass"] + dict_space[id_space]["max_weight"] * dict_space[id_space]["ftw"] / (1 - dict_space[id_space]["ftw"]))
+    def calculate_fuel_costs(self):
+        fuel_cost = dict_space[id_space]["base_cost"] + roundup(fuel_weight * 100) * 5
