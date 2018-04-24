@@ -16,19 +16,21 @@
 
 
 # create 4 random solutions
-def random_algorithm(self, dict_space, dict_parcel):
+def random_algorithm(dict_space, dict_parcel):
 
     for i in range(4):
         ship_counter = 1
         parcel_amount = 0
         current_weight = 0
         current_volume = 0
-        
+
         # continue adding parcels until reach of maximum payload mass or volume
-        while (current_weight <= dict_space[i]["max_weight"]) and (current_volume <= dict_space[i]["max_volume"]):
+        # kan zijn dat de manier van indexeren hier anders moet want nu is het niet subscriptable volgens python
+        while (current_weight <= dict_space[ship_counter]["max_weight"] and current_volume <= dict_space[ship_counter]["max_volume"]):
 
             # choose random parcel id to add to ship
-            add_ID = dict_parcel[(random.randint(0,100))]["parcel_ID"]
+            # check whether 99 or 100 (also depends on id numbers in cargo list)
+            add_ID = dict_parcel[(random.randint(0,99))]["parcel_ID"]
 
             # change location of parcel to correct ship
             dict_parcel[add_ID]["location"] = ship_counter
@@ -54,5 +56,3 @@ def random_algorithm(self, dict_space, dict_parcel):
         for parcel in parcels:
             if (parcel.location != 0):
                 print({parcel.id : parcel.location})
-
-
