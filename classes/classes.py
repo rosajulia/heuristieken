@@ -14,12 +14,12 @@ class Spaceship():
     def __str__(self):
         return "Spaceship name: {}.\nAgency: {}.\nMW: {}.\nMV: {}.\nBC: {}.\nF2W: {}.".format(self.name, self.agency, self.max_weigth, self.max_volume, self.base_cost, self.ftw)
 
-with open("spacecrafts.csv") as fSpace:
-    reader = csv.DictReader(fSpace)
-    dataSpace = [r for r in reader]
+with open("spacecrafts.csv") as f_space:
+    reader = csv.DictReader(f_space)
+    data_space = [r for r in reader]
 
-print(dataSpace[2]["nation"])
-print(str(dataSpace))
+print(data_space[2]["nation"])
+print(str(data_space))
 
 class Parcel():
     """Parcel object with properties from CSV file."""
@@ -33,25 +33,18 @@ class Parcel():
     def __str__(self):
         return "ID: {}.\nWeight: {}.\nVolume: {}.\nRatio: {}.\nLocation: {}.".format(self.id, self.weight, self.volume, self.ratio, self.locaion)
 
-with open("CargoList1.csv") as fParcel:
-    reader = csv.DictReader(fParcel)
-    dataParcel = [r for r in reader]
+with open("CargoList1.csv") as f_parcel:
+    reader = csv.DictReader(f_parcel)
+    data_parcel = [r for r in reader]
 
-print(str(dataParcel))
+print(str(data_parcel))
 
-class Inventory(Spaceship):
+class Inventory():
     """Inventory."""
     def __init__(self, arg):
         self.arg = arg
-        self.name = [[dataSpace[0]["name"], dataSpace[1]["name"], dataSpace[2]["name"], dataSpace[3]["name"]]
-    def __calculatefuelweight__():
+        self.name = dataSpace[0]["name"], dataSpace[1]["name"], dataSpace[2]["name"], dataSpace[3]["name"]
+    def calculate_fuel_weight():
         fuel_weight = (self.mass + self.max_weight) * self.ftw / (1-self.ftw)
-    def __calculate_fuel_costs__():
+    def calculate_fuel_costs():
         fuel_cost = self.base_cost + roundup(fuel_weight * 100) * 5
-
-
-# class ClassName(object):
-#     """docstring for ."""
-#     def __init__(self, arg):
-#         super(, self).__init__()
-#         self.arg = arg
