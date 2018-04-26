@@ -10,8 +10,8 @@ class Spaceship():
         self.ftw = float(ftw)
 
     # heb dit in repr veranderd (was str) en wat punten naar komma's en een vraagteken (om eventueel te splitten)
-    def __repr__(self):
-        return "Spaceship name: {}\nMW: {},\nMV: {},\nBC: {},\nF2W: {}?".format(self.id, self.max_weight, self.max_volume, self.base_cost, self.ftw)
+    # def __repr__(self):
+    #     return "Spaceship name: {}\nMW: {},\nMV: {},\nBC: {},\nF2W: {}?".format(self.id, self.max_weight, self.max_volume, self.base_cost, self.ftw)
 
     # hieronder is poging tot subscriptable object maken, maar daarmee krijg je als je print de locaties van de objecten
     # def output(self):
@@ -28,8 +28,8 @@ class Parcel():
         self.location = int(location)
 
     # heb dit in repr veranderd (was str) en wat punten naar komma's en een vraagteken (om eventueel te splitten)
-    def __repr__(self):
-        return "ID: {},\nWeight: {},\nVolume: {},\nRatio: {},\nLocation: {}?".format(self.id, self.weight, self.volume, self.ratio, self.location)
+    # def __repr__(self):
+    #     return "ID: {},\nWeight: {},\nVolume: {},\nRatio: {},\nLocation: {}?".format(self.id, self.weight, self.volume, self.ratio, self.location)
 
     # hieronder is poging tot subscriptable object maken, maar daarmee krijg je als je print de locaties van de objecten
     # def output(self):
