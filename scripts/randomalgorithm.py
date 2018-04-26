@@ -15,14 +15,17 @@
 # - combi van pakketjes die dichtst bij de max komt
 
 
-# create 4 random solutions
+# create 6 random solutions
 def random_algorithm(dict_space, dict_parcel):
 
-    for i in range(4):
+    for i in range(6):
         ship_counter = 1
         parcel_amount = 0
         current_weight = 0
         current_volume = 0
+
+        print(dict_space)
+        # results in <classes.classes.Spaceship object at 0x04FED070>
 
         # continue adding parcels until reach of maximum payload mass or volume
         # kan zijn dat de manier van indexeren hier anders moet want nu is het niet subscriptable volgens python
@@ -51,8 +54,9 @@ def random_algorithm(dict_space, dict_parcel):
                 ship_counter += 1
 
         # display locations of loaded parcels
-        print({"parcel_amount" : parcel_amount})
+        print("solution number: " + i)
+        print({"parcel_amount: " + parcel_amount})
         print("locations:")
         for parcel in parcels:
             if (parcel.location != 0):
-                print({parcel.id : parcel.location})
+                print(parcel.id + ": " + parcel.location)

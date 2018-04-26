@@ -25,8 +25,6 @@ for ship in data_space:
     spaceship = classes.Spaceship(counter, ship["mass"], ship["payload mass"], ship["payload volume"], ship["base cost"], ship["ftw"])
     counter += 1
     list_space.append(spaceship)
-    print("list space:")
-    print(list_space)
     # list_space format as follows:
         # [Spaceship name: 1
         # MW: 2000.0,

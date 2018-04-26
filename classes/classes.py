@@ -9,11 +9,14 @@ class Spaceship():
         self.base_cost = int(base_cost) * 1000000
         self.ftw = float(ftw)
 
-    # heb dit in repr veranderd (was str) en wat punten naar komma's en een vraagteken (om eventueel te splitten)
-    def __repr__(self):
-        return "Spaceship name: {}\nMW: {},\nMV: {},\nBC: {},\nF2W: {}?".format(self.id, self.max_weight, self.max_volume, self.base_cost, self.ftw)
+    def trytry(self):
+        return {"id": self.id, "mass": self.mass, "max_weight": self.max_weight, "max_volume": self.max_volume}
 
-    # hieronder is poging tot subscriptable object maken, maar daarmee krijg je als je print de locaties van de objecten
+    # heb dit in repr veranderd (was str) en wat punten naar komma's en een vraagteken (om eventueel te splitten)
+    # def __repr__(self):
+    #     return "Spaceship name: {}\nMW: {},\nMV: {},\nBC: {},\nF2W: {}?".format(self.id, self.max_weight, self.max_volume, self.base_cost, self.ftw)
+    #
+    # # hieronder is poging tot subscriptable object maken, maar daarmee krijg je als je print de locaties van de objecten
     # def output(self):
     #     return str({'id': self.id, 'MW': self.max_weight, 'MV': self.max_volume, 'BC': self.base_cost, 'F2W': self.ftw })
 
@@ -26,12 +29,12 @@ class Parcel():
         self.volume = float(volume)
         self.ratio = self.weight/self.volume
         self.location = int(location)
-
-    # heb dit in repr veranderd (was str) en wat punten naar komma's en een vraagteken (om eventueel te splitten)
-    def __repr__(self):
-        return "ID: {},\nWeight: {},\nVolume: {},\nRatio: {},\nLocation: {}?".format(self.id, self.weight, self.volume, self.ratio, self.location)
-
-    # hieronder is poging tot subscriptable object maken, maar daarmee krijg je als je print de locaties van de objecten
+    #
+    # # heb dit in repr veranderd (was str) en wat punten naar komma's en een vraagteken (om eventueel te splitten)
+    # def __repr__(self):
+    #     return "ID: {},\nWeight: {},\nVolume: {},\nRatio: {},\nLocation: {}?".format(self.id, self.weight, self.volume, self.ratio, self.location)
+    #
+    # # hieronder is poging tot subscriptable object maken, maar daarmee krijg je als je print de locaties van de objecten
     # def output(self):
     #     return str({'ID': self.id, 'Weight': self.weight, 'Volume': self.volume, 'Ratio': self.ratio, 'Location': self.location})
 
