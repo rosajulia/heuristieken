@@ -25,8 +25,7 @@ for ship in data_space:
     spaceship = classes.Spaceship(counter, ship["mass"], ship["payload mass"], ship["payload volume"], ship["base cost"], ship["ftw"])
     counter += 1
     list_space.append(spaceship)
-    print("this is list:")
-    print(list_space)
+
     # list_space format as follows:
         # [Spaceship name: 1
         # MW: 2000.0,
@@ -67,13 +66,5 @@ for unit in data_parcel:
     # Location: 0?, ID: 2,
     # Weight: 151.5,
     # Volume: 0.459, (.....)]
-
-
-
-# hieronder zijn testprintjes
-# print(data_space[0]["nation"])
-#
-# cygnus = classes.Spaceship(1,1,1,1,1,1)
-# print(str(cygnus))
 
 randomalgorithm.random_algorithm(list_space, list_parcel)
