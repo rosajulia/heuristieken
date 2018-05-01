@@ -6,7 +6,7 @@ def random_algorithm(dict_space, dict_parcel):
     """Randomly fills spaceships with a cargo list.
     The first argument holds a list of spaceship objects,
     the second argument holds a list of parcel objects.
-    
+
     Usage:
     randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1])
     """
@@ -34,8 +34,8 @@ def random_algorithm(dict_space, dict_parcel):
 
         # pick random parcel
         add_ID = shuffled_list.pop()
-        print("parcel number: ", end="")
-        print(add_ID)
+        # print("parcel number: ", end="")
+        # print(add_ID)
 
         # add parcel to ship
         dict_parcel[add_ID - 1].location = ship_counter
@@ -47,9 +47,9 @@ def random_algorithm(dict_space, dict_parcel):
         # count parcels per solution
         parcel_amount += 1
 
-        print(ship_counter)
-        print(dict_space[ship_counter].current_weight)
-        print(dict_space[ship_counter].current_volume)
+        # print(ship_counter)
+        # print(dict_space[ship_counter].current_weight)
+        # print(dict_space[ship_counter].current_volume)
 
         # note when ship is full
         if (dict_space[ship_counter].current_weight >= dict_space[ship_counter].max_weight - parcel_weight_max or
