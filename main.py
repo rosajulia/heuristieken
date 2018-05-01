@@ -22,15 +22,17 @@ def main():
     
     # make list of solutions
     solutions = []
+    costs = 0
 
     for i in range(int(sys.argv[1])):
         result = randomalgorithm.random_algorithm(inventory.dict_space, inventory.dict_parcel)
         
         # calculate total costs
-        costs = 0
-        for i in range(4):
-            costs += inventory.calculate_fuel_weight(i)
+        weight = [result.get("weight1"), result.get("weight2"), result.get("weight3"), result.get("weight4")]
 
+        for ship in range(len(inventory.dict_space)):
+            costs += inventory.calculate_fuel_costs(ship, weight[ship])
+        
         # append solutions to list
         solutions.append(classes.Inventory(inventory.dict_space, inventory.dict_parcel, \
                             i, result.get("parcel_amount"), costs))

@@ -39,15 +39,12 @@ class Inventory(Spaceship, Parcel):
         self.parcel_amount = parcel_amount
         self.total_costs = total_costs
 
-    def calculate_fuel_weight(self, ship_id):
+    def calculate_fuel_costs(self, ship_id, ship_weight):
         self.ship_id = ship_id
+        self.ship_weight = ship_weight
 
-        self.fuel_weight = (self.dict_space[ship_id].mass + self.dict_space[ship_id].max_weight) * \
+        self.fuel_weight = (self.dict_space[ship_id].mass + ship_weight) * \
                     self.dict_space[ship_id].ftw / (1 - self.dict_space[ship_id].ftw)
-        return (self.fuel_weight)
-
-    def calculate_fuel_costs(self, ship_id):
-        self.ship_id = ship_id
 
         self.fuel_costs = self.dict_space[ship_id].base_cost + math.ceil(self.fuel_weight * 1000) * 5
         return (self.fuel_costs)
