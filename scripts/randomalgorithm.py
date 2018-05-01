@@ -29,20 +29,7 @@ def random_algorithm(dict_space, dict_parcel):
         # count parcels per solution
         parcel_amount += 1
 
-        print("Spaceship: ", end="")
-        print(ship_counter)
-        print("current_weight: ", end="")
-        print(dict_space[ship_counter].current_weight)
-        print("current_volume: ", end="")
-        print(dict_space[ship_counter].current_volume)
-        print("parcel amount: ", end="")
-        print(parcel_amount)
-
         # iterate over ship to add parcel to
-        # if ship_counter % 3 != 0:
-        #     ship_counter += 1
-        # else:
-        #     ship_counter = 0
         if (ship_counter == 3):
             ship_counter = 0
         else:
