@@ -22,8 +22,6 @@ def random_algorithm(dict_space, dict_parcel):
     for i in range(6):
         ship_counter = 0
         parcel_amount = 0
-        current_weight = 0
-        current_volume = 0
 
         # continue adding parcels until reach of maximum payload mass or volume
         # kan zijn dat de manier van indexeren hier anders moet want nu is het niet subscriptable volgens python
@@ -38,15 +36,22 @@ def random_algorithm(dict_space, dict_parcel):
             dict_parcel[add_ID - 1].location = ship_counter
             # OR array/list of parcels in 4 ships
             
-            print("eerst was ie zo dik:")
-            print(current_weight)
+            print("eerst was ie zo dik in weight:")
+            print(dict_space[ship_counter].current_weight)
+            print("eerst was ie zo dik in volume:")
+            print(dict_space[ship_counter].current_volume)
             # update spaceships current mass and volume
             dict_space[ship_counter].current_weight += dict_parcel[add_ID - 1].weight
             dict_space[ship_counter].current_volume += dict_parcel[add_ID - 1].volume
             print("pakketje dikte:")
             print(dict_parcel[add_ID - 1].weight)
-            print("nu is ie zo dik:")
-            print(current_weight)
+            print("nu is ie zo dik in weight:")
+            print(dict_space[ship_counter].current_weight)
+            print("nu is ie zo dik in volume:")
+            print(dict_space[ship_counter].current_volume)
+
+            print("gestopt bij dit schip:")
+            print(ship_counter)
             # keep track of amount of parcels in current solution
             parcel_amount += 1
 
