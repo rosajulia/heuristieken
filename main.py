@@ -1,8 +1,7 @@
 #!/usr/bin/python
 
 import sys
-from scripts import randomalgorithm
-from scripts import dataloader
+from scripts import randomalgorithm, dataloader, graph
 import matplotlib.pyplot as plt
 
 
@@ -23,13 +22,14 @@ def main():
     for i in range(int(sys.argv[1])):
         amount_list.append(randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1]))
     
-    # plot solutions in histogram
-    plt.hist(amount_list)
-    plt.title = ("Solutions")
-    plt.xlabel = ("Frequency")
-    plt.ylabel = ("Amount of parcels")
-    plt.show()
+    # plt.hist(amount_list)
+    # plt.title = ("Solutions")
+    # plt.xlabel = ("Frequency")
+    # plt.ylabel = ("Amount of parcels")
+    # plt.show()
 
+    # plot solutions in histogram
+    graph.barchart(amount_list)
 
 if __name__ == "__main__":
     main()
