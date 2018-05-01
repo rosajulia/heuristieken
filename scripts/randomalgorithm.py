@@ -1,64 +1,51 @@
 #!/usr/bin/env python
 import random
 
-# wat is er random?
-# - random id van pakketje tussen 0 en 100
-#   - kan alleen pseudorandom want als een pakketje al ergens in zit is het 'bezet'
-#   - of mag je nog wisselen later? dan wel random misschien, of random uit de bezette pakketjes
-# - random spaceship om het in te stoppen
-#   - bij max bereikt meteen niet meer suggereren?
-#   - of bij max bereik nog mogen wisselen
-# - random factor in de berekening naar een distribution
-# - random combi van 4*21 of iets daaromheen
-# constraints:
-# - maximaal volume en gewicht
-# - loose of strict?
-# optimaliseren:
-# - combi van pakketjes die dichtst bij de max komt
-
-
 # create 6 random solutions
 def random_algorithm(dict_space, dict_parcel):
 
-    for i in range(6):
-        ship_counter = 1
-        parcel_amount = 0
-        current_weight = 0
-        current_volume = 0
+    ship_counter = 0
+    parcel_amount = 0
 
-        print(dict_space)
-        # results in <classes.classes.Spaceship object at 0x04FED070>
+    # start weight and volume at zero
+    for element in dict_space:
+        element.current_weight = 0
+        element.current_volume = 0
 
-        # continue adding parcels until reach of maximum payload mass or volume
-        # kan zijn dat de manier van indexeren hier anders moet want nu is het niet subscriptable volgens python
-        while (current_weight <= dict_space[ship_counter].max_weight and current_volume <= dict_space[ship_counter].max_volume):
+    # add parcel till limits are reached
+    while (dict_space[ship_counter].current_weight <= dict_space[ship_counter].max_weight and
+                dict_space[ship_counter].current_volume <= dict_space[ship_counter].max_volume):
 
-            # choose random parcel id to add to ship
-            # check whether 99 or 100 (also depends on id numbers in cargo list)
-            add_ID = dict_parcel[(random.randint(0,99))].id
+        # pick random parcel
+        add_ID = random.randint(1, 100)
 
-            # change location of parcel to correct ship
-            dict_parcel[add_ID].location = ship_counter
+        # add parcel to ship
+        dict_parcel[add_ID - 1].location = ship_counter
 
-            # OR array/list of parcels in 4 ships
+        # update spaceships current weight and volume
+        dict_space[ship_counter].current_weight += dict_parcel[add_ID - 1].weight
+        dict_space[ship_counter].current_volume += dict_parcel[add_ID - 1].volume
 
-            # update spaceships current mass and volume
-            current_weight += dict_parcel[add_ID].weight
-            current_volume += dict_parcel[add_ID].volume
+        # count parcels per solution
+        parcel_amount += 1
 
-            # keep track of amount of parcels in current solution
-            parcel_amount += 1
+        print("Spaceship: ", end="")
+        print(ship_counter)
+        print("current_weight: ", end="")
+        print(dict_space[ship_counter].current_weight)
+        print("current_volume: ", end="")
+        print(dict_space[ship_counter].current_volume)
+        print("parcel amount: ", end="")
+        print(parcel_amount)
 
-            # itirate over ship to add parcel to
-            if (ship_counter == 4):
-                ship_counter = 1
-            else:
-                ship_counter += 1
+        # iterate over ship to add parcel to
+        # if ship_counter % 3 != 0:
+        #     ship_counter += 1
+        # else:
+        #     ship_counter = 0
+        if (ship_counter == 3):
+            ship_counter = 0
+        else:
+            ship_counter += 1
 
-        # display locations of loaded parcels
-        print("solution number: " + "{}".format(i))
-        print("parcel_amount: " + "{}".format(parcel_amount))
-        print("locations:")
-        # for parcel in parcels:
-        #     if (parcel.location != 0):
-        #         print("{}" + ": " + "{}".format(parcel.id, parcel.location))
+    return parcel_amount

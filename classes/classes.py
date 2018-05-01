@@ -1,6 +1,6 @@
 class Spaceship():
     """Spaceship object with properties from CSV file."""
-    def __init__(self, id, mass, max_weight, max_volume, base_cost, ftw):
+    def __init__(self, id, mass, max_weight, max_volume, base_cost, ftw, current_weight, current_volume):
         # hier heb ik ints en floats van gemaakt zodat je er straks mee kunt rekenen (waren strings maar misschien straks niet meer nodig)
         self.id = int(id)
         self.mass = int(mass)
@@ -8,9 +8,15 @@ class Spaceship():
         self.max_volume = float(max_volume)
         self.base_cost = int(base_cost) * 1000000
         self.ftw = float(ftw)
+        self.current_weight = current_weight
+        self.current_volume = current_volume
 
-    def trytry(self):
-        return {"id": self.id, "mass": self.mass, "max_weight": self.max_weight, "max_volume": self.max_volume}
+    def tryShip(self):
+        return {"id": self.id, "mass": self.mass, "max_weight": self.max_weight, "max_volume": self.max_volume, "base_cost": self.base_cost, "ftw": self.ftw, "current_weight": self.current_weight, "current_volume": self.current_volume}
+
+    # heb dit in repr veranderd (was str) en wat punten naar komma's en een vraagteken (om eventueel te splitten)
+    # def __repr__(self):
+    #     return "Spaceship name: {}\nMW: {},\nMV: {},\nBC: {},\nF2W: {}?".format(self.id, self.max_weight, self.max_volume, self.base_cost, self.ftw)
 
     # heb dit in repr veranderd (was str) en wat punten naar komma's en een vraagteken (om eventueel te splitten)
     # def __repr__(self):
@@ -29,12 +35,15 @@ class Parcel():
         self.volume = float(volume)
         self.ratio = self.weight/self.volume
         self.location = int(location)
-    #
-    # # heb dit in repr veranderd (was str) en wat punten naar komma's en een vraagteken (om eventueel te splitten)
+
+    def tryParcel(self):
+        return {"id": self.id, "weight": self.weight, "volume": self.volume, "ratio": self.ratio, "location": self.location}
+
+    # heb dit in repr veranderd (was str) en wat punten naar komma's en een vraagteken (om eventueel te splitten)
     # def __repr__(self):
     #     return "ID: {},\nWeight: {},\nVolume: {},\nRatio: {},\nLocation: {}?".format(self.id, self.weight, self.volume, self.ratio, self.location)
-    #
-    # # hieronder is poging tot subscriptable object maken, maar daarmee krijg je als je print de locaties van de objecten
+
+    # hieronder is poging tot subscriptable object maken, maar daarmee krijg je als je print de locaties van de objecten
     # def output(self):
     #     return str({'ID': self.id, 'Weight': self.weight, 'Volume': self.volume, 'Ratio': self.ratio, 'Location': self.location})
 
