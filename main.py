@@ -3,6 +3,7 @@
 import sys
 import datetime
 from scripts import randomalgorithm, dataloader, graph
+from classes import classes
 
 # necessary for this script: pip install matplotlib
 # furute ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
@@ -12,23 +13,51 @@ def main():
         print("Usage: python main.py integer")
         sys.exit(1)
 
+    # load data
     ship_data = "data/spacecrafts.csv"
     cargo_data = "data/CargoList1.csv"
-
-    loaded_data = dataloader.load_data(ship_data, cargo_data)
-    amount_list = []
+    inventory = dataloader.load_data(ship_data, cargo_data)
 
     print('{}: Start random algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
     
+    # make list of solutions
+    solutions = []
+
     for i in range(int(sys.argv[1])):
-        amount_list.append(randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1]))
+        result = randomalgorithm.random_algorithm(inventory.dict_space, inventory.dict_parcel)
+        
+        # calculate total costs
+        costs = 0
+        for i in range(4):
+            costs += inventory.calculate_fuel_weight(i)
+
+        # append solutions to list
+        solutions.append(classes.Inventory(inventory.dict_space, inventory.dict_parcel, \
+                            i, result.get("parcel_amount"), costs))
+
+    # calculate best solution parcel-wise
+    best_parcel = (max([solution.parcel_amount for solution in solutions]))
+    for solution in solutions:
+        if solution.parcel_amount == best_parcel:
+            best_parcel_costs = solution.total_costs
+
+    # calculate best solution cost-wise
+    best_costs = (min([solution.total_costs for solution in solutions]))
+    for solution in solutions:
+        if solution.total_costs == best_costs:
+            best_costs_parcels = solution.parcel_amount
     
+
     print('{}: Finished running {} times.'.format(datetime.datetime.now().strftime("%H:%M:%S"), sys.argv[1]))
-    
-    print(max(amount_list))
+
+    print("Maximum amount of parcels in ship: {}".format(best_parcel))
+    print("Corresponding costs: {}". format(best_parcel_costs))
+
+    print("The lowest costs of all solutions: {}".format(best_costs))
+    print("Corresponding amount of parcels moved: {}".format(best_costs_parcels))
 
     # plot solutions in histogram
-    graph.barchart(amount_list)
+    graph.barchart([solution.parcel_amount for solution in solutions])
 
 if __name__ == "__main__":
     main()

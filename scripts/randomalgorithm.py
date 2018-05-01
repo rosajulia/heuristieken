@@ -9,6 +9,7 @@ def random_algorithm(dict_space, dict_parcel):
 
     Usage:
     randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1])
+    randomalgorithm.random_algorithm(inventory)
     """
 
     ship_counter = 0
@@ -47,13 +48,28 @@ def random_algorithm(dict_space, dict_parcel):
         # count parcels per solution
         parcel_amount += 1
 
-        # print(ship_counter)
-        # print(dict_space[ship_counter].current_weight)
-        # print(dict_space[ship_counter].current_volume)
 
-        # note when ship is full
+        # note when ship is almost full
         if (dict_space[ship_counter].current_weight >= dict_space[ship_counter].max_weight - parcel_weight_max or
                     dict_space[ship_counter].current_volume >= dict_space[ship_counter].max_volume - parcel_volume_max):
+            
+            for parcel_id in shuffled_list:
+
+                if (dict_space[ship_counter].current_weight + dict_parcel[parcel_id - 1].weight <= dict_space[ship_counter].max_weight and \
+                    dict_space[ship_counter].current_volume + dict_parcel[parcel_id - 1].volume <= dict_space[ship_counter].max_volume):
+
+                    dict_space[ship_counter].current_weight += dict_parcel[parcel_id - 1].weight
+                    dict_space[ship_counter].current_volume += dict_parcel[parcel_id - 1].volume
+
+                    shuffled_list.remove(parcel_id)
+
+                    parcel_amount += 1
+
+                else:
+                    continue
+
             dict_space[ship_counter].full = True
 
-    return parcel_amount
+    return {"parcel_amount": parcel_amount, "weight1": dict_space[0].current_weight, \
+                "weight2": dict_space[1].current_weight, "weight3": dict_space[2].current_weight, \
+                    "weight4": dict_space[3].current_weight} 

@@ -21,12 +21,12 @@ def load_data(ship_data, cargo_data):
 
     # create spaceship objects and append to the list
     for ship in data_space:
-        spaceship = classes.Spaceship(ship_counter, ship["mass"], ship["payload mass"], ship["payload volume"], ship["base cost"], ship["ftw"])
-        spaceship.current_weight = 0
-        spaceship.current_volume = 0
-        spaceship.full = False
+        spaceship_info = classes.Spaceship(ship_counter, ship["mass"], ship["payload mass"], ship["payload volume"], ship["base cost"], ship["ftw"])
+        spaceship_info.current_weight = 0
+        spaceship_info.current_volume = 0
+        spaceship_info.full = False
         ship_counter += 1
-        list_space.append(spaceship)
+        list_space.append(spaceship_info)
 
     # open the csv file containing cargo list
     with open(cargo_data) as parcel_data:
@@ -44,5 +44,6 @@ def load_data(ship_data, cargo_data):
 
     # store both lists
     data = [list_space, list_parcel]
+    inventory = classes.Inventory(data[0], data[1])
 
-    return data
+    return inventory
