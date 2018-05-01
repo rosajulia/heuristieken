@@ -22,9 +22,6 @@ def main():
 
     for i in range(int(sys.argv[1])):
         amount_list.append(randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1]))
-<<<<<<< HEAD
-        # print("Amount of packages stored: ", end="") 
-        # print(amount_list)
     
     # plot solutions in histogram
     plt.hist(amount_list)
@@ -32,10 +29,7 @@ def main():
     plt.xlabel = ("Frequency")
     plt.ylabel = ("Amount of parcels")
     plt.show()
-=======
-        print("Amount of packages stored: ", end="")
-        print(amount_list)
->>>>>>> ed8a8397448b7f7a949766bec42ec15bdaef4ba6
+
 
 if __name__ == "__main__":
     main()
