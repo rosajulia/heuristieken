@@ -1,4 +1,5 @@
 import random
+from scripts import helpers
 
 # create random solutions
 def random_algorithm(dict_space, dict_parcel):
@@ -16,13 +17,10 @@ def random_algorithm(dict_space, dict_parcel):
     parcel_volume_max = 0.849
 
     # make shuffled list
-    shuffled_list = random.sample(range(100), k = 100)
+    shuffled_list = random.sample(range(100), k=100)
 
     # start weight and volume at zero and set to not full
-    for element in dict_space:
-        element.current_weight = 0
-        element.current_volume = 0
-        element.full = False
+    dict_space = [helpers.reset(element) for element in dict_space]
 
     # add parcel until limits are reached (until all ships are full)
     while (dict_space[0].full is False or dict_space[1].full is False or dict_space[2].full is False or dict_space[3].full is False):
