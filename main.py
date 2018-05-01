@@ -23,17 +23,13 @@ def main():
     for i in range(int(sys.argv[1])):
         amount_list.append(randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1]))
 
-    # highest amount of parcels in current set of solutions (so far 72)
-    print(max(amount_list))
-
+    
     # plot solutions in histogram
     plt.hist(amount_list)
     plt.title = ("Solutions")
     plt.xlabel = ("Frequency")
     plt.ylabel = ("Amount of parcels")
     plt.show()
-
-    return
 
 
 if __name__ == "__main__":
