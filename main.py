@@ -1,10 +1,7 @@
 #!/usr/bin/python
 
 import sys
-from scripts import randomalgorithm
-from scripts import dataloader
-import matplotlib.pyplot as plt
-
+from scripts import randomalgorithm, dataloader, graph
 
 # necessary for this script: pip install matplotlib
 # furute ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
@@ -22,6 +19,7 @@ def main():
 
     for i in range(int(sys.argv[1])):
         amount_list.append(randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1]))
+<<<<<<< HEAD
 
     
     # plot solutions in histogram
@@ -31,6 +29,13 @@ def main():
     plt.ylabel = ("Amount of parcels")
     plt.show()
 
+=======
+    
+    print(max(amount_list))
+
+    # plot solutions in histogram
+    graph.barchart(amount_list)
+>>>>>>> b5633d659e1a69b7ae314f3c4cbdb5e701dca897
 
 if __name__ == "__main__":
     main()

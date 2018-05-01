@@ -2,6 +2,13 @@ import random
 
 # create random solutions
 def random_algorithm(dict_space, dict_parcel):
+    """Randomly fills spaceships with a cargo list.
+    The first argument holds a list of spaceship objects,
+    the second argument holds a list of parcel objects.
+    
+    Usage:
+    randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1])
+    """
 
     ship_counter = 0
     parcel_amount = 0
