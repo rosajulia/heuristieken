@@ -14,6 +14,7 @@
 # optimaliseren:
 # - combi van pakketjes die dichtst bij de max komt
 
+import random
 
 # create 4 random solutions
 def random_algorithm(dict_space, dict_parcel):
@@ -51,8 +52,8 @@ def random_algorithm(dict_space, dict_parcel):
                 ship_counter += 1
 
         # display locations of loaded parcels
-        print({"parcel_amount" : parcel_amount})
-        print("locations:")
-        for parcel in parcels:
-            if (parcel.location != 0):
-                print({parcel.id : parcel.location})
+        # print({"parcel_amount" : parcel_amount})
+        # print("locations:")
+        # for parcel in parcels:
+        #     if (parcel.location != 0):
+        #         print({parcel.id : parcel.location})
