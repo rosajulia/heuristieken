@@ -18,11 +18,10 @@ Our repository consists of the following folders:
 * Repository also contains a main.py file that will be used to run the program
   and call all other files
 
-## Script
-Libraries used:
-* pandas: update numeric tables and time series
-
 # Use of program
-Right now we are only using one cargolist and a set of four spaceships.
-Later, program will probably be run in main.py with "cargolist to use" and
-"spaceship list to use" as command-line argument.
+For data visualisation installing matplotlib is required (pip install matplotlib).
+Usage of main.py: please add the amount of solutions you want to try as a command-line argument (integer). 
+Output of main.py: a histogram showing the frequencies of the maximum amount of parcels per solution. 
+
+Main.py loads data through scripts/dataloader.py and calculates solutions using scripts/randomalgorithm.py.
+Dataloader uses classes/classes.py and data/CargoList1.csv & data/spacecrafts.csv.

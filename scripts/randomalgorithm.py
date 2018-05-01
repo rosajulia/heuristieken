@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import random
 
-# create 4 random solutions
+# create 6 random solutions
 def random_algorithm(dict_space, dict_parcel):
 
     ship_counter = 0
@@ -13,7 +13,7 @@ def random_algorithm(dict_space, dict_parcel):
         element.current_volume = 0
 
     # add parcel till limits are reached
-    while (dict_space[ship_counter].current_weight <= dict_space[ship_counter].max_weight and 
+    while (dict_space[ship_counter].current_weight <= dict_space[ship_counter].max_weight and
                 dict_space[ship_counter].current_volume <= dict_space[ship_counter].max_volume):
 
         # pick random parcel
