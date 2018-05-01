@@ -1,6 +1,6 @@
 class Spaceship():
     """Spaceship object with properties from CSV file."""
-    def __init__(self, id, mass, max_weight, max_volume, base_cost, ftw, current_weight, current_volume):
+    def __init__(self, id, mass, max_weight, max_volume, base_cost, ftw, current_weight=0, current_volume=0):
         # hier heb ik ints en floats van gemaakt zodat je er straks mee kunt rekenen (waren strings maar misschien straks niet meer nodig)
         self.id = int(id)
         self.mass = int(mass)

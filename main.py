@@ -3,7 +3,10 @@
 import sys
 from scripts import randomalgorithm
 from scripts import dataloader
+import matplotlib.pyplot as plt
 
+
+# necessary for this script: pip install matplotlib
 # furute ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
 
 def main():
@@ -19,8 +22,15 @@ def main():
     
     for i in range(int(sys.argv[1])):
         amount_list.append(randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1]))
-        print("Amount of packages stored: ", end="") 
-        print(amount_list)
+        # print("Amount of packages stored: ", end="") 
+        # print(amount_list)
+    
+    # plot solutions in histogram
+    plt.hist(amount_list)
+    plt.title = ("Solutions")
+    plt.xlabel = ("Frequency")
+    plt.ylabel = ("Amount of parcels")
+    plt.show()
 
 if __name__ == "__main__":
-   main()
+    main()
