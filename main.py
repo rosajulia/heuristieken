@@ -25,7 +25,7 @@ for ship in data_space:
     spaceship = classes.Spaceship(counter, ship["mass"], ship["payload mass"], ship["payload volume"], ship["base cost"], ship["ftw"])
     counter += 1
     list_space.append(spaceship)
-    print("list space:")
+    print("this is list:")
     print(list_space)
     # list_space format as follows:
         # [Spaceship name: 1
@@ -37,6 +37,7 @@ for ship in data_space:
         # MV: 7.6,
         # BC: 175000000, (......)]
 
+print(list_space[1].max_weight)
 
 # read cargo data into dict
 with open("data/CargoList1.csv") as file_parcel:
