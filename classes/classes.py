@@ -11,7 +11,7 @@ class Spaceship():
         self.current_volume = current_volume
         self.full = full
 
-    def tryShip(self):
+    def returnShip(self):
         return {"id": self.id, "mass": self.mass, "max_weight": self.max_weight, "max_volume": self.max_volume, "base_cost": self.base_cost, "ftw": self.ftw, "current_weight": self.current_weight, "current_volume": self.current_volume}
 
 class Parcel():
@@ -23,21 +23,25 @@ class Parcel():
         self.ratio = self.weight/self.volume
         self.location = int(location)
 
-    def tryParcel(self):
+    def returnParcel(self):
         return {"id": self.id, "weight": self.weight, "volume": self.volume, "ratio": self.ratio, "location": self.location}
 
 class Inventory():
     """Inventory."""
-    def __init__(self, id_space, dict_space, dict_parcel, ftw):
-        self.id_space = id_space
+    def __init__(self, solution_id, dict_space, dict_parcel, ftw):
+        self.solution_id = solution_id
         self.dict_space = dict_space
         self.dict_parcel = dict_parcel
-        self.ftw = ftw
 
     def calculate_fuel_weight(self):
-        return (self.dict_space[self.id_space]["mass"] + self.dict_space[self.id_space]["max_weight"] * self.dict_space[self.id_space]["ftw"] / (1 - self.dict_space[self.id_space]["ftw"]))
+        return (self.dict_space[self.id_space].mass + self.dict_space[self.id_space].max_weight * self.dict_space[self.id_space].ftw / (1 - self.dict_space[self.id_space].ftw))
 
     def calculate_fuel_costs(self):
-        return self.dict_space[self.id_space]["base_cost"] + self.ftw * 100 * 5
+        self.fuel_costs = self.dict_space[self.id_space]["base_cost"] + self.ftw * 100 * 5
+        return self.fuel_costs
+
+    def returnInventory(self):
+        return {"solution_id": self.solution_id, "dict_space": self.dict_space, "dict_parcel": self.dict_parcel, "fuel_costs": self.fuel_costs}
+
 
     # hierbij moet in main dan nog een functie die zegt dat je deze functies per schip aan moet roepen en dan bij elkaar optellen
