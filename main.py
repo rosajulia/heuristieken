@@ -2,8 +2,6 @@
 
 import sys
 from scripts import randomalgorithm, dataloader, graph
-import matplotlib.pyplot as plt
-
 
 # necessary for this script: pip install matplotlib
 # furute ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
@@ -22,11 +20,7 @@ def main():
     for i in range(int(sys.argv[1])):
         amount_list.append(randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1]))
     
-    # plt.hist(amount_list)
-    # plt.title = ("Solutions")
-    # plt.xlabel = ("Frequency")
-    # plt.ylabel = ("Amount of parcels")
-    # plt.show()
+    print(max(amount_list))
 
     # plot solutions in histogram
     graph.barchart(amount_list)

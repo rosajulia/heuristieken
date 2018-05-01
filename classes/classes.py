@@ -1,6 +1,6 @@
 class Spaceship():
     """Spaceship object with properties from CSV file."""
-    def __init__(self, id, mass, max_weight, max_volume, base_cost, ftw, current_weight=0, current_volume=0):
+    def __init__(self, id, mass, max_weight, max_volume, base_cost, ftw, current_weight=0, current_volume=0, full=False):
         self.id = int(id)
         self.mass = int(mass)
         self.max_weight = float(max_weight)
@@ -9,6 +9,7 @@ class Spaceship():
         self.ftw = float(ftw)
         self.current_weight = current_weight
         self.current_volume = current_volume
+        self.full = full
 
     def tryShip(self):
         return {"id": self.id, "mass": self.mass, "max_weight": self.max_weight, "max_volume": self.max_volume, "base_cost": self.base_cost, "ftw": self.ftw, "current_weight": self.current_weight, "current_volume": self.current_volume}

@@ -1,12 +1,10 @@
-#!/usr/bin/env python
-
 import csv
 from classes import classes
 
 def load_data(ship_data, cargo_data):
     """Loads a csv file as an ordered dict.
 
-    Usage: 
+    Usage:
     loaded_data = load_data('csv_data.csv')
     """
 
@@ -17,7 +15,7 @@ def load_data(ship_data, cargo_data):
     with open(ship_data) as csv_data:
         reader = csv.DictReader(csv_data)
         data_space = [r for r in reader]
-    
+
     # create a list to hold spaceship objects
     list_space = []
 
@@ -26,6 +24,7 @@ def load_data(ship_data, cargo_data):
         spaceship = classes.Spaceship(ship_counter, ship["mass"], ship["payload mass"], ship["payload volume"], ship["base cost"], ship["ftw"])
         spaceship.current_weight = 0
         spaceship.current_volume = 0
+        spaceship.full = False
         ship_counter += 1
         list_space.append(spaceship)
 
@@ -33,7 +32,7 @@ def load_data(ship_data, cargo_data):
     with open(cargo_data) as parcel_data:
         reader = csv.DictReader(parcel_data)
         data_parcel = [r for r in reader]
-    
+
     # create a list to hold all the parcel objects
     list_parcel = []
 
@@ -45,5 +44,5 @@ def load_data(ship_data, cargo_data):
 
     # store both lists
     data = [list_space, list_parcel]
-    
+
     return data
