@@ -21,7 +21,7 @@ import random
 def random_algorithm(dict_space, dict_parcel):
 
     for i in range(6):
-        ship_counter = 0
+        ship_counter = 1
         parcel_amount = 0
         current_weight = 0
         current_volume = 0
@@ -50,7 +50,7 @@ def random_algorithm(dict_space, dict_parcel):
             parcel_amount += 1
 
             # itirate over ship to add parcel to
-            if (ship_counter == 3):
+            if (ship_counter == 4):
                 ship_counter = 1
             else:
                 ship_counter += 1
