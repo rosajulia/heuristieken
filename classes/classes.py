@@ -20,7 +20,7 @@ class Spaceship():
 
 class Parcel():
     """Parcel object with properties from CSV file."""
-    def __init__(self, id, weight, volume, location=0):
+    def __init__(self, id, weight, volume, location=4):
         self.id = int(id)
         self.weight = float(weight)
         self.volume = float(volume)
