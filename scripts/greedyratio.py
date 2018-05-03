@@ -6,7 +6,7 @@ def greedy_ratio(dict_space, dict_parcel):
     suitable ships for those ratios."""
 
     ship_counter = 0
-    parcel_counter = 0
+    parcel_amount = 0
     parcel_weight_max = 269.3
     parcel_volume_max = 0.849
 
@@ -57,6 +57,7 @@ def greedy_ratio(dict_space, dict_parcel):
         order_array.pop(order_array[order_place])
 
         order_place += 1
+        parcel_amount += 1
 
     # Dragon met hoogste weight/volume ratio pakketjes vullen
     order_place = len(order_array) -1
@@ -74,7 +75,7 @@ def greedy_ratio(dict_space, dict_parcel):
         order_array.pop(order_array[order_place])
 
         order_place -= 1
-
+        parcel_amount += 1
 
     # straks alle pakketjes die nog locatie 4 hebben om en om verdelen over schip 1/2 en 2/3
 
@@ -96,3 +97,6 @@ def greedy_ratio(dict_space, dict_parcel):
                         dict_space[i].current_volume >= dict_space[i].max_volume - parcel_volume_max):
                 dict_space[i].full = True
             order_place += 1
+        parcel_amount += 1
+
+        # return iets
