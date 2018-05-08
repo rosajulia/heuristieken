@@ -124,7 +124,7 @@ def greedy_ratio(dict_space, dict_parcel):
     #
     # make shuffled list
     shuffled_list = random.sample(range(length_other_parcels), k=length_other_parcels)
-    location_other_parcels = 0
+    # location_other_parcels = 0
 
     # de parcels die over zijn random verdelen
     while dict_space[1].full is False or dict_space[2].full is False:
@@ -134,17 +134,41 @@ def greedy_ratio(dict_space, dict_parcel):
             if dict_space[i].full is True and i is 2:
                 i -= 1
             # print(shuffled_list[location_other_parcels])
-            parcel_to_add = order_array[shuffled_list[location_other_parcels]]
+            parcel_to_add = order_array[shuffled_list[0]]
             # print(parcel_to_add)
             dict_parcel[parcel_to_add].location = i
             dict_space[i].current_weight += dict_parcel[parcel_to_add].weight
             dict_space[i].current_volume += dict_parcel[parcel_to_add].volume
-            location_other_parcels += 1
+
+            # ipv dit gewoon eruit gooien en dan steeds 0
+            # location_other_parcels += 1
+            shuffled_list = shuffled_list[1:]
+
             if (dict_space[i].current_weight >= dict_space[i].max_weight - parcel_weight_max or
                         dict_space[i].current_volume >= dict_space[i].max_volume - parcel_volume_max):
                 dict_space[i].full = True
             parcel_amount += 1
 
+
+    # hier nog bij alle schepen proberen de overige pakketjes toe te voegen
+    shuffled_length = len(shuffled_list)
+    # print(shuffled_length)
+    # print(shuffled_list)
+    for i in range(3):
+        for ship in dict_space:
+            for parcel in shuffled_list:
+                if (ship.current_weight + dict_parcel[parcel].weight <= ship.max_weight and \
+                        ship.current_volume + dict_parcel[parcel].volume <= ship.max_volume):
+
+                    ship.current_weight += dict_parcel[parcel].weight
+                    ship.current_volume += dict_parcel[parcel].volume
+
+                    shuffled_list.remove(parcel)
+
+                    dict_parcel[parcel + 1].location = ship.id
+
+                    parcel_amount += 1
+                    print(shuffled_list)
 
 
 
@@ -162,7 +186,6 @@ def greedy_ratio(dict_space, dict_parcel):
         elif element.location is 4:
             noship.append(element.id + 1)
 
-    # hier nog bij alle schepen proberen de overige pakketjes toe te voegen
 
     # print("Ship 1: {}\n CurWeight: {} CurVol: {}\n WeightLeft: {} Volume left: {}\n Ship 2: {}\n CurWeight: {} CurVol: {}\n WeightLeft: {} Volume left: \
     #  {}\n Ship 3: {}\n CurWeight: {} CurVol: {}\n WeightLeft: {} Volume left: {}\n Ship 4: {}\n CurWeight: {} CurVol: {}\n WeightLeft: {} Volume left: {}\n No ship \
