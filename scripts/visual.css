@@ -1,0 +1,41 @@
+.myProgress {
+    width: 100%;
+    background-color: gainsboro;
+}
+#myBar1 {
+    width: 1%;
+    height: 30px;
+    background-color: green;
+    text-align: center;
+    line-height: 30px;
+}
+#myBar2 {
+    width: 1%;
+    height: 30px;
+    background-color: red;
+    text-align: center;
+    line-height: 30px;
+}
+#myBar3 {
+    width: 1%;
+    height: 30px;
+    background-color: blue;
+    text-align: center;
+    line-height: 30px;
+}
+#myBar4 {
+    width: 1%;
+    height: 30px;
+    background-color: yellow;
+    text-align: center;
+    line-height: 30px;
+}
+.title {
+    font-family: sans-serif; 
+    font-weight: bold; 
+    color: hotpink; 
+}
+.text {
+    font-family: sans-serif;
+}
+
