@@ -3,7 +3,7 @@
     background-color: gainsboro;
 }
 #myBar1 {
-    width: 1%;
+    /* width: 1%; */
     height: 30px;
     background-color: green;
     text-align: center;

@@ -5,29 +5,82 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Progress bar heuristieken</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="visual.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="visual.css"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
     <script type="text/javascript" src="visual.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <!-- <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> -->
+<script>
+        function move() {
+          var elem = document.getElementById("myBar1");   
+          var width = 5;
+          elem.style.width = width + "%";
+          elem.innerHTML = width * 1 + "%";
 
+        //   var id = setInterval(frame, 10);
+        //   function frame() {
+        //     width++; 
+        //     elem.style.width = width + '%'; 
+        //     elem.innerHTML = width * 1  + '%';
+        }
+        </script>
 </head>
+<style>
+        .myProgress {
+    width: 100%;
+    background-color: gainsboro;
+}
+#myBar1 {
+    width: 1%;
+    height: 30px;
+    background-color: green;
+    text-align: center;
+    line-height: 30px;
+}
+#myBar2 {
+    width: 1%;
+    height: 30px;
+    background-color: red;
+    text-align: center;
+    line-height: 30px;
+}
+#myBar3 {
+    width: 1%;
+    height: 30px;
+    background-color: blue;
+    text-align: center;
+    line-height: 30px;
+}
+#myBar4 {
+    width: 1%;
+    height: 30px;
+    background-color: yellow;
+    text-align: center;
+    line-height: 30px;
+}
+.title {
+    font-family: sans-serif; 
+    font-weight: bold; 
+    color: hotpink; 
+}
+.text {
+    font-family: sans-serif;
+}
+
+
+</style>
 <body>
     <h2 class="title">Space Freight</h2>
     <p class="text">Please fill in how many times you want to run the random algorithm.</p>
-        <div class="row">
-                <div class="col-lg-6">
-                  <div class="input-group">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Run!</button>
-                    </span>
-                    <input type="integer" class="form-control" placeholder="Times you want to run?">
-                  </div>
-                </div>      
-        </div>
+
+    <form class="text" action="/main" method="post" onsubmit="move()">
+                Run: <input type="number" name="times">  <br />
+                Result generator: {{ result }} <br />
+                <input type="submit" name= "form" value="Submit" />
+        </form>  
         <h4 class="title">USA - Cygnus</h4>
         <p class="text">Organisation: NASA, Payload mass: 2000, payload volume: 18.9 </p>
         <div class="myProgress">
-                <div id="myBar1">0%</div>
+                <div id="myBar_1">{{ result }}</div>
                 <div id="myBar1">0%</div>
         </div><br>
         <h4 class="title">Russia - Progress</h4>
