@@ -2,7 +2,9 @@
 
 import sys
 import datetime
-from scripts import randomalgorithm, dataloader, graph, greedyratio
+from algorithms import randomalgorithm, greedyratio
+from data import dataloader
+from visualisation import graph
 from classes import classes
 
 from flask import Flask, render_template, Response
@@ -11,7 +13,7 @@ import time
 # necessary for this script: pip install matplotlib
 # furute ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
 
-app = Flask(__name__, template_folder="scripts")
+app = Flask(__name__, template_folder="visualisation")
 
 @app.route("/")
 def index():

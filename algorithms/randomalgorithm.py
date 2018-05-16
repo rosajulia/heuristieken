@@ -1,5 +1,5 @@
 import random
-from scripts import helpers
+from algorithms import helpers
 import time
 
 # create random solutions

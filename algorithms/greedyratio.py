@@ -1,5 +1,5 @@
 import random
-from scripts import helpers
+from algorithms import helpers
 from operator import itemgetter
 import time
 
