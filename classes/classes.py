@@ -53,6 +53,3 @@ class Inventory(Spaceship, Parcel):
         return {"dict_space": self.dict_space, "dict_parcel": self.dict_parcel, "solution_id": self.solution_id, \
                     "parcel_amount": self.parcel_amount, "fuel_weight": self.fuel_weight, "fuel_costs": self.fuel_costs, \
                         "total_costs": self.total_costs}
-
-
-    # hierbij moet in main dan nog een functie die zegt dat je deze functies per schip aan moet roepen en dan bij elkaar optellen
