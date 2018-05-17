@@ -157,6 +157,7 @@ def greedy_ratio(dict_space, dict_parcel):
     for i in range(3):
         for ship in dict_space:
             for parcel in shuffled_list:
+                print(shuffled_list)
                 if (ship.current_weight + dict_parcel[parcel].weight <= ship.max_weight and \
                         ship.current_volume + dict_parcel[parcel].volume <= ship.max_volume):
 
@@ -168,7 +169,7 @@ def greedy_ratio(dict_space, dict_parcel):
                     dict_parcel[parcel + 1].location = ship.id
 
                     parcel_amount += 1
-                    print(shuffled_list)
+
 
 
 
