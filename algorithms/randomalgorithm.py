@@ -12,6 +12,9 @@ def random_algorithm(inventory):
     randomalgorithm.random_algorithm(loaded_data[0], loaded_data[1])
     randomalgorithm.random_algorithm(inventory)
     """
+
+    # zorgen dat random elke keer met de lege inventory begint
+
     dict_parcel = inventory.dict_parcel
     dict_space = inventory.dict_space
     ship_counter = 0

@@ -1,6 +1,6 @@
 import random
 
-# aanroepen met een inventory als argument
+# zorgen dat je hillclimber kan aanroepen met een inventory als beginpunt
 
 
 # hillclimber

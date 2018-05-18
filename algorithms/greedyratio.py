@@ -7,6 +7,8 @@ def greedy_ratio(inventory):
     """Greedy algorithm based on the ratios of weight and volume per parcel, and
     suitable ships for those ratios."""
 
+    # zorgen dat greedy met lege inventory begint
+
     dict_space = inventory.dict_space
     dict_parcel = inventory.dict_parcel
 

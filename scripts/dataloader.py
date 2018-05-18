@@ -19,6 +19,8 @@ def load_data(ship_data, cargo_data):
     # create a list to hold spaceship objects
     list_space = []
 
+    # hieronder splitsen met if obv meegegeven command-line argument over 4 of oneindig schepen
+    # if 4:     (en anders jesse's nieuwe generateships.py aanroepen met constraints of niet)
     # create spaceship objects and append to the list
     for ship in data_space:
         spaceship_info = classes.Spaceship(ship_counter, ship["mass"], ship["payload mass"], ship["payload volume"], ship["base cost"], ship["ftw"])

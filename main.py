@@ -27,19 +27,36 @@ def main():
 
     # load data
     ship_data = "data/spacecrafts.csv"
+
+    # hieronder de 1 aanpassen naar bijbehorend command-line argument
     cargo_data = "data/CargoList1.csv"
+
+    # dataloader aanroepen met 4/oneindig en wel/geen constraints
     inventory = dataloader.load_data(ship_data, cargo_data)
 
-    # make list of solutions
+    # create list for solutions
     solutions = []
     costs = 0
 
-    # start greedy algorithm
+    # hier ofwel random, ofwel greedy, ofwel hillclimber aanroepen met aantal keer
+
+    # start greedy algorithm (command-line argument nog aanpassen!)
+    # deze for loop moet in het algoritme niet erbuiten (vooral vanwege hillclimber)
     for _ in range(int(sys.argv[1])):
         print('{}: Start greedy algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
 
         # de generator slaat de geyielde waardes op
         generator = greedyratio.greedy_ratio(inventory)
+
+        for result in generator:
+            try:
+                result = next(generator)
+                print(result[0])
+            except:
+                print("error")
+                break
+
+        exit(1)
 
         # result = next(generator)
         #
