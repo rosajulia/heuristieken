@@ -42,6 +42,7 @@ def greedy_ratio(dict_space, dict_parcel):
         element_id = order_array[order_place]
 
         time.sleep(1)
+        print(dict_space[0].current_weight)
         yield dict_space[0].current_weight, 0
 
         dict_parcel[element_id].location = 0
