@@ -2,8 +2,9 @@ import math
 
 class Spaceship():
     """Spaceship object with properties from CSV file."""
-    def __init__(self, id, mass, max_weight, max_volume, base_cost, ftw, current_weight=0, current_volume=0, full=False):
+    def __init__(self, id, nation, mass, max_weight, max_volume, base_cost, ftw, current_weight=0, current_volume=0, full=False):
         self.id = int(id)
+        self.nation = nation
         self.mass = int(mass)
         self.max_weight = float(max_weight)
         self.max_volume = float(max_volume)
@@ -20,7 +21,7 @@ class Spaceship():
 
 class Parcel():
     """Parcel object with properties from CSV file."""
-    def __init__(self, id, weight, volume, location=4):
+    def __init__(self, id, weight, volume, location=0):
         self.id = int(id)
         self.weight = float(weight)
         self.volume = float(volume)
@@ -38,6 +39,14 @@ class Inventory(Spaceship, Parcel):
         self.dict_parcel = dict_parcel
         self.parcel_amount = parcel_amount
         self.total_costs = total_costs
+
+    def maxParcelWeightVolume(self):
+        weight_list = []
+        volume_list = []
+        for parcel in self.dict_parcel:
+            weight_list.append(parcel.weight)
+            volume_list.append(parcel.volume)
+        return max(weight_list), max(volume_list)
 
     def calculate_fuel_costs(self, ship_id, ship_weight):
         self.ship_id = ship_id
