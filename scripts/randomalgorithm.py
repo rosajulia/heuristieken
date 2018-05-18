@@ -1,9 +1,8 @@
 import random
-from algorithms import helpers
-import time
+from scripts import helpers
 
 # create random solutions
-def random_algorithm(inventory):
+def random_algorithm(dict_space, dict_parcel):
     """Randomly fills spaceships with a cargo list.
     The first argument holds a list of spaceship objects,
     the second argument holds a list of parcel objects.
@@ -13,10 +12,6 @@ def random_algorithm(inventory):
     randomalgorithm.random_algorithm(inventory)
     """
 
-    # zorgen dat random elke keer met de lege inventory begint
-
-    dict_parcel = inventory.dict_parcel
-    dict_space = inventory.dict_space
     ship_counter = 0
     parcel_amount = 0
     parcel_weight_max = 269.3
@@ -34,14 +29,12 @@ def random_algorithm(inventory):
     # add parcel until limits are reached (until all ships are full)
     while (dict_space[0].full is False or dict_space[1].full is False or dict_space[2].full is False or dict_space[3].full is False):
 
-
         # only continue with ships that are not full
         while dict_space[ship_counter].full is True:
             if ship_counter is 3:
                 ship_counter = 0
             else:
                 ship_counter += 1
-
 
         # pick random parcel
         add_ID = shuffled_list.pop()
@@ -58,6 +51,7 @@ def random_algorithm(inventory):
 
         # count parcels per solution
         parcel_amount += 1
+
 
         # note when ship is almost full
         if (dict_space[ship_counter].current_weight >= dict_space[ship_counter].max_weight - parcel_weight_max or
@@ -82,9 +76,6 @@ def random_algorithm(inventory):
 
             dict_space[ship_counter].full = True
 
-        time.sleep(1)
-        yield dict_space[ship_counter].current_weight, ship_counter
-
     ship1, ship2, ship3, ship4, noship = [], [], [], [], []
 
     for element in dict_parcel:
@@ -105,9 +96,6 @@ def random_algorithm(inventory):
     dict_space[1].max_weight - dict_space[1].current_weight, dict_space[1].max_volume - dict_space[1].current_volume, ship3, \
     dict_space[2].current_weight, dict_space[2].current_volume, dict_space[2].max_weight - dict_space[2].current_weight, \
     dict_space[2].max_volume - dict_space[2].current_volume, ship4, dict_space[3].current_weight, dict_space[3].current_volume, dict_space[3].max_weight - dict_space[3].current_weight, dict_space[3].max_volume - dict_space[3].current_volume, noship))
-
-
-    # return inventory ipv hieronder
 
     return {"parcel_amount": parcel_amount, "weight1": dict_space[0].current_weight, \
                 "weight2": dict_space[1].current_weight, "weight3": dict_space[2].current_weight, \
