@@ -79,4 +79,9 @@ def hill_climber(inventory):
         return inventory_post
 
     else:
-        return inventory_pre
+        return
+
+
+
+        # als geen pakketjes in schip --> niet meetellen in kosten
+        # hillclimber met pakketjes vs hillclimber met de vloot

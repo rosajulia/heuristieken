@@ -2,24 +2,14 @@
 
 import sys
 import datetime
-from algorithms import randomalgorithm, greedyratio
+from algorithms import randomalgorithm
+from scripts import graph, greedyratio
 from data import dataloader
-from visualisation import graph
 from classes import classes
-
-from flask import Flask, render_template, Response
-import time
 
 # necessary for this script: pip install matplotlib
 # furute ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
 
-app = Flask(__name__, template_folder="visualisation")
-
-@app.route("/")
-def index():
-    return render_template("visual.html")
-
-@app.route('/progress')
 def main():
     if len(sys.argv) != 2:
         print("Usage: python main.py integer")
@@ -27,14 +17,12 @@ def main():
 
     # load data
     ship_data = "data/spacecrafts.csv"
-
-    # hieronder de 1 aanpassen naar bijbehorend command-line argument
     cargo_data = "data/CargoList1.csv"
-
-    # dataloader aanroepen met 4/oneindig en wel/geen constraints
     inventory = dataloader.load_data(ship_data, cargo_data)
 
-    # create list for solutions
+    print('{}: Start random algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
+
+    # make list of solutions
     solutions = []
     costs = 0
 

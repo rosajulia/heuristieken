@@ -4,7 +4,7 @@ Case: Space Freight <br />
 http://heuristieken.nl/wiki/index.php?title=Space_Freight
 
 ## Main goal
-Ship parcels to the International Space Station (ISS) using 4 spacecrafts.
+Ship parcels to the International Space Station (ISS) using 6 different types of spacecrafts.
 Divide the parcels over the different ships to make it as cost efficient as possible.
 
 ## Structure of repository

@@ -47,9 +47,7 @@ def greedy_ratio(inventory):
         element_id = order_array[order_place]
 
         time.sleep(1)
-        print("voor")
         yield dict_space[0].current_weight, 0
-        print("na")
         dict_parcel[element_id].location = 0
         dict_space[0].current_weight += dict_parcel[element_id].weight
         dict_space[0].current_volume += dict_parcel[element_id].volume
@@ -62,7 +60,6 @@ def greedy_ratio(inventory):
         order_array = order_array[order_place + 1:]
 
         parcel_amount += 1
-    print("na eerste while")
     # fill spaceship 4 ratio-based
     while dict_space[3].full is False:
         order_place = len(order_array) -1
@@ -70,7 +67,6 @@ def greedy_ratio(inventory):
 
         time.sleep(1)
         yield dict_space[3].current_weight, 3
-        print("nog later")
         dict_parcel[element_id].location = 3
         dict_space[3].current_weight += dict_parcel[element_id].weight
         dict_space[3].current_volume += dict_parcel[element_id].volume
@@ -113,7 +109,7 @@ def greedy_ratio(inventory):
     for i in range(3):
         for ship in dict_space:
             for parcel in shuffled_list:
-                print(shuffled_list)
+                # print(shuffled_list)
                 if (ship.current_weight + dict_parcel[parcel].weight <= ship.max_weight and \
                         ship.current_volume + dict_parcel[parcel].volume <= ship.max_volume):
 
@@ -126,20 +122,20 @@ def greedy_ratio(inventory):
 
                     parcel_amount += 1
 
-
-    ship1, ship2, ship3, ship4, noship = [], [], [], [], []
-
-    for element in dict_parcel:
-        if element.location is 0:
-            ship1.append(element.id + 1)
-        elif element.location is 1:
-            ship2.append(element.id + 1)
-        elif element.location is 2:
-            ship3.append(element.id + 1)
-        elif element.location is 3:
-            ship4.append(element.id + 1)
-        elif element.location is 4:
-            noship.append(element.id + 1)
+    print(visualizeParcelsPerShip(inventory))
+    # ship1, ship2, ship3, ship4, noship = [], [], [], [], []
+    #
+    # for element in dict_parcel:
+    #     if element.location is 0:
+    #         noship.append(element.id + 1)
+    #     elif element.location is 1:
+    #         ship1.append(element.id + 1)
+    #     elif element.location is 2:
+    #         ship2.append(element.id + 1)
+    #     elif element.location is 3:
+    #         ship3.append(element.id + 1)
+    #     elif element.location is 4:
+    #         ship4.append(element.id + 1)
 
     # return inventory ipv hieronder
 
