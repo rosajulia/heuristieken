@@ -1,5 +1,5 @@
 import random
-from algorithms import helpers
+from scripts import helpers
 import time
 from copy import copy, deepcopy
 
@@ -24,6 +24,8 @@ def random_algorithm(inventory, repetitions):
         parcel_volume_max = inventory.maxParcelWeightVolume()[1]
         inventory.solution_id = solution_id
 
+        print(dict_parcel[0].weight)
+
         # which of the ships is currently being filled
         ship_counter = 1
 
@@ -32,6 +34,7 @@ def random_algorithm(inventory, repetitions):
 
         # make shuffled list
         shuffled_list = random.sample(range(100), k=100)
+        print(shuffled_list)
 
         # start weight and volume of ships at zero and set to not full
         dict_space = [helpers.reset(element) for element in dict_space]
@@ -42,14 +45,15 @@ def random_algorithm(inventory, repetitions):
         # add parcel until limits are reached (until all ships are full)
         full_ships_counter = 0
         while full_ships_counter != amount_of_ships:
-
+            print(full_ships_counter)
+            print(amount_of_ships)
             # only continue filling with ships that are not full
             while dict_space[ship_counter - 1].full is True:
                 if ship_counter is amount_of_ships:
                     ship_counter = 1
                 else:
                     ship_counter += 1
-
+            print("here")
             # pick random parcel
             add_ID = shuffled_list.pop()
 

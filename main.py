@@ -2,8 +2,8 @@
 
 import sys
 import datetime
-from algorithms import randomalgorithm
-from scripts import graph, greedyratio, helpers
+from algorithms import randomalgorithm, greedyratio
+from scripts import graph, helpers
 from data import dataloader
 from classes import classes
 from copy import copy, deepcopy
