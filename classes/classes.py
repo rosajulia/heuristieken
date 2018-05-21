@@ -48,17 +48,12 @@ class Inventory(Spaceship, Parcel):
             volume_list.append(parcel.volume)
         return max(weight_list), max(volume_list)
 
-    def calculate_fuel_costs(self, ship_id, ship_weight):
-        self.ship_id = ship_id
-        self.ship_weight = ship_weight
-
-        self.fuel_weight = (self.dict_space[ship_id].mass + ship_weight) * \
-                    self.dict_space[ship_id].ftw / (1 - self.dict_space[ship_id].ftw)
-
-        self.fuel_costs = self.dict_space[ship_id].base_cost + math.ceil(self.fuel_weight * 1000) * 5
-        return (self.fuel_costs)
+    def calculate_costs(self):
+        for ship in self.dict_space:
+            self.total_costs += ship.base_cost
+            self.total_costs += math.ceil((ship.mass + ship.current_weight) * ship.ftw / (1 - ship.ftw) * 1000) * 5
+        return self.total_costs
 
     def return_inventory(self):
         return {"dict_space": self.dict_space, "dict_parcel": self.dict_parcel, "solution_id": self.solution_id, \
-                    "parcel_amount": self.parcel_amount, "fuel_weight": self.fuel_weight, "fuel_costs": self.fuel_costs, \
-                        "total_costs": self.total_costs}
+                    "parcel_amount": self.parcel_amount, "total_costs": self.total_costs}

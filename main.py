@@ -3,9 +3,10 @@
 import sys
 import datetime
 from algorithms import randomalgorithm
-from scripts import graph, greedyratio
+from scripts import graph, greedyratio, helpers
 from data import dataloader
 from classes import classes
+from copy import copy, deepcopy
 
 # necessary for this script: pip install matplotlib
 # furute ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
@@ -22,78 +23,49 @@ def main():
 
     print('{}: Start random algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
 
-    # make list of solutions
-    solutions = []
     costs = 0
+    costs_list = []
+    parcel_amount_list = []
 
-    # hier ofwel random, ofwel greedy, ofwel hillclimber aanroepen met aantal keer
+    repetitions = int(sys.argv[1])
 
-    # start greedy algorithm (command-line argument nog aanpassen!)
-    # deze for loop moet in het algoritme niet erbuiten (vooral vanwege hillclimber)
-    for _ in range(int(sys.argv[1])):
-        print('{}: Start greedy algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
+    # hier een ifje om te splitsen per algoritme obv command-line arguments
 
-        # de generator slaat de geyielde waardes op
-        generator = greedyratio.greedy_ratio(inventory)
+    solutions = randomalgorithm.random_algorithm(inventory, repetitions)
 
-        for result in generator:
-            try:
-                result = next(generator)
-                print(result[0])
-            except:
-                print("error")
-                break
+    # collect all parcel amounts in list and determine highest
+    for solution in solutions:
+        parcel_amount_list.append(solution.parcel_amount)
+    max_parcel_amount = max(parcel_amount_list)
 
-        exit(1)
+    # continue with solutions with max parcel amount
+    parcel_checked_solutions = []
+    for solution in solutions:
+        if solution.parcel_amount is max_parcel_amount:
+            parcel_checked_solutions.append(deepcopy(solution))
 
-        # result = next(generator)
-        #
-        # # calculate total costs
-        # result_weight = [result.get("weight1"), result.get("weight2"), result.get("weight3"), result.get("weight4")]
-        #
-        # for ship in range(len(inventory.dict_space)):
-        #     costs += inventory.calculate_fuel_costs(ship, result_weight[ship])
-        #
-        # # append solutions to list
-        # solutions.append(classes.Inventory(inventory.dict_space, inventory.dict_parcel, \
-        #                     i, result.get("parcel_amount"), costs))
+    # collect all costs of remaining solutions in list and determine lowest
+    for solution in parcel_checked_solutions:
+        costs_list.append(solution.total_costs)
+    min_costs = min(costs_list)
 
+    # save solution(s) with lowest cost
+    best_solutions = []
+    for solution in parcel_checked_solutions:
+        if solution.total_costs is min_costs:
+            best_solutions.append(deepcopy(solution))
 
+    print('{}: Finished running {} times.'.format(datetime.datetime.now().strftime("%H:%M:%S"), sys.argv[1]))
 
-        # initialize generator for visualisation
-        def generate():
-            weight = 0
+    print("Maximum amount of parcels in ship: {}".format(max_parcel_amount))
+    print("Corresponding costs: {}". format(min_costs))
 
-            while weight <= 100:
-                yield "data:" + str(weight) + "\n\n"
-                weight = weight + next(generator)[0] / 2000 * 100
-            print(next(generator)[1])
-        # stuur de response van functie generate door naar html, waar javascript er shit mee gaat doen
-        return Response(generate(), mimetype= 'text/event-stream')
+    # visualize which ships contain which parcels in best solution(s)
+    for solution in best_solutions:
+        print(helpers.visualizeParcelsPerShip(solution))
 
-    # # calculate best solution parcel-wise
-    # best_parcel = (max([solution.parcel_amount for solution in solutions]))
-    # for solution in solutions:
-    #     if solution.parcel_amount == best_parcel:
-    #         best_parcel_costs = solution.total_costs
-    #
-    # # calculate best solution cost-wise
-    # best_costs = (min([solution.total_costs for solution in solutions]))
-    # for solution in solutions:
-    #     if solution.total_costs == best_costs:
-    #         best_costs_parcels = solution.parcel_amount
-    #
-    #
-    # print('{}: Finished running {} times.'.format(datetime.datetime.now().strftime("%H:%M:%S"), sys.argv[1]))
-    #
-    # print("Maximum amount of parcels in ship: {}".format(best_parcel))
-    # print("Corresponding costs: {}". format(best_parcel_costs))
-    #
-    # print("The lowest costs of all solutions: {}".format(best_costs))
-    # print("Corresponding amount of parcels moved: {}".format(best_costs_parcels))
-    #
-    # # plot solutions in histogram
-    # graph.barchart([solution.parcel_amount for solution in solutions])
+    # plot parcel amounts of all found solutions in histogram
+    graph.barchart([solution.parcel_amount for solution in solutions])
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    main()
