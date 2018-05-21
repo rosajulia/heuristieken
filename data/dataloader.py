@@ -37,7 +37,7 @@ def load_data(ship_data, cargo_data):
     # if 4:
     # create spaceship objects and append to the list
     for ship in data_space:
-        spaceship_info = classes.Spaceship(ship_counter, ship["nation"], ship["mass"], ship["payload mass"], ship["payload volume"], ship["base cost"], ship["ftw"])
+        spaceship_info = classes.Spaceship(ship_counter, ship["type"], ship["nation"], ship["mass"], ship["payload mass"], ship["payload volume"], ship["base cost"], ship["ftw"])
         spaceship_info.current_weight = 0
         spaceship_info.current_volume = 0
         spaceship_info.full = False

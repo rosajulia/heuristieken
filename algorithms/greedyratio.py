@@ -3,11 +3,12 @@ from algorithms import helpers
 from operator import itemgetter
 import time
 
-def greedy_ratio(inventory):
+def greedy_ratio(inventory, repetitions):
     """Greedy algorithm based on the ratios of weight and volume per parcel, and
     suitable ships for those ratios."""
 
     # zorgen dat greedy met lege inventory begint
+    # for loop for repetitions
 
     dict_space = inventory.dict_space
     dict_parcel = inventory.dict_parcel
@@ -17,28 +18,38 @@ def greedy_ratio(inventory):
     parcel_weight_max = 269.3
     parcel_volume_max = 0.849
 
-    # start weight and volume at zero and set to not full
+    # start weight and volume of ships at zero and set to not full
     dict_space = [helpers.reset(element) for element in dict_space]
 
     # set location of parcels to zero
     dict_parcel = [helpers.resetParcel(element) for element in dict_parcel]
 
-    ratio_array = []
+    ship_ratio_array = []
+    for ship in dict_space:
+        ratio_dict = {
+        "type": ship.id,
+        "ratio": ship.calculateRatio()
+        }
+        ship_ratio_array.append(ship_ratio_dict)
+
+    sorted_dict_space = sorted(ship_ratio_array, key=itemgetter("ratio"))
+
+    parcel_ratio_array = []
 
     for element in dict_parcel:
-        ratio_dict = {
+        parcel_ratio_dict = {
         "id": element.id,
         "ratio": element.ratio
         }
         ratio_array.append(ratio_dict)
 
-    new_array = sorted(ratio_array, key=itemgetter('ratio'))
+    sorted_parcel_array = sorted(parcel_ratio_array, key=itemgetter('ratio'))
 
     # for visualizing which parcels have high and low ratios
-    order_array = []
-    for element in new_array:
+    parcel_id_order_array = []
+    for element in sorted_parcel_array:
         id = element["id"]
-        order_array.append(id)
+        parcel_id_order_array.append(id)
 
     # fill spaceship 1 ratio-based
     order_place = 0

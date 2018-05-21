@@ -32,6 +32,7 @@ def main():
     # hier een ifje om te splitsen per algoritme obv command-line arguments
 
     solutions = randomalgorithm.random_algorithm(inventory, repetitions)
+    # solutions = greedyratio.greedy_ratio(inventory, repetitions)
 
     # collect all parcel amounts in list and determine highest
     for solution in solutions:
