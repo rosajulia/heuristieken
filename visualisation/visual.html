@@ -5,14 +5,36 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script>
-        var source = new EventSource("/progress");
-        source.onmessage = function(event) {
-            $('#pb1').css('width', event.data+'%').attr('aria-valuenow', event.data);
-            $('#pb1').text(event.data+'%');
-            if(event.data == 100){
-                source.close()
+        var weight = new EventSource("/progress");
+        weight.onmessage = function(event) {
+            var data = event.data
+            console.log("Data: ", data)
+                        
+            ship_counter = data.slice(-1)
+            console.log("Ship: ", ship_counter)
+
+            weightOrVolume = data.charAt(data.length - 2)
+            console.log("Weight or volume: ", weightOrVolume)
+            
+            if(ship_counter < 5){
+
+                if (weightOrVolume == 0){
+                    weight = data.slice(0, -1)
+                    console.log("Gewicht: ", weight)
+
+                    $('#pb_mass' + ship_counter).css('width', weight+'%').attr('aria-valuenow', weight);
+                    $('#pb_mass' + ship_counter).text(weight+'%');
+                }
+
+                else {
+                    volume = data.slice(0, -1)
+                    console.log("Volume: ", volume)
+                        
+                    $('#pb_volume' + ship_counter).css('width', volume+'%').attr('aria-valuenow', volume);
+                    $('#pb_volume' + ship_counter).text(volume+'%');
+                }
             }
-        }
+        }; 
         </script>
     </head>
 <style>
@@ -29,41 +51,63 @@
     <h2 class="title">Space Freight</h2>
     <p class="text">Please fill in how many times you want to run the random algorithm.</p>
 
-    <!-- <form class="text" action="/main" method="POST" onsubmit="setInterval(move(), 500)">
-                Run: <input type="number" name="times">  <br />
-                <input type="submit" name= "form" value="Submit" />
-        </form>   -->
-        <!-- <button id="start">GO!</button> -->
-
         <h4 class="title">USA - Cygnus</h4>
         <p class="text">Organisation: NASA, Payload mass: 2000, payload volume: 18.9 </p>
+        <h6 class="text" style="text-align: center; font-weight: bold">Mass</h6>
         <div class="progress" style="width: 50%; margin: 20px;">
-            <div id="pb1" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                <span id="pb1" class="progress-bar-label">0%</span>
+            <div id="pb_mass0" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span id="pb_mass0" class="progress-bar-label">0%</span>
+            </div>
+        </div>
+        <h6 class="text" style="text-align: center; font-weight: bold">Volume</h6>
+        <div class="progress" style="width: 50%; margin: 20px;">
+            <div id="pb_volume0" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span id="pb_volume0" class="progress-bar-label">0%</span>
             </div>
         </div>
 
         <h4 class="title">Russia - Progress</h4>
         <p class="text">Organisation: Russian Federal Space Agency, Payload mass: 2400, payload volume: 7.6 </p>
+        <h6 class="text" style="text-align: center; font-weight: bold">Mass</h6>
         <div class="progress" style="width: 50%; margin: 20px;">
-            <div id="pb2" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                <span id="pb2" class="progress-bar-label">0%</span>
+            <div id="pb_mass1" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span id="pb_mass1" class="progress-bar-label">0%</span>
+            </div>
+        </div>
+        <h6 class="text" style="text-align: center; font-weight: bold">Volume</h6>
+        <div class="progress" style="width: 50%; margin: 20px;">
+            <div id="pb_volume1" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span id="pb_volume1" class="progress-bar-label">0%</span>
             </div>
         </div>
 
         <h4 class="title">Japan - Kounotori</h4>
         <p class="text">Organisation: Japan Aerospace Exploration Agency, Payload mass: 5200, payload volume: 14 </p>
+        <h6 class="text" style="text-align: center; font-weight: bold">Mass</h6>
         <div class="progress" style="width: 50%; margin: 20px;">
-            <div id="pb3" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                <span id="pb3" class="progress-bar-label">0%</span>
+            <div id="pb_mass2" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span id="pb_mass2" class="progress-bar-label">0%</span>
+            </div>
+        </div>
+        <h6 class="text" style="text-align: center; font-weight: bold">Volume</h6>
+        <div class="progress" style="width: 50%; margin: 20px;">
+            <div id="pb_volume2" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span id="pb_volume2" class="progress-bar-label">0%</span>
             </div>
         </div>
 
         <h4 class="title">USA - Dragon</h4>
         <p class="text">Organisation: SpaceX, Payload mass: 6000, payload volume: 10 </p>
+        <h6 class="text" style="text-align: center; font-weight: bold">Mass</h6>
         <div class="progress" style="width: 50%; margin: 20px;">
-            <div id="pb4" class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                <span id="pb4"class="progress-bar-label">0%</span>
+            <div id="pb_mass3" class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span id="pb_mass3"class="progress-bar-label">0%</span>
+            </div>
+        </div>
+        <h6 class="text" style="text-align: center; font-weight: bold">Volume</h6>
+        <div class="progress" style="width: 50%; margin: 20px;">
+            <div id="pb_volume3" class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span id="pb_volume3" class="progress-bar-label">0%</span>
             </div>
         </div>
 </body>
