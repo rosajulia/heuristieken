@@ -4,8 +4,7 @@ from operator import itemgetter
 import time
 
 def greedy_ratio(inventory):
-    """Greedy algorithm based on the ratios of weight and volume per parcel, and
-    suitable ships for those ratios."""
+    """Greedy algorithm based on the ratios of weight and volume per parcel, and suitable ships for those ratios."""
 
     # zorgen dat greedy met lege inventory begint
 
