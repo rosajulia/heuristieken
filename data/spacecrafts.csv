@@ -1,5 +1,7 @@
-spacecraft,nation,organisation,payload mass,payload volume,mass,base cost,ftw
-Cygnus,USA,Nasa,2000,18.9,7400,390,0.73
-Progress,Russia,Russian Federal Space Agency,2400,7.6,7020,175,0.74
-Kounotori,Japan,Japan Aerospace Exploration Agency,5200,14,10500,420,0.71
-Dragon,USA,SpaceX,6000,10,12200,347,0.72
+spacecraft,type,nation,organisation,payload mass,payload volume,mass,base cost,ftw
+Cygnus,1,USA,Nasa,2000,18.9,7400,390,0.73
+Progress,2,Russia,Russian Federal Space Agency,2400,7.6,7020,175,0.74
+Kounotori,3,Japan,Japan Aerospace Exploration Agency,5200,14,10500,420,0.71
+Dragon,4,USA,SpaceX,6000,10,12200,347,0.72
+TianZhou,5,China,China National Space Administration,6500,15,13500,412,0.75
+Verne ATV,6,EU,ESA,7500,48,20500,1080,0.72
