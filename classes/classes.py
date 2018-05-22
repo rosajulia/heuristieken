@@ -2,8 +2,9 @@ import math
 
 class Spaceship():
     """Spaceship object with properties from CSV file."""
-    def __init__(self, id, nation, mass, max_weight, max_volume, base_cost, ftw, current_weight=0, current_volume=0, full=False):
+    def __init__(self, id, type, nation, mass, max_weight, max_volume, base_cost, ftw, current_weight=0, current_volume=0, full=False):
         self.id = int(id)
+        self.type = int(type)
         self.nation = nation
         self.mass = int(mass)
         self.max_weight = float(max_weight)
@@ -14,8 +15,11 @@ class Spaceship():
         self.current_volume = current_volume
         self.full = full
 
+    def calculateRatio(self):
+        return self.max_weight/self.max_volume
+
     def returnShip(self):
-        return {"id": self.id, "mass": self.mass, "max_weight": self.max_weight, "max_volume": self.max_volume, \
+        return {"id": self.id, "nation": self.nation, "mass": self.mass, "max_weight": self.max_weight, "max_volume": self.max_volume, \
                      "base_cost": self.base_cost, "ftw": self.ftw, "current_weight": self.current_weight, \
                         "current_volume": self.current_volume}
 
@@ -48,17 +52,12 @@ class Inventory(Spaceship, Parcel):
             volume_list.append(parcel.volume)
         return max(weight_list), max(volume_list)
 
-    def calculate_fuel_costs(self, ship_id, ship_weight):
-        self.ship_id = ship_id
-        self.ship_weight = ship_weight
-
-        self.fuel_weight = (self.dict_space[ship_id].mass + ship_weight) * \
-                    self.dict_space[ship_id].ftw / (1 - self.dict_space[ship_id].ftw)
-
-        self.fuel_costs = self.dict_space[ship_id].base_cost + math.ceil(self.fuel_weight * 1000) * 5
-        return (self.fuel_costs)
+    def calculate_costs(self):
+        for ship in self.dict_space:
+            self.total_costs += ship.base_cost
+            self.total_costs += math.ceil((ship.mass + ship.current_weight) * ship.ftw / (1 - ship.ftw) * 1000) * 5
+        return self.total_costs
 
     def return_inventory(self):
         return {"dict_space": self.dict_space, "dict_parcel": self.dict_parcel, "solution_id": self.solution_id, \
-                    "parcel_amount": self.parcel_amount, "fuel_weight": self.fuel_weight, "fuel_costs": self.fuel_costs, \
-                        "total_costs": self.total_costs}
+                    "parcel_amount": self.parcel_amount, "total_costs": self.total_costs}
