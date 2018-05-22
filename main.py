@@ -2,15 +2,28 @@
 
 import sys
 import datetime
-from algorithms import randomalgorithm, greedyratio
-from scripts import graph, helpers
+# from algorithms import randomalgorithm, greedyratio
 from data import dataloader
+from visualisation import graph
 from classes import classes
+from algorithms import greedyratio, randomalgorithm
+from scripts import helpers
 from copy import copy, deepcopy
 
-# necessary for this script: pip install matplotlib
-# furute ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
+from flask import Flask, render_template, Response, jsonify
+import time
 
+# necessary for this script: pip install matplotlib
+# future ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
+
+app = Flask(__name__, template_folder="visualisation")
+
+# @app.route("/")
+# def index():
+#     weight1 = "hoi"
+#     return render_template("visual.html", weight1=weight1)
+
+@app.route("/")
 def main():
     if len(sys.argv) != 2:
         print("Usage: python main.py integer")
@@ -23,7 +36,6 @@ def main():
 
     print('{}: Start random algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
 
-    costs = 0
     costs_list = []
     parcel_amount_list = []
 
@@ -63,10 +75,38 @@ def main():
 
     # visualize which ships contain which parcels in best solution(s)
     for solution in best_solutions:
-        print(helpers.visualizeParcelsPerShip(solution))
+        solution_statement = helpers.visualizeParcelsPerShip(solution)
 
-    # plot parcel amounts of all found solutions in histogram
-    graph.barchart([solution.parcel_amount for solution in solutions])
+        d = {}
+        for i in range(4):
+            current_weight = solution.dict_space[i].current_weight
+            current_volume = solution.dict_space[i].current_volume
 
+            max_weight = solution.dict_space[i].max_weight
+            max_volume = solution.dict_space[i].max_volume
+
+            weight = current_weight / max_weight * 100
+            volume = current_volume / max_volume * 100
+
+            weight_send = format(weight, '.2f')
+            volume_send = format(volume, '.2f')
+
+            d["weight" + str(i)] = weight_send
+            d["volume" + str(i)] = volume_send
+            d["total_amount" + str(i)] = len(solution_statement[i]["content"])
+            d["parcels" + str(i)] = solution_statement[i]["content"]
+
+        print(d)
+        weight0 = d["weight0"]
+        volume0 = d["volume0"]
+        weight1 = d["weight1"]
+        volume1 = d["volume1"]
+        weight2 = d["weight2"]
+        volume2 = d["volume2"]
+        weight3 = d["weight3"]
+        volume3 = d["volume3"]
+    return render_template("visual.html", weight0 = weight0, volume0 = volume0, weight1 = weight1, \
+                                            volume1 = volume1, weight2 = weight2, volume2 = volume2, \
+                                                weight3 = weight3, volume3 = volume3, d=d)
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)
