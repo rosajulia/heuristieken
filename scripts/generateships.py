@@ -10,7 +10,7 @@ def generate_ships(ships, cargolist, constraint):
         - False for no constraints
         - True for constraints
 
-    Constraint: setting constraints to True will generate
+    constraint: setting constraints to True will generate
     ships given that nations must send an equal number of 
     ships. The difference in the number of ships each nation
     sends cannot be larger than one.

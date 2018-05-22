@@ -21,9 +21,14 @@ def main():
     cargo_data = "data/CargoList1.csv"
     inventory = dataloader.load_data(ship_data, cargo_data)
 
+    # if only 4 ships needed:
+    # print("2x dict space inkorten")
+    # print(inventory.dict_space)
+    inventory.dict_space = inventory.dict_space[:4]
+    # print(inventory.dict_space)
+
     print('{}: Start random algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
 
-    costs = 0
     costs_list = []
     parcel_amount_list = []
 
@@ -31,8 +36,8 @@ def main():
 
     # hier een ifje om te splitsen per algoritme obv command-line arguments
 
-    solutions = randomalgorithm.random_algorithm(inventory, repetitions)
     # solutions = greedyratio.greedy_ratio(inventory, repetitions)
+    solutions = randomalgorithm.random_algorithm(inventory, repetitions)
 
     # collect all parcel amounts in list and determine highest
     for solution in solutions:
@@ -63,7 +68,9 @@ def main():
 
     # visualize which ships contain which parcels in best solution(s)
     for solution in best_solutions:
-        print(helpers.visualizeParcelsPerShip(solution))
+        list_to_print = helpers.visualizeParcelsPerShip(solution)
+        for element in list_to_print:
+            print(element)
 
     # plot parcel amounts of all found solutions in histogram
     graph.barchart([solution.parcel_amount for solution in solutions])

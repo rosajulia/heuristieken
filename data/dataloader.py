@@ -43,8 +43,6 @@ def load_data(ship_data, cargo_data):
         spaceship_info.full = False
         ship_counter += 1
         list_space.append(spaceship_info)
-        if ship_counter > 4:
-            break
 
     # if oneindig: jesse's nieuwe generateships.py aanroepen met constraints of niet, met list_parcel)
 
