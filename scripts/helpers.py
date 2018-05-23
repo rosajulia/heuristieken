@@ -1,5 +1,6 @@
 from copy import copy, deepcopy
 
+
 def reset(element):
     """Resets attributes of the ships."""
     element.current_weight = 0

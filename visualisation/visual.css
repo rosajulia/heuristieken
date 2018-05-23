@@ -1,0 +1,45 @@
+body {
+    background-color:rgb(237, 231, 231);
+}
+.title {
+    font-family: sans-serif; 
+    font-weight: bold; 
+}
+.text {
+    font-family: sans-serif;
+}
+
+.column {
+    float: left;
+    /* padding: 10px; */
+}
+
+.left {
+  width: 45%;
+  padding-left: 40px;
+}
+
+.right {
+  width: 55%;
+  padding-left: 40px;
+}
+
+.below {
+    padding-left: 40px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+table, th, td {
+    font-size: 12px;
+    padding: 0px;
+}
