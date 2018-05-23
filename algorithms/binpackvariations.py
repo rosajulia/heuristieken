@@ -41,7 +41,7 @@ def binpack(inventory, packing_variation, constraint):
     """
     
     # check for correct user input
-    if constraint != type(True):
+    if type(constraint) != bool:
         raise TypeError("Expected boolean for arg contraint")
 
     dict_space = inventory.dict_space

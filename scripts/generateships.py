@@ -4,15 +4,22 @@ import isfull, shiploader
 
 def generateships(ships, cargolist, constraint):
     """
-    !!UPDATE DOCSTRING!!
+    Script that generates a fleet of ships that is large enough to hold all
+    packages.
 
-    Takes one command-line argument of type boolean to:
-        - False for no constraints
-        - True for constraints
+    Takes three arguments:
 
-    constraint: setting constraints to True will generate ships given that 
-    nations must send an equal number of ships. The difference in the number of 
-    ships each nation sends cannot be larger than one.
+        ships: Must contain list of objects of type Spaceship.
+
+        cargolist: Must contain list of objects of type Parcel.
+
+        constraint: 
+            True: Setting constraint to True will generate ships given that 
+            nations must send an equal number of ships. The difference in the 
+            number of ships each nation sends cannot be larger than one. 
+            
+            False: Setting constraint to False will disregard any diplomatic 
+            constraints and will generate a fleet of ships at random.
     """
 
     # check for correct user input
