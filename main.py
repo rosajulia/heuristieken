@@ -18,11 +18,6 @@ import time
 
 app = Flask(__name__, template_folder="visualisation")
 
-# @app.route("/")
-# def index():
-#     weight1 = "hoi"
-#     return render_template("visual.html", weight1=weight1)
-
 @app.route("/")
 def main():
     if len(sys.argv) != 2:
@@ -114,9 +109,9 @@ def main():
     return render_template("visual.html", weight0 = weight0, volume0 = volume0, weight1 = weight1, \
                                             volume1 = volume1, weight2 = weight2, volume2 = volume2, \
                                                 weight3 = weight3, volume3 = volume3, d=d)
-        list_to_print = helpers.visualizeParcelsPerShip(solution)
-        for element in list_to_print:
-            print(element)
+    list_to_print = helpers.visualizeParcelsPerShip(solution)
+    for element in list_to_print:
+        print(element)
 
     # plot parcel amounts of all found solutions in histogram
     graph.barchart([solution.parcel_amount for solution in solutions])
