@@ -2,12 +2,10 @@
 
 import sys
 import datetime
-# from algorithms import randomalgorithm, greedyratio
+from algorithms import randomalgorithm, greedyratio
 from data import dataloader
-from visualisation import graph
 from classes import classes
-from algorithms import greedyratio, randomalgorithm
-from scripts import helpers
+from scripts import graph, helpers
 from copy import copy, deepcopy
 
 from flask import Flask, render_template, Response, jsonify
@@ -18,10 +16,6 @@ import time
 
 app = Flask(__name__, template_folder="visualisation")
 
-# @app.route("/")
-# def index():
-#     weight1 = "hoi"
-#     return render_template("visual.html", weight1=weight1)
 
 @app.route("/")
 def main():
@@ -37,7 +31,7 @@ def main():
     # if only 4 ships needed:
     # print("2x dict space inkorten")
     # print(inventory.dict_space)
-    inventory.dict_space = inventory.dict_space[:4]
+    # inventory.dict_space = inventory.dict_space[:4]
     # print(inventory.dict_space)
 
     print('{}: Start random algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
@@ -54,6 +48,7 @@ def main():
 
     # collect all parcel amounts in list and determine highest
     for solution in solutions:
+        # print(type(solution.total_costs))
         parcel_amount_list.append(solution.parcel_amount)
     max_parcel_amount = max(parcel_amount_list)
 
@@ -66,7 +61,9 @@ def main():
     # collect all costs of remaining solutions in list and determine lowest
     for solution in parcel_checked_solutions:
         costs_list.append(solution.total_costs)
+    # print(len(costs_list), costs_list)
     min_costs = min(costs_list)
+    # print("mcl", min_costs, type(min_costs))
 
     # save solution(s) with lowest cost
     best_solutions = []
@@ -82,6 +79,8 @@ def main():
     # visualize which ships contain which parcels in best solution(s)
     for solution in best_solutions:
         solution_statement = helpers.visualizeParcelsPerShip(solution)
+        for element in solution_statement:
+            print(element)
 
         d = {}
         for i in range(4):
@@ -102,24 +101,10 @@ def main():
             d["total_amount" + str(i)] = len(solution_statement[i]["content"])
             d["parcels" + str(i)] = solution_statement[i]["content"]
 
-        print(d)
-        weight0 = d["weight0"]
-        volume0 = d["volume0"]
-        weight1 = d["weight1"]
-        volume1 = d["volume1"]
-        weight2 = d["weight2"]
-        volume2 = d["volume2"]
-        weight3 = d["weight3"]
-        volume3 = d["volume3"]
-    return render_template("visual.html", weight0 = weight0, volume0 = volume0, weight1 = weight1, \
-                                            volume1 = volume1, weight2 = weight2, volume2 = volume2, \
-                                                weight3 = weight3, volume3 = volume3, d=d)
-        list_to_print = helpers.visualizeParcelsPerShip(solution)
-        for element in list_to_print:
-            print(element)
-
     # plot parcel amounts of all found solutions in histogram
     graph.barchart([solution.parcel_amount for solution in solutions])
+
+    return render_template("visual.html", d=d)
 
 if __name__ == "__main__":
     app.run(debug=True)

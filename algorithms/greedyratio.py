@@ -12,7 +12,7 @@ def greedy_ratio(inventory, repetitions):
     # pakjes sorteren
     # schepen sorteren
     solutions = []
-    
+
     dict_space = inventory.dict_space
     length_dict_space = len(dict_space)
 
@@ -70,11 +70,9 @@ def greedy_ratio(inventory, repetitions):
                 high_type_counter += 1
 
         # fill lowest ratio ships until all are full
-        while full_ships_counter != low_type_counter:
+        while full_ships_counter != low_type_counter and parcel_amount != length_dict_parcel:
 
             for i in range(low_type_counter):
-                print("1", parcel_amount)
-
                 # run with dict_space, i, dict_parcel, parcel_cursor, parcel_amount?
                 # and return all of those again?
 
@@ -104,10 +102,9 @@ def greedy_ratio(inventory, repetitions):
             full_ships_counter = 0
 
             # fill highest ratio ships until all are full
-            while full_ships_counter != high_type_counter:
+            while full_ships_counter != high_type_counter and parcel_amount != length_dict_parcel:
 
                 for i in range(length_dict_space - high_type_counter, length_dict_space):
-                    print("2", parcel_amount)
                     if dict_space[i].full is False:
                         dict_parcel[parcel_cursor].location = dict_space[i].id
                         dict_space[i].current_weight += dict_parcel[parcel_cursor].weight
@@ -138,30 +135,29 @@ def greedy_ratio(inventory, repetitions):
             remaining_parcel_indices = []
             for parcel in dict_parcel:
                 index_to_save = dict_parcel.index(parcel)
-                print("lengthdp", length_dict_parcel)
-                print("index", index_to_save, type(index_to_save))
-                print("ldp", low_distributed_parcels, type(low_distributed_parcels))
-                print("hdp-ish", length_dict_parcel - high_distributed_parcels, type(length_dict_parcel - high_distributed_parcels))
                 if index_to_save >= low_distributed_parcels and index_to_save < length_dict_parcel - high_distributed_parcels:
                     remaining_parcel_indices.append(index_to_save)
 
             # convert to randomly ordered list of remaining id's
-            print("r", remaining_parcel_indices)
+            # print(remaining_parcel_indices)
             shuffle(remaining_parcel_indices)
-            print("r", remaining_parcel_indices)
-            # print("s", shuffled_parcel_indices)
+            # print(remaining_parcel_indices)
             shuffled_parcel_indices = remaining_parcel_indices
-            print("s", shuffled_parcel_indices)
+            # print(shuffled_parcel_indices)
             parcel_cursor = 0
 
             # fill remaining ships until all are full
-            while full_ships_counter != number_of_remaining_ships:
+            while full_ships_counter != number_of_remaining_ships and parcel_amount != length_dict_parcel:
 
                 for i in range(low_type_counter, low_type_counter + number_of_remaining_ships):
                     if dict_space[i].full is False:
 
                         # pick (random) remaining id
-                        parcel_index_to_add = shuffled_parcel_indices[parcel_cursor]
+                        if parcel_cursor >= len(shuffled_parcel_indices):
+                            break
+                        else:
+                            # print(parcel_cursor, shuffled_parcel_indices[parcel_cursor], parcel_amount)
+                            parcel_index_to_add = shuffled_parcel_indices[parcel_cursor]
 
                         # find corresponding parcel and add it to ship
                         for parcel in dict_parcel:
@@ -202,7 +198,7 @@ def greedy_ratio(inventory, repetitions):
                     continue
 
         inventory.parcel_amount = parcel_amount
-        inventory.total_costs = inventory.calculate_costs
+        inventory.total_costs = inventory.calculate_costs()
         solutions.append(deepcopy(inventory))
 
     return solutions

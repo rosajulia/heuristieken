@@ -24,6 +24,7 @@ def random_algorithm(inventory, repetitions):
         dict_parcel = inventory.dict_parcel
         dict_space = inventory.dict_space
         amount_of_ships = len(dict_space)
+        amount_of_parcels = len(dict_parcel)
         parcel_weight_max = inventory.maxParcelWeightVolume()[0]
         parcel_volume_max = inventory.maxParcelWeightVolume()[1]
         inventory.solution_id = solution_id
@@ -45,7 +46,7 @@ def random_algorithm(inventory, repetitions):
 
         # add parcel until limits are reached (until all ships are full)
         full_ships_counter = 0
-        while full_ships_counter != amount_of_ships:
+        while full_ships_counter != amount_of_ships and parcel_amount != amount_of_parcels:
 
             # only continue filling with ships that are not full
             while dict_space[ship_counter - 1].full is True:
