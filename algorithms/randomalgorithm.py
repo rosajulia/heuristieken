@@ -14,6 +14,9 @@ def random_algorithm(inventory, repetitions):
     Usage:
     randomalgorithm.random_algorithm(inventory, repetitions)
     """
+
+    print("ik run nu random")
+
     solutions = []
     solution_id = 0
     for _ in range(repetitions):

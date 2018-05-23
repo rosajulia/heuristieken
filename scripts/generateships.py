@@ -2,7 +2,7 @@ import random
 from classes import classes
 import isfull, shiploader
 
-def generate_ships(ships, cargolist, constraint):
+def generateships(ships, cargolist, constraint):
     """
     !!UPDATE DOCSTRING!!
 
@@ -10,15 +10,14 @@ def generate_ships(ships, cargolist, constraint):
         - False for no constraints
         - True for constraints
 
-    constraint: setting constraints to True will generate
-    ships given that nations must send an equal number of 
-    ships. The difference in the number of ships each nation
-    sends cannot be larger than one.
+    constraint: setting constraints to True will generate ships given that 
+    nations must send an equal number of ships. The difference in the number of 
+    ships each nation sends cannot be larger than one.
     """
 
     # check for correct user input
     if constraint != type(True):
-        raise TypeError("Expected boolean for arg contraint")
+        raise TypeError("Expected boolean for arg constraint")
 
     temp_cargo = cargolist
     fleet = []
@@ -37,6 +36,8 @@ def generate_ships(ships, cargolist, constraint):
 
             # append the filled ship to the fleet list
             fleet.append(ship)
+        
+        return fleet
 
     # if constraints are active
     else:
@@ -77,5 +78,7 @@ def generate_ships(ships, cargolist, constraint):
 
                 # reset the score keeper
                 score_keeper = {nation:False for nation in score_keeper}
+        
+        return fleet
 
             

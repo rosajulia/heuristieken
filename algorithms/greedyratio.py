@@ -1,154 +1,287 @@
 import random
+from random import shuffle
 from scripts import helpers
 from operator import itemgetter
-import time
+from copy import copy, deepcopy
 
-def greedy_ratio(inventory):
+def greedy_ratio(inventory, repetitions):
     """Greedy algorithm based on the ratios of weight and volume per parcel, and suitable ships for those ratios."""
 
-    # zorgen dat greedy met lege inventory begint
-    # for loop for repetitions
 
+    print("ik run nu greedy")
+    # pakjes sorteren
+    # schepen sorteren
+    solutions = []
+    
     dict_space = inventory.dict_space
+    length_dict_space = len(dict_space)
+
     dict_parcel = inventory.dict_parcel
+    length_dict_parcel = len(dict_parcel)
+    # print(dict_space)
 
-    # ship_counter = 0
-    parcel_amount = 0
-    parcel_weight_max = 269.3
-    parcel_volume_max = 0.849
+    # sort spaceship based on weight to volume ratio
+    dict_space = sorted(dict_space, key=lambda x: x.calculateRatio())
+    # print(dict_space)
 
-    # start weight and volume of ships at zero and set to not full
-    dict_space = [helpers.reset(element) for element in dict_space]
+    # determine ship types in current selection with lowest and highest ratio
+    lowest_ratio_type = dict_space[0].type
+    highest_ratio_type = dict_space[len(dict_space) - 1].type
 
-    # set location of parcels to zero
-    dict_parcel = [helpers.resetParcel(element) for element in dict_parcel]
+    # determine highest parcel weight and volume in cargo list
+    parcel_weight_max = inventory.maxParcelWeightVolume()[0]
+    parcel_volume_max = inventory.maxParcelWeightVolume()[1]
 
-    ship_ratio_array = []
-    for ship in dict_space:
-        ratio_dict = {
-        "type": ship.id,
-        "ratio": ship.calculateRatio()
-        }
-        ship_ratio_array.append(ship_ratio_dict)
+    # id_list = []
+    # for parcel in dict_parcel:
+    #     id_list.append(parcel.id)
+    # print(id_list)
 
-    sorted_dict_space = sorted(ship_ratio_array, key=itemgetter("ratio"))
-
-    parcel_ratio_array = []
-
-    for element in dict_parcel:
-        parcel_ratio_dict = {
-        "id": element.id,
-        "ratio": element.ratio
-        }
-        ratio_array.append(ratio_dict)
-
-    sorted_parcel_array = sorted(parcel_ratio_array, key=itemgetter('ratio'))
-
-    # for visualizing which parcels have high and low ratios
-    parcel_id_order_array = []
-    for element in sorted_parcel_array:
-        id = element["id"]
-        parcel_id_order_array.append(id)
-
-    # fill spaceship 1 ratio-based
-    order_place = 0
-
-    while dict_space[0].full is False:
-        element_id = order_array[order_place]
-
-        time.sleep(1)
-        yield dict_space[0].current_weight, 0
-        dict_parcel[element_id].location = 0
-        dict_space[0].current_weight += dict_parcel[element_id].weight
-        dict_space[0].current_volume += dict_parcel[element_id].volume
+    # sort parcel list on weight to volume ratio
+    sorted_parcel_dict = sorted(dict_parcel, key=lambda x: x.ratio)
+    # for parcel in sorted_parcel_array:
+    #     id_list.append(parcel.id)
+    # print(id_list)
 
 
-        if (dict_space[0].current_weight >= dict_space[0].max_weight - parcel_weight_max or
-                    dict_space[0].current_volume >= dict_space[0].max_volume - parcel_volume_max):
-            dict_space[0].full = True
+    for _ in range(repetitions):
 
-        order_array = order_array[order_place + 1:]
+        parcel_amount = 0
+        low_type_counter = 0
+        high_type_counter = 0
+        full_ships_counter = 0
 
-        parcel_amount += 1
-    # fill spaceship 4 ratio-based
-    while dict_space[3].full is False:
-        order_place = len(order_array) -1
-        element_id = order_array[order_place]
+        # start weight and volume of ships at zero and set to not full
+        dict_space = [helpers.reset(element) for element in dict_space]
 
-        time.sleep(1)
-        yield dict_space[3].current_weight, 3
-        dict_parcel[element_id].location = 3
-        dict_space[3].current_weight += dict_parcel[element_id].weight
-        dict_space[3].current_volume += dict_parcel[element_id].volume
+        # set location of parcels to zero
+        dict_parcel = [helpers.resetParcel(element) for element in sorted_parcel_dict]
 
-        if (dict_space[3].current_weight >= dict_space[3].max_weight - parcel_weight_max or
-                    dict_space[3].current_volume >= dict_space[3].max_volume - parcel_volume_max):
-            dict_space[3].full = True
+        # print(dict_space)
 
-        order_array = order_array[:order_place]
-        parcel_amount += 1
+        # keep track of which parcels have been distributed already
+        parcel_cursor = 0
 
-    # divide remaining cargo
-    length_other_parcels = len(order_array)
-
-    # make shuffled list
-    shuffled_list = random.sample(range(length_other_parcels), k=length_other_parcels)
-
-    # random divide cargo between spacechips 2 and 3
-    while dict_space[1].full is False or dict_space[2].full is False:
-        for i in range(1,3):
-            if dict_space[i].full is True and i is 1:
-                i += 1
-            if dict_space[i].full is True and i is 2:
-                i -= 1
-
-            parcel_to_add = order_array[shuffled_list[0]]
-            dict_parcel[parcel_to_add].location = i
-            dict_space[i].current_weight += dict_parcel[parcel_to_add].weight
-            dict_space[i].current_volume += dict_parcel[parcel_to_add].volume
-
-            shuffled_list = shuffled_list[1:]
-
-            if (dict_space[i].current_weight >= dict_space[i].max_weight - parcel_weight_max or
-                        dict_space[i].current_volume >= dict_space[i].max_volume - parcel_volume_max):
-                dict_space[i].full = True
-            parcel_amount += 1
-
-    # add last cargo to ships
-    # shuffled_length = len(shuffled_list)
-    for i in range(3):
+        # determine how many ships of lowest- and highest ratio type
         for ship in dict_space:
-            for parcel in shuffled_list:
-                # print(shuffled_list)
-                if (ship.current_weight + dict_parcel[parcel].weight <= ship.max_weight and \
-                        ship.current_volume + dict_parcel[parcel].volume <= ship.max_volume):
+            if ship.type is lowest_ratio_type:
+                low_type_counter += 1
+            elif ship.type is highest_ratio_type:
+                high_type_counter += 1
 
-                    ship.current_weight += dict_parcel[parcel].weight
-                    ship.current_volume += dict_parcel[parcel].volume
+        # fill lowest ratio ships until all are full
+        while full_ships_counter != low_type_counter:
 
-                    shuffled_list.remove(parcel)
+            for i in range(low_type_counter):
+                print("1", parcel_amount)
 
-                    dict_parcel[parcel + 1].location = ship.id
+                # run with dict_space, i, dict_parcel, parcel_cursor, parcel_amount?
+                # and return all of those again?
 
+                if dict_space[i].full is False:
+                    dict_parcel[parcel_cursor].location = dict_space[i].id
+                    dict_space[i].current_weight += dict_parcel[parcel_cursor].weight
+                    dict_space[i].current_volume += dict_parcel[parcel_cursor].volume
+                    parcel_amount +=1
+
+                    if (dict_space[i].current_weight >= dict_space[i].max_weight - parcel_weight_max or
+                                dict_space[i].current_volume >= dict_space[i].max_volume - parcel_volume_max):
+                        dict_space[i].full = True
+
+                    parcel_cursor += 1
+
+                for ship in dict_space:
+                    if ship.type is lowest_ratio_type and ship.full is True:
+                        full_ships_counter += 1
+
+        # how many parcels from start of sorted list were distributed
+        low_distributed_parcels = parcel_amount
+        parcel_cursor = length_dict_space - 1
+
+        # check whether not only one type of ship
+        if low_type_counter != length_dict_space:
+
+            full_ships_counter = 0
+
+            # fill highest ratio ships until all are full
+            while full_ships_counter != high_type_counter:
+
+                for i in range(length_dict_space - high_type_counter, length_dict_space):
+                    print("2", parcel_amount)
+                    if dict_space[i].full is False:
+                        dict_parcel[parcel_cursor].location = dict_space[i].id
+                        dict_space[i].current_weight += dict_parcel[parcel_cursor].weight
+                        dict_space[i].current_volume += dict_parcel[parcel_cursor].volume
+                        parcel_amount += 1
+
+                        if (dict_space[i].current_weight >= dict_space[i].max_weight - parcel_weight_max or
+                                    dict_space[i].current_volume >= dict_space[i].max_volume - parcel_volume_max):
+                            dict_space[i].full = True
+
+                        parcel_cursor -= 1
+
+                    for ship in dict_space:
+                        if ship.type is highest_ratio_type and ship.full is True:
+                            full_ships_counter += 1
+
+        # how many parcels from end of sorted list were distributed
+        high_distributed_parcels = parcel_amount - low_distributed_parcels
+
+        # check if not only two types of ships were used
+        if low_type_counter + high_type_counter != length_dict_space:
+
+            full_ships_counter = 0
+
+            number_of_remaining_ships = length_dict_space - low_type_counter - high_type_counter
+
+            # collect all id's of remaining parcels
+            remaining_parcel_indices = []
+            for parcel in dict_parcel:
+                index_to_save = dict_parcel.index(parcel)
+                print("lengthdp", length_dict_parcel)
+                print("index", index_to_save, type(index_to_save))
+                print("ldp", low_distributed_parcels, type(low_distributed_parcels))
+                print("hdp-ish", length_dict_parcel - high_distributed_parcels, type(length_dict_parcel - high_distributed_parcels))
+                if index_to_save >= low_distributed_parcels and index_to_save < length_dict_parcel - high_distributed_parcels:
+                    remaining_parcel_indices.append(index_to_save)
+
+            # convert to randomly ordered list of remaining id's
+            print("r", remaining_parcel_indices)
+            shuffle(remaining_parcel_indices)
+            print("r", remaining_parcel_indices)
+            # print("s", shuffled_parcel_indices)
+            shuffled_parcel_indices = remaining_parcel_indices
+            print("s", shuffled_parcel_indices)
+            parcel_cursor = 0
+
+            # fill remaining ships until all are full
+            while full_ships_counter != number_of_remaining_ships:
+
+                for i in range(low_type_counter, low_type_counter + number_of_remaining_ships):
+                    if dict_space[i].full is False:
+
+                        # pick (random) remaining id
+                        parcel_index_to_add = shuffled_parcel_indices[parcel_cursor]
+
+                        # find corresponding parcel and add it to ship
+                        for parcel in dict_parcel:
+                            if dict_parcel.index(parcel) is parcel_index_to_add:
+                                dict_parcel[parcel_index_to_add].location = dict_space[i].id
+                                dict_space[i].current_weight += dict_parcel[parcel_index_to_add].weight
+                                dict_space[i].current_volume += dict_parcel[parcel_index_to_add].volume
+                                parcel_amount += 1
+
+                        if (dict_space[i].current_weight >= dict_space[i].max_weight - parcel_weight_max or
+                                    dict_space[i].current_volume >= dict_space[i].max_volume - parcel_volume_max):
+                            dict_space[i].full = True
+
+                        parcel_cursor += 1
+
+                    for ship in dict_space:
+                        if ship.type != lowest_ratio_type and ship.type != highest_ratio_type and ship.full is True:
+                            full_ships_counter += 1
+
+
+        full_ships_counter = 0
+        shuffled_parcel_indices = shuffled_parcel_indices[parcel_cursor:]
+        parcel_cursor = 0
+
+        for index in shuffled_parcel_indices:
+            for ship in dict_space:
+                if (ship.current_weight + dict_parcel[index].weight <= ship.max_weight and \
+                        ship.current_volume + dict_parcel[index].volume <= ship.max_volume):
+
+                    ship.current_weight += dict_parcel[index].weight
+                    ship.current_volume += dict_parcel[index].volume
+
+                    dict_parcel[index].location = ship.id
+                    parcel_cursor += 1
                     parcel_amount += 1
 
-    print(visualizeParcelsPerShip(inventory))
-    # ship1, ship2, ship3, ship4, noship = [], [], [], [], []
-    #
-    # for element in dict_parcel:
-    #     if element.location is 0:
-    #         noship.append(element.id + 1)
-    #     elif element.location is 1:
-    #         ship1.append(element.id + 1)
-    #     elif element.location is 2:
-    #         ship2.append(element.id + 1)
-    #     elif element.location is 3:
-    #         ship3.append(element.id + 1)
-    #     elif element.location is 4:
-    #         ship4.append(element.id + 1)
+                else:
+                    continue
 
-    # return inventory ipv hieronder
+        inventory.parcel_amount = parcel_amount
+        inventory.total_costs = inventory.calculate_costs
+        solutions.append(deepcopy(inventory))
 
-    return {"parcel_amount": parcel_amount, "weight1": dict_space[0].current_weight, \
-                "weight2": dict_space[1].current_weight, "weight3": dict_space[2].current_weight, \
-                    "weight4": dict_space[3].current_weight}
+    return solutions
+
+
+
+                    # while dict_space[0].full is False:
+                    #     element_id = order_array[order_place]
+                    #
+                    #     dict_parcel[element_id].location = dict_space[0].id
+                    #     dict_space[0].current_weight += dict_parcel[element_id].weight
+                    #     dict_space[0].current_volume += dict_parcel[element_id].volume
+                    #
+                    #
+                    #     if (dict_space[0].current_weight >= dict_space[0].max_weight - parcel_weight_max or
+                    #                 dict_space[0].current_volume >= dict_space[0].max_volume - parcel_volume_max):
+                    #         dict_space[0].full = True
+                    #
+                    #     order_array = order_array[order_place + 1:]
+                    #
+                    #     parcel_amount += 1
+
+                    # # fill spaceship 4 ratio-based
+                    # while dict_space[3].full is False:
+                    #     order_place = len(order_array) -1
+                    #     element_id = order_array[order_place]
+                    #
+                    #     dict_parcel[element_id].location = dict_space[3].id
+                    #     dict_space[3].current_weight += dict_parcel[element_id].weight
+                    #     dict_space[3].current_volume += dict_parcel[element_id].volume
+                    #
+                    #     if (dict_space[3].current_weight >= dict_space[3].max_weight - parcel_weight_max or
+                    #                 dict_space[3].current_volume >= dict_space[3].max_volume - parcel_volume_max):
+                    #         dict_space[3].full = True
+                    #
+                    #     order_array = order_array[:order_place]
+                    #     parcel_amount += 1
+
+                            # # divide remaining cargo
+                            # length_other_parcels = len(order_array)
+                            #
+                            # # make shuffled list
+                            # shuffled_list = random.sample(range(length_other_parcels), k=length_other_parcels)
+                            #
+                            # # random divide cargo between spacechips 2 and 3
+                            # while dict_space[1].full is False or dict_space[2].full is False:
+                            #     for i in range(1,3):
+                            #         if dict_space[i].full is True and i is 1:
+                            #             i += 1
+                            #         if dict_space[i].full is True and i is 2:
+                            #             i -= 1
+                            #
+                            #         parcel_to_add = order_array[shuffled_list[0]]
+                            #         dict_parcel[parcel_to_add].location = dict_space[i].id
+                            #         dict_space[i].current_weight += dict_parcel[parcel_to_add].weight
+                            #         dict_space[i].current_volume += dict_parcel[parcel_to_add].volume
+                            #
+                            #         shuffled_list = shuffled_list[1:]
+                            #
+                            #         if (dict_space[i].current_weight >= dict_space[i].max_weight - parcel_weight_max or
+                            #                     dict_space[i].current_volume >= dict_space[i].max_volume - parcel_volume_max):
+                            #             dict_space[i].full = True
+                            #         parcel_amount += 1
+        #
+        #
+        # # add last cargo to ships
+        # # shuffled_length = len(shuffled_list)
+        # for i in range(3):
+        #     for ship in dict_space:
+        #         for parcel in shuffled_list:
+        #             # print(shuffled_list)
+        #             if (ship.current_weight + dict_parcel[parcel].weight <= ship.max_weight and \
+        #                     ship.current_volume + dict_parcel[parcel].volume <= ship.max_volume):
+        #
+        #                 ship.current_weight += dict_parcel[parcel].weight
+        #                 ship.current_volume += dict_parcel[parcel].volume
+        #
+        #                 shuffled_list.remove(parcel)
+        #
+        #                 dict_parcel[parcel + 1].location = ship.id
+        #
+        #                 parcel_amount += 1
