@@ -29,4 +29,3 @@ def visualizeParcelsPerShip(inventory):
         dict_space_list.append(deepcopy(ship_dict))
 
     return dict_space_list
-    

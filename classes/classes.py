@@ -2,7 +2,8 @@ import math
 
 class Spaceship():
     """Spaceship object with properties from CSV file."""
-    def __init__(self, id, type, nation, mass, max_weight, max_volume, base_cost, ftw, current_weight=0, current_volume=0, full=False):
+    def __init__(self, id, type, nation, mass, max_weight, max_volume,\
+                base_cost, ftw, current_weight=0, current_volume=0, full=False):
         self.id = int(id)
         self.type = int(type)
         self.nation = nation
@@ -19,9 +20,15 @@ class Spaceship():
         return self.max_weight/self.max_volume
 
     def returnShip(self):
-        return {"id": self.id, "nation": self.nation, "mass": self.mass, "max_weight": self.max_weight, "max_volume": self.max_volume, \
-                     "base_cost": self.base_cost, "ftw": self.ftw, "current_weight": self.current_weight, \
-                        "current_volume": self.current_volume}
+        return {"id": self.id,\
+                "nation": self.nation,\
+                "mass": self.mass,\
+                "max_weight": self.max_weight,\
+                "max_volume": self.max_volume,\
+                "base_cost": self.base_cost,\
+                "ftw": self.ftw,\
+                "current_weight": self.current_weight,\
+                "current_volume": self.current_volume}
 
 class Parcel():
     """Parcel object with properties from CSV file."""
@@ -33,11 +40,16 @@ class Parcel():
         self.location = int(location)
 
     def returnParcel(self):
-        return {"id": self.id, "weight": self.weight, "volume": self.volume, "ratio": self.ratio, "location": self.location}
+        return {"id": self.id,\
+                "weight": self.weight,\
+                "volume": self.volume,\
+                "ratio": self.ratio,\
+                "location": self.location}
 
-class Inventory(Spaceship, Parcel):
+class Inventory():
     """Inventory."""
-    def __init__(self, dict_space, dict_parcel, solution_id = 0, parcel_amount = 0, total_costs = 0):
+    def __init__(self, dict_space, dict_parcel, solution_id = 0, \
+                parcel_amount = 0, total_costs = 0):
         self.solution_id = solution_id
         self.dict_space = dict_space
         self.dict_parcel = dict_parcel
@@ -55,9 +67,13 @@ class Inventory(Spaceship, Parcel):
     def calculate_costs(self):
         for ship in self.dict_space:
             self.total_costs += ship.base_cost
-            self.total_costs += math.ceil((ship.mass + ship.current_weight) * ship.ftw / (1 - ship.ftw) * 1000) * 5
+            self.total_costs += math.ceil((ship.mass + ship.current_weight) * \
+                                ship.ftw / (1 - ship.ftw) * 1000) * 5
         return self.total_costs
 
     def return_inventory(self):
-        return {"dict_space": self.dict_space, "dict_parcel": self.dict_parcel, "solution_id": self.solution_id, \
-                    "parcel_amount": self.parcel_amount, "total_costs": self.total_costs}
+        return {"dict_space": self.dict_space,\
+                "dict_parcel": self.dict_parcel,\
+                "solution_id": self.solution_id,\
+                "parcel_amount": self.parcel_amount,\
+                "total_costs": self.total_costs}
