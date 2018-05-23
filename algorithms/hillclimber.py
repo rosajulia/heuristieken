@@ -1,16 +1,16 @@
 import random
 from copy import copy, deepcopy
-from algorithms import randomalgorithm
+from scripts import fillitup
 
 def hill_climber(inventory, repetitions, current_repetition=0):
 
     # keep track of how many manipulations have been performed
     repetition_counter = current_repetition
-    print(repetition_counter)
+    # print(repetition_counter)
 
     # save initial inventory to compare manipulated inventory with
     inventory_pre = inventory
-    print(inventory_pre.solution_id)
+    # print(inventory_pre.solution_id)
     inventory_mid = deepcopy(inventory)
 
     # determine which parcels are currently in which ship
@@ -22,7 +22,7 @@ def hill_climber(inventory, repetitions, current_repetition=0):
         else:
             occupied_parcels.append(parcel.id)
 
-    print(len(occupied_parcels), len(remaining_parcels))
+    # print(len(occupied_parcels), len(remaining_parcels))
 
 
     # get amount of parcels to remove
@@ -38,35 +38,39 @@ def hill_climber(inventory, repetitions, current_repetition=0):
 
         # decide randomly which of the occupied parcels to remove
         parcel_index_to_remove = random.randint(0,len(occupied_parcels))
-        print(len(occupied_parcels), occupied_parcels)
-        parcel_id_to_remove = occupied_parcels[parcel_index_to_remove]
+        # print(len(occupied_parcels), occupied_parcels)
+        if parcel_index_to_remove >= len(occupied_parcels):
+            break
+        else:
+            parcel_id_to_remove = occupied_parcels[parcel_index_to_remove]
 
-        # update parcel's location and ships current weight and volume
-        for parcel in inventory_mid.dict_parcel:
-            if parcel.id is parcel_id_to_remove:
-                for ship in inventory_mid.dict_space:
-                    if ship.id is parcel.location:
-                        ship.current_weight -= parcel.weight
-                        ship.current_volume -= parcel.volume
-                        break
-                parcel.location = 0
-                break
+            # update parcel's location and ships current weight and volume
+            for parcel in inventory_mid.dict_parcel:
+                if parcel.id is parcel_id_to_remove:
+                    for ship in inventory_mid.dict_space:
+                        if ship.id is parcel.location:
+                            ship.current_weight -= parcel.weight
+                            ship.current_volume -= parcel.volume
+                            break
+                    parcel.location = 0
+                    break
 
-        # update lists of occupied and remaining parcels
-        occupied_parcels.remove(parcel_id_to_remove)
-        remaining_parcels.append(parcel_id_to_remove)
+            # update lists of occupied and remaining parcels
+            occupied_parcels.remove(parcel_id_to_remove)
+            remaining_parcels.append(parcel_id_to_remove)
 
 
     # call random_algorithm to fill with current situation as starting point
     # compare output inventory of random_algorithm.parcel_amount with earlier parcel_amount
-    inventory_post = randomalgorithm.random_algorithm(inventory_mid, 1)[0]
+    inventory_post = fillitup.fill_it_up(inventory_mid)
+    # print("typeinvpost", type(inventory_post))
 
     # continue with hillclimber output if more parcels than before
     if inventory_post.parcel_amount > inventory_pre.parcel_amount:
         repetition_counter += 1
         if repetition_counter < repetitions:
             print("again1")
-            hill_climber(inventory_post, repetitions, repetition_counter)
+            return hill_climber(inventory_post, repetitions, repetition_counter)
         else:
             print("retpost1")
             return inventory_post
@@ -88,8 +92,8 @@ def hill_climber(inventory, repetitions, current_repetition=0):
             return hill_climber(inventory_pre, repetitions, repetition_counter)
         else:
             print("retpre")
-            print(type(inventory_pre))
-            print(inventory_pre.solution_id)
+            # print(type(inventory_pre))
+            # print(inventory_pre.solution_id)
             return inventory_pre
 
 
