@@ -29,7 +29,7 @@ def main():
     parser.add_argument('-b', "-bin_variation", help='Bin-packing variation: first, best, worst [default: first]', nargs='?', default='first', required=False)
     parser.add_argument('-hc', "-hillclimber", help='Hillclimber: yes or no [default: yes]', nargs='?', default='no', required=False)
     parser.add_argument('-hci', "-hc_iterations", help='Hillclimber iteration: int [default: 20]', nargs='?', default='20', required=False)
-    parser.add_argument('-i', "-iterations", help="Iterations: int [default: ", nargs='?', default='5', required=False)
+    parser.add_argument('-i', "-iterations", help="Iterations: int [default: 5]", nargs='?', default='5', required=False)
     args = parser.parse_args()
     
     # show values
