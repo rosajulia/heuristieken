@@ -56,9 +56,9 @@ def generateships(inventory, constraint):
 
             # add condition because USA has two ships
             if ship.nation not in score_keeper:
-                country = ship.nation
+                nation = ship.nation
                 taken = False
-                score_keeper[country] = taken
+                score_keeper[nation] = taken
 
         # loop while there is still cargo left
         while len(temp_cargo) > 0:
