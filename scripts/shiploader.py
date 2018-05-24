@@ -22,12 +22,12 @@ def shiploader(ship, cargolist):
     full = False
 
     # repeat loop until the ship is full
-    while not full:
+    while full is False and len(temp_cargolist) > 0:
 
         # pick a random parcel from the list
-        parcel = random.choice(cargolist)
+        parcel = random.choice(temp_cargolist)
 
-        if parcel.weight <= weight_left and parcel.volume <= volume_left:
+        if parcel.weight <= weight_left and parcel.volume <= volume_left: 
 
             weight_left -= parcel.weight
             volume_left -= parcel.volume

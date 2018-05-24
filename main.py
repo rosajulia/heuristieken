@@ -2,14 +2,16 @@
 
 import sys
 import datetime
-from algorithms import randomalgorithm, greedyratio, hillclimber
+from algorithms import randomalgorithm, greedyratio, hillclimber, binpackvariations
 from data import dataloader
 from classes import classes
-from scripts import graph, helpers
+from scripts import graph, helpers, best_solutions, generateships
 from copy import copy, deepcopy
+from visualisation import visual
 
 from flask import Flask, render_template, Response, jsonify
 import time
+import argparse
 
 # necessary for this script: pip install matplotlib
 # future ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
@@ -19,108 +21,70 @@ app = Flask(__name__, template_folder="visualisation")
 
 @app.route("/")
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python main.py integer")
-        sys.exit(1)
+    # initialize command-line arguments
+    parser = argparse.ArgumentParser(description='Calculate the optimal organisation of a cargolist in spaceships')
+    parser.add_argument('-c', "-cargo", help='Cargolist: 1, 2, 3 [default: 1]', nargs='?', default='1', required=False)
+    parser.add_argument('-s', "-ships", help='More than 4 ships: yes or no [default: no]', nargs='?', default='no', required=False)
+    parser.add_argument('-p', "-politics", help='Political constraints: true or false [default: false]', nargs='?', default='False', required=False)
+    parser.add_argument('-a', "-algorithms", help='Algorithm: greedy, random, bin [default: greedy]', nargs='?', default='greedy', required=False)
+    parser.add_argument('-b', "-bin_variation", help='Bin-packing variation: first, best, worst [default: first]', nargs='?', default='first', required=False)
+    parser.add_argument('-hc', "-hillclimber", help='Hillclimber: yes or no [default: yes]', nargs='?', default='no', required=False)
+    parser.add_argument('-hci', "-hc_iterations", help='Hillclimber iteration: int [default: 20]', nargs='?', default='20', required=False)
+    parser.add_argument('-i', "-iterations", help="Iterations: int [default: 5]", nargs='?', default='5', required=False)
+    args = parser.parse_args()
+
+    # show values
+    print("Cargolist: %i" % int(args.c))
+    print("More than 4 ships: %s" % args.s)
+    print("Political constraints: %s" % bool(args.p))
+    print("Bin variation: %s" % args.b)
+    print("Algorithm: %s" % args.a)
+    print("Hillclimber: %s" % args.hc)
+    print("Hillclimber iterations: %s" % int(args.hci))
+    print("Iterations: %i" % int(args.i))
 
     # load data
     ship_data = "data/spacecrafts.csv"
-    cargo_data = "data/CargoList1.csv"
+    cargo_data = "data/CargoList%s.csv" % args.c
     inventory = dataloader.load_data(ship_data, cargo_data)
-    # print(inventory.dict_parcel)
-    # for parcel in inventory.dict_parcel:
-    #     print(parcel.id)
+    repetitions = int(args.i)
+    repetition_hillclimber = int(args.hci)
 
-    # if only 4 ships needed:
-    # print("2x dict space inkorten")
-    # print(inventory.dict_space)
-    inventory.dict_space = inventory.dict_space[:4]
-    # print(inventory.dict_space)
+    if args.s == "no":
+        inventory.dict_space = inventory.dict_space[:4]
+    else:
+        generateships.generateships(inventory, args.p)
 
-    print('{}: Start random algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
+    # start algorithm
+    print('{}: Start algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
 
-    costs_list = []
-    parcel_amount_list = []
+    if args.a == "greedy":
+        solutions = greedyratio.greedy_ratio(inventory, repetitions)
+    elif args.a == "random":
+        solutions = randomalgorithm.random_algorithm(inventory, repetitions)
+    elif args.a == "bin":
+        solutions = binpackvariations.binpack(inventory, args.b, args.p, repetitions)
 
-    repetitions = int(sys.argv[1])
+    print('{}: Finished running {} times.'.format(datetime.datetime.now().strftime("%H:%M:%S"), args.i))
 
-    # hier een ifje om te splitsen per algoritme obv command-line arguments
+    # calculate best solution
+    best_solution = best_solutions.solutions(solutions)
 
-    solutions = greedyratio.greedy_ratio(inventory, repetitions)
-    # solutions = randomalgorithm.random_algorithm(inventory, repetitions)
+    result = best_solution[0]
+    parcel_amount = best_solution[1]
+    costs = best_solution[2]
 
-    # collect all parcel amounts in list and determine highest
-    for solution in solutions:
-        # print("2", solution.dict_parcel[0].location)
-        parcel_amount_list.append(solution.parcel_amount)
-    max_parcel_amount = max(parcel_amount_list)
+    if args.hc == "yes":
+        hillsolution = hillclimber.hill_climber(result, repetition_hillclimber)
+        best_solution = hillsolution
 
-    # continue with solutions with max parcel amount
-    parcel_checked_solutions = []
-    for solution in solutions:
-        if solution.parcel_amount is max_parcel_amount:
-            parcel_checked_solutions.append(deepcopy(solution))
-
-    # collect all costs of remaining solutions in list and determine lowest
-    for solution in parcel_checked_solutions:
-        costs_list.append(solution.total_costs)
-    # print(len(costs_list), costs_list)
-    min_costs = min(costs_list)
-    # print("mcl", min_costs, type(min_costs))
-
-    # save solution(s) with lowest cost
-    best_solutions = []
-    for solution in parcel_checked_solutions:
-        if solution.total_costs is min_costs:
-            best_solutions.append(deepcopy(solution))
-
-    print('{}: Finished running {} times.'.format(datetime.datetime.now().strftime("%H:%M:%S"), sys.argv[1]))
-
-    print("Maximum amount of parcels in ship: {}".format(max_parcel_amount))
-    print("Corresponding costs: {}". format(min_costs))
-
-    # visualize which ships contain which parcels in best solution(s)
-    for solution in best_solutions:
-        solution_statement = helpers.visualizeParcelsPerShip(solution)
-        for element in solution_statement:
-            print(element)
-
-
-    hill_solution = hillclimber.hill_climber(best_solutions[0], repetitions)
-    # print(type(hill_solution))
-    solution_statement2 = helpers.visualizeParcelsPerShip(hill_solution)
-    for element in solution_statement2:
-        print(element)
-
-
-        d = {}
-        for i in range(4):
-            current_weight = solution.dict_space[i].current_weight
-            current_volume = solution.dict_space[i].current_volume
-
-            max_weight = solution.dict_space[i].max_weight
-            max_volume = solution.dict_space[i].max_volume
-
-            weight = current_weight / max_weight * 100
-            volume = current_volume / max_volume * 100
-
-            weight_send = format(weight, '.2f')
-            volume_send = format(volume, '.2f')
-
-            d["weight" + str(i)] = weight_send
-            d["volume" + str(i)] = volume_send
-            d["total_amount" + str(i)] = len(solution_statement[i]["content"])
-            d["parcels" + str(i)] = solution_statement[i]["content"]
-    print("best sol par am", best_solutions[0].parcel_amount)
-    print("hill parcel amount: ", hill_solution.parcel_amount)
-    print("best sol costs", best_solutions[0].total_costs)
-    print("hill costs", hill_solution.total_costs)
-
-    # print(hill_solution.total_costs)
-    # plot parcel amounts of all found solutions in histogram
-    graph.barchart([solution.parcel_amount for solution in solutions])
-
-    return render_template("visual.html", d=d)
+    # start visualisation with more than 4 ships
+    if args.s == "no":
+        d = visual.visual(args.s, result)
+        return render_template("visual.html", d=d, parcel_amount=parcel_amount, costs=costs)
+    else:
+        d = visual.visual(args.s, result)
+        return render_template("terminal.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
