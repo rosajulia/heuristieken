@@ -24,7 +24,7 @@ def main():
     parser = argparse.ArgumentParser(description='Calculate the optimal organisation of a cargolist in spaceships')
     parser.add_argument('-c', "-cargo", help='Cargolist: 1, 2, 3', nargs='?', default='1', required=False)
     parser.add_argument('-s', "-ships", help='More than 4 ships: yes or no', nargs='?', default='no', required=False)
-    parser.add_argument('-p', "-politics", help='Political constraints: yes or no', nargs='?', default='no', required=False)
+    parser.add_argument('-p', "-politics", help='Political constraints: true or false', nargs='?', default='True', required=False)
     parser.add_argument('-a', "-algorithms", help='Algorithm: greedy or random', nargs='?', default='greedy', required=False)
     parser.add_argument('-hc', "-hillclimber", help='Hillclimber: yes or no', nargs='?', default='no', required=False)
     parser.add_argument('-hci', "-hc_iterations", help='Hillclimber: yes or no', nargs='?', default='950', required=False)
@@ -50,7 +50,7 @@ def main():
     if args.s == "no":
         inventory.dict_space = inventory.dict_space[:4]
     else:
-        generateships.generateships(inventory, args.c, True)
+        generateships.generateships(inventory, args.p)
 
     # inventory.dict_space = inventory.dict_space[:4]
 
