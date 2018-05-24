@@ -1,87 +1,128 @@
 import random
+from copy import copy, deepcopy
+from scripts import fillitup
 
-# zorgen dat je hillclimber kan aanroepen met een inventory als beginpunt
+def hill_climber(inventory, repetitions, current_repetition=0):
 
+    # keep track of how many manipulations have been performed
+    repetition_counter = current_repetition
+    # print(repetition_counter)
 
-# hillclimber
-    # use remainder of shuffles list from greedy
-    # change in greedy:
-        # instead of pop, add to other list (occupied parcels)
-        # include these lists? or recreate in hillclimber based on parcel locations
-    # choose:
-        # random amount to remove
-        # random parcel id's to remove
-    # chosen numbers
-        # --> change location to 0
-        # --> add numbers to remainder list
-        # --> adjust current weights and volumes
-    # fill randomly until full (reuse code of other algorithms)
-        # --> change parcel locations
-        # --> add numbers to occupied list
-        # --> adjust current weights and volumes
-    # consider outcome costs
-        # higher ==> use this inventory as new starting point
-        # lower ==> ignore and start over from current best starting point
+    # save initial inventory to compare manipulated inventory with
+    inventory_pre = inventory
+    # print(inventory_pre.solution_id)
+    inventory_mid = deepcopy(inventory)
 
-    # should return inventory
-
-
-def hill_climber(inventory):
-
-    #     save the parcel distribution in list of dicts: or create new one with new id?
-    # current_distribution = []
+    # determine which parcels are currently in which ship
     remaining_parcels = []
     occupied_parcels = []
-
-    # kan ook als: ?
-    inventory_pre = inventory
-    inventory_mid = inventory_pre
-
     for parcel in inventory.dict_parcel:
-        # parcel_id_location = {parcel.id: parcel.location} # moeten er aanhalingstekens bij de key?
-        # current_distribution.append(parcel_id_location)
         if parcel.location == 0:
             remaining_parcels.append(parcel.id)
         else:
             occupied_parcels.append(parcel.id)
-    # current_parcel_amount = inventory.parcel_amount
-    # current_costs = inventory.total_costs
 
-    # get amount of parcels to remove (misschien wat verschillende getallen proberen en gemiddelde berekenen om te kijken wat het beste werkt?)
-    remove_amount_parcels = randint(1, 10)
+    # print(len(occupied_parcels), len(remaining_parcels))
+
+
+    # get amount of parcels to remove
+    # (misschien wat verschillende getallen proberen en gemiddelde berekenen om te kijken wat het beste werkt?)
+    remove_amount_parcels = random.randint(1,10)
+
+    # ensure enough parcels occupied to remove
+    while remove_amount_parcels > len(occupied_parcels):
+        remove_amount_parcels = random.randint(1, 10)
 
     # loop as often as amount of parcels to remove
     for _ in range(remove_amount_parcels):
 
         # decide randomly which of the occupied parcels to remove
-        parcel_to_remove = randint(0,len(occupied_parcels))
-        parcel_id_to_remove = occupied_parcels[parcel_to_remove].id # klopt nog niet
+        parcel_index_to_remove = random.randint(0,len(occupied_parcels))
+        # print(len(occupied_parcels), occupied_parcels)
+        if parcel_index_to_remove >= len(occupied_parcels):
+            break
+        else:
+            parcel_id_to_remove = occupied_parcels[parcel_index_to_remove]
 
-        # update current weight and volume of ship parcel resided in
-        inventory_mid.dict_space[inventory_mid.dict_parcel[parcel_id_to_remove - 1].location].current_weight -= inventory_mid.dict_parcel[parcel_id_to_remove - 1].weight
-        inventory_mid.dict_space[inventory_mid.dict_parcel[parcel_id_to_remove - 1].location].current_volume -= inventory_mid.dict_parcel[parcel_id_to_remove - 1].volume
+            # update parcel's location and ships current weight and volume
+            for parcel in inventory_mid.dict_parcel:
+                if parcel.id is parcel_id_to_remove:
+                    for ship in inventory_mid.dict_space:
+                        if ship.id is parcel.location:
+                            ship.current_weight -= parcel.weight
+                            ship.current_volume -= parcel.volume
+                            break
+                    parcel.location = 0
+                    inventory_mid.parcel_amount -= 1
+                    break
 
-        # update parcel location and lists of occupied and remaining parcels
-        inventory_mid.dict_parcel[parcel_id_to_remove - 1].location = 0
-        occupied_parcels.remove(parcel_to_remove)
-        remaining_parcels.append(inventory_mid.dict_parcel[parcel_id_to_remove].id)
+            # update lists of occupied and remaining parcels
+            occupied_parcels.remove(parcel_id_to_remove)
+            remaining_parcels.append(parcel_id_to_remove)
 
+    inventory_mid.total_costs = inventory_mid.calculate_costs()
     # call random_algorithm to fill with current situation as starting point
     # compare output inventory of random_algorithm.parcel_amount with earlier parcel_amount
-    inventory_post = randomalgorithm.random_algorithm(inventory_mid)
+    inventory_post = fillitup.fill_it_up(inventory_mid)
+    # print("typeinvpost", type(inventory_post))
 
     # continue with hillclimber output if more parcels than before
     if inventory_post.parcel_amount > inventory_pre.parcel_amount:
-        return inventory_post
+        repetition_counter += 1
+        if repetition_counter < repetitions:
+            print("again1", inventory_post.parcel_amount, inventory_pre.parcel_amount)
+            return hill_climber(inventory_post, repetitions, repetition_counter)
+        else:
+            print("retpost1")
+            return inventory_post
 
     # continue with hillclimber output if same amount of parcels but cheaper
     elif inventory_post.parcel_amount == inventory_pre.parcel_amount and inventory_post.total_costs < inventory_pre.total_costs:
-        return inventory_post
+        repetition_counter += 1
+        if repetition_counter < repetitions:
+            print("again2", inventory_post.parcel_amount, inventory_pre.parcel_amount)
+            return hill_climber(inventory_post, repetitions, repetition_counter)
+        else:
+            print("retpost2")
+            return inventory_post
 
     else:
-        return
+        repetition_counter += 1
+        if repetition_counter < repetitions:
+            print("againpre", inventory_post.parcel_amount, inventory_pre.parcel_amount)
+            return hill_climber(inventory_pre, repetitions, repetition_counter)
+        else:
+            print("retpre")
+            # print(type(inventory_pre))
+            # print(inventory_pre.solution_id)
+            return inventory_pre
 
 
 
         # als geen pakketjes in schip --> niet meetellen in kosten
         # hillclimber met pakketjes vs hillclimber met de vloot
+
+        # zorgen dat je hillclimber kan aanroepen met een inventory als beginpunt
+
+
+        # hillclimber
+            # use remainder of shuffles list from greedy
+            # change in greedy:
+                # instead of pop, add to other list (occupied parcels)
+                # include these lists? or recreate in hillclimber based on parcel locations
+            # choose:
+                # random amount to remove
+                # random parcel id's to remove
+            # chosen numbers
+                # --> change location to 0
+                # --> add numbers to remainder list
+                # --> adjust current weights and volumes
+            # fill randomly until full (reuse code of other algorithms)
+                # --> change parcel locations
+                # --> add numbers to occupied list
+                # --> adjust current weights and volumes
+            # consider outcome costs
+                # higher ==> use this inventory as new starting point
+                # lower ==> ignore and start over from current best starting point
+
+            # should return inventory

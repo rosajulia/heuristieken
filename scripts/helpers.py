@@ -71,10 +71,11 @@ def visualizeParcelsPerShip(inventory):
         # create a dict object with correct attributes
         ship_dict = {"id": ship_id,
                      "type": ship.type,
+                     "current weight": ship.current_weight,
+                     "current_volume": ship.current_volume,
                      "content": ship_list}
 
         # append the ship to the master list
         dict_space_list.append(deepcopy(ship_dict))
 
     return dict_space_list
-    

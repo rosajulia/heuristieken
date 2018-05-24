@@ -54,6 +54,7 @@ def random_algorithm(inventory, repetitions):
                     ship_counter = 1
                 else:
                     ship_counter += 1
+
             # pick random parcel
             add_ID = shuffled_list.pop()
 
