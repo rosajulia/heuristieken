@@ -24,18 +24,18 @@ def generateships(inventory, constraint):
     """
 
     fleet = []
-    ships = inventory.dict_space
-    temp_cargo = inventory.dict_parcel
+    ships = deepcopy(inventory.dict_space)
+    temp_cargo = deepcopy(inventory.dict_parcel)
     ship_counter = 1
 
     # if any number of ships can be used
-    if constraint == False:
+    if constraint is "False":
 
         # loop while there is still cargo left
         while len(temp_cargo) > 0:
 
             # pick a random ship from the list
-            ship = random.choice(ships)
+            ship = deepcopy(random.choice(ships))
             ship.id  = ship_counter
 
             # fill that ship with parcels
@@ -46,7 +46,10 @@ def generateships(inventory, constraint):
 
             ship_counter += 1
         
-        inventory.dict_space = fleet
+        inventory.dict_space = deepcopy(fleet)
+
+        for ship in inventory.dict_space:
+            print(ship.id)
 
         return inventory
 
@@ -94,7 +97,6 @@ def generateships(inventory, constraint):
                 score_keeper = {nation:False for nation in score_keeper}
 
         inventory.dict_space = fleet
-        print(inventory.dict_space)
         
         return inventory
 

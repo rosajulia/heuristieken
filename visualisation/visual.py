@@ -9,7 +9,6 @@ def visual(ships, best_solution):
 
         solutions: List of instances of Inventory class containing best solutions.
     """
-
     # visualize which ships contain which parcels in best solution(s)
     solution_statement = helpers.visualizeParcelsPerShip(best_solution)
     for element in solution_statement:
@@ -35,8 +34,8 @@ def visual(ships, best_solution):
             d["volume" + str(i)] = volume_send
             d["total_amount" + str(i)] = len(solution_statement[i]["content"])
             d["parcels" + str(i)] = solution_statement[i]["content"]
-            d["total_parcels"] = best_solution[1]
-            d["total_costs"] = best_solution[2]
+            # d["total_parcels"] = best_solution[1]
+            # d["total_costs"] = best_solution[2]
 
         return d
     else:

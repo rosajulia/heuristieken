@@ -24,8 +24,6 @@ def shiploader(ship, cargolist):
     # repeat loop until the ship is full
     while full is False and len(temp_cargolist) > 0:
 
-        print(len(temp_cargolist))
-
         # pick a random parcel from the list
         parcel = random.choice(temp_cargolist)
 

@@ -32,13 +32,13 @@ def main():
     args = parser.parse_args()
     
     # show values
-    print ("Cargolist: %i" % int(args.c))
-    print ("More than 4 ships: %s" % args.s)
-    print ("Political defaultraints: %s" % args.p)
-    print ("Algorithm: %s" % args.a)
-    print ("Hillclimber: %s" % args.hc)
-    print ("Hillclimber iterations: %s" % int(args.hci))
-    print ("Iterations: %i" % int(args.i))
+    print("Cargolist: %i" % int(args.c))
+    print("More than 4 ships: %s" % args.s)
+    print("Political defaultraints: %s" % args.p)
+    print("Algorithm: %s" % args.a)
+    print("Hillclimber: %s" % args.hc)
+    print("Hillclimber iterations: %s" % int(args.hci))
+    print("Iterations: %i" % int(args.i))
     
     # load data
     ship_data = "data/spacecrafts.csv"
@@ -52,8 +52,6 @@ def main():
     else:
         generateships.generateships(inventory, args.p)
 
-    # inventory.dict_space = inventory.dict_space[:4]
-
     # start algorithm
     print('{}: Start algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
 
@@ -66,15 +64,18 @@ def main():
 
     # calculate best solution
     best_solution = best_solutions.solutions(solutions)
-    
+    parcel_amount = best_solution[1]
+    costs = best_solution[2]
+    best_solution = best_solution[0]
+
     if args.hc == "yes":
-        hillsolution = hillclimber.hill_climber(best_solution[0], repetition_hillclimber)
+        hillsolution = hillclimber.hill_climber(best_solution, repetition_hillclimber)
         best_solution = hillsolution
 
     # start visualisation with more than 4 ships
     if args.s == "no":   
         d = visual.visual(args.s, best_solution)
-        return render_template("visual.html", d=d)
+        return render_template("visual.html", d=d, parcel_amount=parcel_amount, costs=costs)
     else:
         d = visual.visual(args.s, best_solution)
         return render_template("terminal.html")
