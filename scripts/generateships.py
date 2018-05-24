@@ -29,7 +29,7 @@ def generateships(inventory, constraint):
     ship_counter = 1
 
     # if any number of ships can be used
-    if constraint is "False":
+    if constraint is False:
 
         # loop while there is still cargo left
         while len(temp_cargo) > 0:

@@ -48,7 +48,7 @@ def binpack(inventory, packing_variation, constraint, repetitions):
     
     # check for correct user input
     if type(constraint) != bool:
-        raise TypeError("Expected boolean for arg contraint")
+        raise TypeError("Expected boolean for arg constraint")
 
     solutions = []
     parcel_amount = 0
@@ -60,7 +60,6 @@ def binpack(inventory, packing_variation, constraint, repetitions):
 
         dict_space = [helpers.reset(element) for element in dict_space]
         dict_parcel = [helpers.resetParcel(element) for element in dict_parcel]
-
 
         # script for first-fit variation
         if packing_variation.lower() == "first":
@@ -86,6 +85,8 @@ def binpack(inventory, packing_variation, constraint, repetitions):
             inventory.parcel_amount = parcel_amount
             inventory.total_costs = inventory.calculate_costs()
             solutions.append(inventory)
+
+            return solutions
 
         # script for best-fit
         elif packing_variation.lower() == "best":
@@ -124,10 +125,10 @@ def binpack(inventory, packing_variation, constraint, repetitions):
                 parcel_amount += 1
 
             inventory.parcel_amount = parcel_amount
-            inventory.total_costs = inventory.calculate_costs
+            inventory.total_costs = inventory.calculate_costs()
             solutions.append(inventory)
 
-
+            return solutions
 
         # script for best-fit
         elif packing_variation.lower() == "worst":
@@ -166,10 +167,11 @@ def binpack(inventory, packing_variation, constraint, repetitions):
                 parcel_amount += 1
 
             inventory.parcel_amount = parcel_amount
-            inventory.total_costs = inventory.calculate_costs
+            inventory.total_costs = inventory.calculate_costs()
             solutions.append(inventory)
-        
-        else:
 
+            return solutions
+
+        else:
             # error handler for incorrect argument packing_variation
             raise TypeError("Enter 'first', 'best' or 'worst' for command line arg packing_variation.")

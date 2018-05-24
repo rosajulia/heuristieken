@@ -7,6 +7,7 @@ from copy import copy, deepcopy
 def greedy_ratio(inventory, repetitions):
     """Greedy algorithm based on the ratios of weight and volume per parcel, and suitable ships for those ratios."""
     
+    # initialize values for greedy algorithm
     solutions = []
 
     dict_space = inventory.dict_space
