@@ -27,6 +27,8 @@ def random_algorithm(inventory, repetitions):
         amount_of_parcels = len(dict_parcel)
         parcel_weight_max = inventory.maxParcelWeightVolume()[0]
         parcel_volume_max = inventory.maxParcelWeightVolume()[1]
+        # print("pwm", parcel_weight_max, "pvm", parcel_volume_max)
+
         inventory.solution_id = solution_id
 
         # which of the ships is currently being filled
@@ -36,7 +38,7 @@ def random_algorithm(inventory, repetitions):
         parcel_amount = 0
 
         # make shuffled list
-        shuffled_list = random.sample(range(100), k=100)
+        shuffled_list = random.sample(range(len(dict_parcel)), k=len(dict_parcel))
 
         # start weight and volume of ships at zero and set to not full
         dict_space = [helpers.reset(element) for element in dict_space]
@@ -55,8 +57,11 @@ def random_algorithm(inventory, repetitions):
                 else:
                     ship_counter += 1
 
-            # pick random parcel
-            add_ID = shuffled_list.pop()
+            if len(shuffled_list) < 1:
+                break
+            else:
+                # pick random parcel
+                add_ID = shuffled_list.pop()
 
             # add parcel to ship
             dict_parcel[add_ID - 1].location = dict_space[ship_counter - 1].id
