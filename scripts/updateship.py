@@ -1,4 +1,4 @@
-def updateship(ship, parcel):
+def updateship(ship, parcel, number):
     """
     This script updates the attributes of a ship when a parcel is stored in it.
 

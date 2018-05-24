@@ -113,5 +113,8 @@ def random_algorithm(inventory, repetitions):
 
         # collect all solutions in list for returning
         solutions.append(deepcopy(inventory))
+        # print("0", dict_parcel[0].location)
+        # print("1", inventory.dict_parcel[0].location)
+
 
     return solutions

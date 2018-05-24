@@ -2,7 +2,7 @@
 
 import sys
 import datetime
-from algorithms import randomalgorithm, greedyratio
+from algorithms import randomalgorithm, greedyratio, hillclimber
 from data import dataloader
 from classes import classes
 from scripts import graph, helpers
@@ -16,6 +16,7 @@ import time
 
 app = Flask(__name__, template_folder="visualisation")
 
+
 @app.route("/")
 def main():
     if len(sys.argv) != 2:
@@ -26,11 +27,14 @@ def main():
     ship_data = "data/spacecrafts.csv"
     cargo_data = "data/CargoList1.csv"
     inventory = dataloader.load_data(ship_data, cargo_data)
+    # print(inventory.dict_parcel)
+    # for parcel in inventory.dict_parcel:
+    #     print(parcel.id)
 
     # if only 4 ships needed:
     # print("2x dict space inkorten")
     # print(inventory.dict_space)
-    # inventory.dict_space = inventory.dict_space[:4]
+    inventory.dict_space = inventory.dict_space[:4]
     # print(inventory.dict_space)
 
     print('{}: Start random algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
@@ -47,7 +51,7 @@ def main():
 
     # collect all parcel amounts in list and determine highest
     for solution in solutions:
-        # print(type(solution.total_costs))
+        # print("2", solution.dict_parcel[0].location)
         parcel_amount_list.append(solution.parcel_amount)
     max_parcel_amount = max(parcel_amount_list)
 
@@ -81,6 +85,14 @@ def main():
         for element in solution_statement:
             print(element)
 
+
+    hill_solution = hillclimber.hill_climber(best_solutions[0], repetitions)
+    # print(type(hill_solution))
+    solution_statement2 = helpers.visualizeParcelsPerShip(hill_solution)
+    for element in solution_statement2:
+        print(element)
+
+
         d = {}
         for i in range(4):
             current_weight = solution.dict_space[i].current_weight
@@ -99,7 +111,12 @@ def main():
             d["volume" + str(i)] = volume_send
             d["total_amount" + str(i)] = len(solution_statement[i]["content"])
             d["parcels" + str(i)] = solution_statement[i]["content"]
+    print("best sol par am", best_solutions[0].parcel_amount)
+    print("hill parcel amount: ", hill_solution.parcel_amount)
+    print("best sol costs", best_solutions[0].total_costs)
+    print("hill costs", hill_solution.total_costs)
 
+    # print(hill_solution.total_costs)
     # plot parcel amounts of all found solutions in histogram
     graph.barchart([solution.parcel_amount for solution in solutions])
 
