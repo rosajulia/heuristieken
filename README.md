@@ -27,7 +27,6 @@ Our repository consists of the following files and folders:
 
 
 # Use of program
-For data visualisation installing matplotlib is required (pip install matplotlib).<br /><br />
 **Input**<br />
 Usage: main.py [-h] [-c [int]] [-s] [-p] [-a [str]] [-b [str]] [-hc] [-hci [int]] [-i [i]]<br />
 <br />
