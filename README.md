@@ -34,7 +34,7 @@ Calculate the optimal organisation of a cargolist in spaceships<br />
 <br />
 optional arguments:<br />
   -h, --help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;show this help message and exit<br />
-  -c, -cargo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;choose a cargolist: 1, 2, 3 (int)<br />
+  -c, -cargo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;choose a cargolist: 1, 2, 3 (int)<br />
   -s, -ships &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;more than 4 ships: yes or no (string)<br />
   -p, -politics &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;political constraints: yes or no (string)<br />
   -a, -algorithms &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;which algorithm: greedy or random (string)<br />
