@@ -2,12 +2,18 @@ import random
 
 def shiploader(ship, cargolist):
     """
-    This script is used to update the cargolist.
-    Randomly fills ship object with parcels from 
-    cargolist.
+    This script updates the cargolist by removing parcels that can be fitted in 
+    the ship. This script does NOT store the locations of the parcels, nor does 
+    it change the properties of a ship. It is ONLY used to generate a fleet of 
+    spaceships that will be used in other algorithms.
 
-    Returns an updated cargolist with all non-taken
-    parcels remaining.
+    Returns a new list of objects of type Parcel.
+
+    Takes two arguments:
+
+        ship: Must contain an object of type Spaceship.
+
+        cargolist: Must contain a list of objects of type Parcel.
     """
 
     temp_cargolist = cargolist

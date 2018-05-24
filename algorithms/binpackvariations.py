@@ -9,8 +9,8 @@ def binpack(inventory, packing_variation, constraint):
 
     Takes three arguments:
 
-        inventory: Must contain an inventory object that contains an array 
-        with ship objects and an array with parcel objects that need to be 
+        inventory: Must contain an inventory object that contains a list 
+        with ship objects and a list with parcel objects that need to be 
         packed.
         
         packing-variation: Specify heuristic to apply in the process of 
@@ -159,5 +159,7 @@ def binpack(inventory, packing_variation, constraint):
                 parcel)
     
     else:
+
+        # error handler for incorrect argument packing_variation
         raise TypeError("Enter 'first', 'best' or 'worst' for command line arg \
                          packing_variation.")
