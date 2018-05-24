@@ -25,7 +25,12 @@ def generateships(inventory, constraint):
 
     fleet = []
     ships = inventory.dict_space
+<<<<<<< HEAD
     temp_cargo = deepcopy(inventory.dict_parcel)
+=======
+    temp_cargo = inventory.dict_parcel
+    ship_counter = 1
+>>>>>>> d89860746d9e199d2459e36699efa25c9be2e710
 
     # if any number of ships can be used
     if constraint == False:
@@ -35,12 +40,15 @@ def generateships(inventory, constraint):
 
             # pick a random ship from the list
             ship = random.choice(ships)
+            ship.id  = ship_counter
 
             # fill that ship with parcels
             temp_cargo = shiploader.shiploader(ship, temp_cargo)
 
             # append the filled ship to the fleet list
             fleet.append(ship)
+
+            ship_counter += 1
         
         inventory.dict_space = fleet
 
@@ -66,6 +74,7 @@ def generateships(inventory, constraint):
 
             # pick a random ship from the list
             ship = random.choice(ships)
+            ship.id = ship_counter
 
             # keep picking a random ship while keeping scores even
             while score_keeper[ship.nation] == True:
@@ -79,6 +88,8 @@ def generateships(inventory, constraint):
 
             # append the filled ship to the fleet list
             fleet.append(ship)
+
+            ship_counter += 1
 
             # check if all nations are even
             if False not in score_keeper.values():

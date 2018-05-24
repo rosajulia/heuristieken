@@ -27,7 +27,7 @@ def shiploader(ship, cargolist):
         print(len(temp_cargolist))
 
         # pick a random parcel from the list
-        parcel = (random.choice(temp_cargolist))    
+        parcel = random.choice(temp_cargolist)
 
         if parcel.weight <= weight_left and parcel.volume <= volume_left: 
 
