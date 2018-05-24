@@ -3,7 +3,6 @@ from scripts import helpers
 import time
 from copy import copy, deepcopy
 
-
 # create random solutions
 def random_algorithm(inventory, repetitions):
     """Randomly fills spaceships with a cargo list.
@@ -15,8 +14,6 @@ def random_algorithm(inventory, repetitions):
     randomalgorithm.random_algorithm(inventory, repetitions)
     """
 
-    print("ik run nu random")
-
     solutions = []
     solution_id = 0
     for _ in range(repetitions):
@@ -27,7 +24,6 @@ def random_algorithm(inventory, repetitions):
         amount_of_parcels = len(dict_parcel)
         parcel_weight_max = inventory.maxParcelWeightVolume()[0]
         parcel_volume_max = inventory.maxParcelWeightVolume()[1]
-        # print("pwm", parcel_weight_max, "pvm", parcel_volume_max)
 
         inventory.solution_id = solution_id
 
@@ -94,9 +90,6 @@ def random_algorithm(inventory, repetitions):
 
                 # set ship to full
                 dict_space[ship_counter - 1].full = True
-
-            # time.sleep(1)
-            # yield dict_space[ship_counter].current_weight
 
             # keep track of how many ships are full
             full_ships_counter = 0

@@ -28,7 +28,7 @@ def main():
     parser.add_argument('-a', "-algorithms", help='Algorithm: greedy or random', nargs='?', default='greedy', required=False)
     parser.add_argument('-hc', "-hillclimber", help='Hillclimber: yes or no', nargs='?', default='no', required=False)
     parser.add_argument('-hci', "-hc_iterations", help='Hillclimber: yes or no', nargs='?', default='20', required=False)
-    parser.add_argument('-i', "-iterations", help="Iterations", nargs='?', default='5', required=False)
+    parser.add_argument('-i', "-iterations", help="Iterations: int", nargs='?', default='5', required=False)
     args = parser.parse_args()
     
     # show values
