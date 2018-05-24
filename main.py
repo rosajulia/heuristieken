@@ -19,7 +19,6 @@ import argparse
 app = Flask(__name__, template_folder="visualisation")
 
 @app.route("/")
-# @app.before_request
 def main():
     # initialize command-line arguments
     parser = argparse.ArgumentParser(description='Calculate the optimal organisation of a cargolist in spaceships')
@@ -28,6 +27,7 @@ def main():
     parser.add_argument('-p', "-politics", help='Political constraints: yes or no', nargs='?', default='no', required=False)
     parser.add_argument('-a', "-algorithms", help='Algorithm: greedy or random', nargs='?', default='greedy', required=False)
     parser.add_argument('-hc', "-hillclimber", help='Hillclimber: yes or no', nargs='?', default='no', required=False)
+    parser.add_argument('-hci', "-hillclimber", help='Hillclimber: yes or no', nargs='?', default='950', required=False)
     parser.add_argument('-i', "-iterations", help="Iterations", nargs='?', default='5', required=False)
     args = parser.parse_args()
     
@@ -37,6 +37,7 @@ def main():
     print ("Political defaultraints: %s" % args.p)
     print ("Algorithm: %s" % args.a)
     print ("Hillclimber: %s" % args.hc)
+    print ("Hillclimber iterations: %s" % int(args.hci))
     print ("Iterations: %i" % int(args.i))
     
     # load data
@@ -44,6 +45,7 @@ def main():
     cargo_data = "data/CargoList%s.csv" % args.c
     inventory = dataloader.load_data(ship_data, cargo_data)
     repetitions = int(args.i)
+    repetition_hillclimber = int(args.hci)
 
     # if args.s == "no":
     #     inventory.dict_space = inventory.dict_space[:4]
@@ -67,10 +69,10 @@ def main():
     print(best_solution[0])
     
     if args.hc == "yes":
-        hillsolution = hillclimber.hill_climber(best_solution[0], repetitions, 0)
+        hillsolution = hillclimber.hill_climber(best_solution[0], repetition_hillclimber, 0)
         best_solution = hillsolution
 
-    # start visualisation with more than 4 ships
+    # start visualisation with more thand 4 ships
     if args.s == "no":   
         d = visual.visual(best_solution)
         return render_template("visual.html", d=d)
