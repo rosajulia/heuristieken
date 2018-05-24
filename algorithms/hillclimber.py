@@ -1,6 +1,6 @@
 import random
 from copy import copy, deepcopy
-from scripts import fillitup, helpers
+from scripts import fillitup, helpers, updateship
 
 def hill_climber(inventory, repetitions):
 
@@ -42,8 +42,7 @@ def hill_climber(inventory, repetitions):
                     if parcel.id is parcel_id_to_remove:
                         for ship in inventory_mid.dict_space:
                             if ship.id is parcel.location:
-                                ship.current_weight -= parcel.weight
-                                ship.current_volume -= parcel.volume
+                                ship = updateship.update_ship(ship, parcel, "-")
                                 break
                         parcel.location = 0
                         inventory_mid.parcel_amount -= 1

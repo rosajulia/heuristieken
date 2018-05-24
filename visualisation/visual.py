@@ -15,7 +15,7 @@ def visual(ships, best_solution):
     #     print(element)
 
     # create dict for progress bars
-    if ships == "no":   
+    if ships == "no":
         d = {}
         for i in range(4):
             current_weight = best_solution.dict_space[i].current_weight

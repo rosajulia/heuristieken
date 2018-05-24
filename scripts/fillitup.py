@@ -1,4 +1,5 @@
 from random import shuffle
+from scripts import updateship
 
 def fill_it_up(inventory):
 
@@ -15,9 +16,6 @@ def fill_it_up(inventory):
 
     shuffle(remaining_parcel_indices)
 
-    # for ship in dict_space:
-    #     ship.full = False
-
     parcel_cursor = 0
     for _ in range(amount_remaining_parcels):
         parcel_cursor_counter = 0
@@ -29,15 +27,12 @@ def fill_it_up(inventory):
                 if (ship.current_weight + dict_parcel[index].weight <= ship.max_weight and \
                         ship.current_volume + dict_parcel[index].volume <= ship.max_volume):
 
-                    ship.current_weight += dict_parcel[index].weight
-                    ship.current_volume += dict_parcel[index].volume
+                    ship = updateship.update_ship(ship, dict_parcel[index], "+")
 
                     dict_parcel[index].location = ship.id
                     parcel_cursor += 1
                     parcel_cursor_counter += 1
                     parcel_amount += 1
-                    # print("pa4", parcel_amount)
-                    # print(parcel_cursor, dict_parcel[index].id, ship.id)
 
                 else:
                     continue
@@ -45,8 +40,6 @@ def fill_it_up(inventory):
             parcel_cursor += 1
 
     inventory.parcel_amount = parcel_amount
-    # print(inventory.total_costs, type(inventory.total_costs))
     inventory.total_costs = inventory.calculate_costs()
-    # print(inventory.total_costs, type(inventory))
 
     return inventory

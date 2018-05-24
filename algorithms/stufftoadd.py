@@ -18,6 +18,7 @@ Clean To do list:
 -	Code:
     o	Greedy opschonen naar kleinere functies
     o	Greedy checken op correcte scores
+    o	Hillclimber checken op correcte scores
     o	Random opschonen naar kleinere functies
     o	Binpack opschonen naar kleinere functies?
     o	Alle andere ff bekijken
@@ -52,3 +53,4 @@ Clean To do list:
                 o	Annealing aan?
                     	Ja: f(0,1,T) geeft acceptatiegrens -> random getal genereren en kijken of accepted -> temperatuur aanpassen
     o	Experimentatie bedenken, checken bij Bram, en doen
+    o   Calculations opschonen

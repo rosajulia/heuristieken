@@ -1,5 +1,5 @@
 import random
-from scripts import helpers
+from scripts import helpers, updateship
 import time
 from copy import copy, deepcopy
 
@@ -63,8 +63,7 @@ def random_algorithm(inventory, repetitions):
             dict_parcel[add_ID - 1].location = dict_space[ship_counter - 1].id
 
             # update spaceships current weight and volume
-            dict_space[ship_counter - 1].current_weight += dict_parcel[add_ID - 1].weight
-            dict_space[ship_counter - 1].current_volume += dict_parcel[add_ID - 1].volume
+            dict_space[ship_counter - 1] = updateship.update_ship(dict_space[ship_counter - 1], dict_parcel[add_ID - 1], "+")
 
             # count parcels per solution
             parcel_amount += 1
@@ -79,8 +78,7 @@ def random_algorithm(inventory, repetitions):
                     if (dict_space[ship_counter - 1].current_weight + dict_parcel[parcel_id - 1].weight <= dict_space[ship_counter - 1].max_weight and \
                         dict_space[ship_counter - 1].current_volume + dict_parcel[parcel_id - 1].volume <= dict_space[ship_counter - 1].max_volume):
 
-                        dict_space[ship_counter - 1].current_weight += dict_parcel[parcel_id - 1].weight
-                        dict_space[ship_counter - 1].current_volume += dict_parcel[parcel_id - 1].volume
+                        dict_space[ship_counter - 1] = updateship.update_ship(dict_space[ship_counter - 1], dict_parcel[parcel_id - 1], "+")
 
                         shuffled_list.remove(parcel_id)
 
@@ -106,8 +104,6 @@ def random_algorithm(inventory, repetitions):
 
         # collect all solutions in list for returning
         solutions.append(deepcopy(inventory))
-        # print("0", dict_parcel[0].location)
-        # print("1", inventory.dict_parcel[0].location)
 
 
     return solutions
