@@ -1,6 +1,6 @@
 import random
 from copy import copy, deepcopy
-from scripts import fillitup
+from scripts import fillitup, helpers
 
 def hill_climber(inventory, repetitions, current_repetition=0):
 
@@ -61,6 +61,12 @@ def hill_climber(inventory, repetitions, current_repetition=0):
             remaining_parcels.append(parcel_id_to_remove)
 
     inventory_mid.total_costs = inventory_mid.calculate_costs()
+    print("midcosts", inventory_mid.total_costs)
+
+    # print("mid")
+    # sol = helpers.visualizeParcelsPerShip(inventory_mid)
+    # for element in sol:
+    #     print(element)
     # call random_algorithm to fill with current situation as starting point
     # compare output inventory of random_algorithm.parcel_amount with earlier parcel_amount
     inventory_post = fillitup.fill_it_up(inventory_mid)
@@ -70,7 +76,10 @@ def hill_climber(inventory, repetitions, current_repetition=0):
     if inventory_post.parcel_amount > inventory_pre.parcel_amount:
         repetition_counter += 1
         if repetition_counter < repetitions:
-            print("again1", inventory_post.parcel_amount, inventory_pre.parcel_amount)
+            # print("again1", inventory_post.parcel_amount, inventory_pre.parcel_amount)
+            # sol = helpers.visualizeParcelsPerShip(inventory_post)
+            # for element in sol:
+            #     print(element)
             return hill_climber(inventory_post, repetitions, repetition_counter)
         else:
             print("retpost1")
@@ -80,7 +89,10 @@ def hill_climber(inventory, repetitions, current_repetition=0):
     elif inventory_post.parcel_amount == inventory_pre.parcel_amount and inventory_post.total_costs < inventory_pre.total_costs:
         repetition_counter += 1
         if repetition_counter < repetitions:
-            print("again2", inventory_post.parcel_amount, inventory_pre.parcel_amount)
+            # print("again2", inventory_post.parcel_amount, inventory_pre.parcel_amount)
+            # sol = helpers.visualizeParcelsPerShip(inventory_post)
+            # for element in sol:
+            #     print(element)
             return hill_climber(inventory_post, repetitions, repetition_counter)
         else:
             print("retpost2")
@@ -89,7 +101,10 @@ def hill_climber(inventory, repetitions, current_repetition=0):
     else:
         repetition_counter += 1
         if repetition_counter < repetitions:
-            print("againpre", inventory_post.parcel_amount, inventory_pre.parcel_amount)
+            # print("againpre", inventory_post.parcel_amount, inventory_pre.parcel_amount)
+            # sol = helpers.visualizeParcelsPerShip(inventory_pre)
+            # for element in sol:
+            #     print(element)
             return hill_climber(inventory_pre, repetitions, repetition_counter)
         else:
             print("retpre")
