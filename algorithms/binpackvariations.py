@@ -3,7 +3,7 @@ from scripts import generateships as gs
 from scripts import updateship as us
 from scripts import helpers
 
-def binpack(inventory, packing_variation, constraint, repetitions):
+def binpack(inventory, packing_variation, repetitions):
     """
     Algorithm for bin packing variations that adds an additional heuristic
     for packing the ships.
@@ -33,22 +33,9 @@ def binpack(inventory, packing_variation, constraint, repetitions):
             the most volume left after placing the parcel.
             Parcels are sorted by volume (descending).
 
-        constraint: Specify whether to apply the diplomatic constraint in 
-        generating a dict_space to carry the parcels. Takes boolean.
-
-            True: Applies diplomatic constraint when generating dict_space where 
-            the difference in the number of ship each nation sends cannot be 
-            larger than 1.
-
-            False: No constraints; dict_spaces will be generated at random.
-
         repetitions: Specify the number of times the algorithm will run. Takes
         nonnegative integer values.
     """
-    
-    # check for correct user input
-    if type(constraint) != bool:
-        raise TypeError("Expected boolean for arg constraint")
 
     solutions = []
     parcel_amount = 0

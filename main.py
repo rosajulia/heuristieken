@@ -22,20 +22,25 @@ app = Flask(__name__, template_folder="visualisation")
 def main():
     # initialize command-line arguments
     parser = argparse.ArgumentParser(description='Calculate the optimal organisation of a cargolist in spaceships')
-    parser.add_argument('-c', "-cargo", help='Cargolist: 1, 2, 3 [default: 1]', nargs='?', default='1', required=False)
-    parser.add_argument('-s', "-ships", help='More than 4 ships: yes or no [default: no]', nargs='?', default='no', required=False)
-    parser.add_argument('-p', "-politics", help='Political constraints: true or false [default: false]', nargs='?', default='False', required=False)
-    parser.add_argument('-a', "-algorithms", help='Algorithm: greedy, random, bin [default: greedy]', nargs='?', default='greedy', required=False)
-    parser.add_argument('-b', "-bin_variation", help='Bin-packing variation: first, best, worst [default: first]', nargs='?', default='first', required=False)
-    parser.add_argument('-hc', "-hillclimber", help='Hillclimber: yes or no [default: yes]', nargs='?', default='no', required=False)
-    parser.add_argument('-hci', "-hc_iterations", help='Hillclimber iteration: int [default: 20]', nargs='?', default='20', required=False)
-    parser.add_argument('-i', "-iterations", help="Iterations: int [default: 5]", nargs='?', default='5', required=False)
+    parser.add_argument("-c", "-cargo", help='Cargolist: 1, 2, 3 [default: 1]', nargs='?', type=int, \
+                        default='1', required=False)
+    parser.add_argument("-s", "-ships", help="Use more ships than 4", action="store_true")
+    parser.add_argument("-p", "-politics", help="Use political constraints", action="store_true")
+    parser.add_argument("-a", "-algorithms", help='Algorithm: greedy, random, bin [default: greedy]', nargs='?', type=str, \
+                        default='greedy', required=False)
+    parser.add_argument("-b", "-bin_variation", help='Bin-packing variation: first, best, worst [default: first]', nargs='?', \
+                        type=str, default='first', required=False)
+    parser.add_argument("-hc", "-hillclimber", help="Use hillclimber", action="store_true")
+    parser.add_argument("-hci", "-hc_iterations", help='Hillclimber iteration: int [default: 20]', nargs='?', default='20', \
+                        type=int, required=False)
+    parser.add_argument("-i", "-iterations", help="Iterations: int [default: 5]", nargs='?', default='5', type = int, \
+                        required=False)
     args = parser.parse_args()
     
     # show values
     print("Cargolist: %i" % int(args.c))
     print("More than 4 ships: %s" % args.s)
-    print("Political constraints: %s" % bool(args.p))
+    print("Political constraints: %s" % args.p)
     print("Bin variation: %s" % args.b)
     print("Algorithm: %s" % args.a)
     print("Hillclimber: %s" % args.hc)
@@ -49,7 +54,7 @@ def main():
     repetitions = int(args.i)
     repetition_hillclimber = int(args.hci)
 
-    if args.s == "no":
+    if args.s is False:
         inventory.dict_space = inventory.dict_space[:4]
     else:
         generateships.generateships(inventory, args.p)
@@ -62,7 +67,7 @@ def main():
     elif args.a == "random":
         solutions = randomalgorithm.random_algorithm(inventory, repetitions)
     elif args.a == "bin":
-        solutions = binpackvariations.binpack(inventory, args.b, args.p, repetitions)
+        solutions = binpackvariations.binpack(inventory, args.b, repetitions)
 
     print('{}: Finished running {} times.'.format(datetime.datetime.now().strftime("%H:%M:%S"), args.i))
 
@@ -73,12 +78,12 @@ def main():
     parcel_amount = best_solution[1]
     costs = best_solution[2]
 
-    if args.hc == "yes":
+    if args.hc is True:
         hillsolution = hillclimber.hill_climber(result, repetition_hillclimber)
         best_solution = hillsolution
 
     # start visualisation with more than 4 ships
-    if args.s == "no":   
+    if args.s is False:   
         d = visual.visual(args.s, result)
         return render_template("visual.html", d=d, parcel_amount=parcel_amount, costs=costs)
     else:
