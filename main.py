@@ -24,10 +24,10 @@ def main():
     parser = argparse.ArgumentParser(description='Calculate the optimal organisation of a cargolist in spaceships')
     parser.add_argument('-c', "-cargo", help='Cargolist: 1, 2, 3', nargs='?', default='1', required=False)
     parser.add_argument('-s', "-ships", help='More than 4 ships: yes or no', nargs='?', default='no', required=False)
-    parser.add_argument('-p', "-politics", help='Political constraints: true or false', nargs='?', default='True', required=False)
+    parser.add_argument('-p', "-politics", help='Political constraints: true or false', nargs='?', default='False', required=False)
     parser.add_argument('-a', "-algorithms", help='Algorithm: greedy or random', nargs='?', default='greedy', required=False)
     parser.add_argument('-hc', "-hillclimber", help='Hillclimber: yes or no', nargs='?', default='no', required=False)
-    parser.add_argument('-hci', "-hc_iterations", help='Hillclimber: yes or no', nargs='?', default='950', required=False)
+    parser.add_argument('-hci', "-hc_iterations", help='Hillclimber: yes or no', nargs='?', default='20', required=False)
     parser.add_argument('-i', "-iterations", help="Iterations", nargs='?', default='5', required=False)
     args = parser.parse_args()
     
@@ -66,17 +66,17 @@ def main():
 
     # calculate best solution
     best_solution = best_solutions.solutions(solutions)
-    print(best_solution[0])
     
     if args.hc == "yes":
-        hillsolution = hillclimber.hill_climber(best_solution[0], repetition_hillclimber, 0)
+        hillsolution = hillclimber.hill_climber(best_solution[0], repetition_hillclimber)
         best_solution = hillsolution
 
     # start visualisation with more than 4 ships
     if args.s == "no":   
-        d = visual.visual(best_solution)
+        d = visual.visual(args.s, best_solution)
         return render_template("visual.html", d=d)
     else:
+        d = visual.visual(args.s, best_solution)
         return render_template("terminal.html")
 
 if __name__ == "__main__":

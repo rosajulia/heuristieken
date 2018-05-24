@@ -17,9 +17,8 @@ def solutions(solutions):
     parcel_amount_list = []
 
 
-# collect all parcel amounts in list and determine highest
+    # collect all parcel amounts in list and determine highest
     for solution in solutions:
-        # print(type(solution.total_costs))
         print(solution.parcel_amount)
         parcel_amount_list.append(solution.parcel_amount)
     print(parcel_amount_list)
@@ -47,6 +46,6 @@ def solutions(solutions):
     print("Maximum amount of parcels in ship: {}".format(max_parcel_amount))
     print("Corresponding costs: {}". format(min_costs))
 
-    return best_solutions, max_parcel_amount, min_costs
+    return best_solutions[0], max_parcel_amount, min_costs
 
 

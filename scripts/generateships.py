@@ -1,6 +1,7 @@
 import random
 from classes import classes
 from scripts import shiploader
+from copy import copy, deepcopy
 
 def generateships(inventory, constraint):
     """
@@ -24,7 +25,7 @@ def generateships(inventory, constraint):
 
     fleet = []
     ships = inventory.dict_space
-    temp_cargo = inventory.dict_parcel
+    temp_cargo = deepcopy(inventory.dict_parcel)
 
     # if any number of ships can be used
     if constraint == False:
@@ -86,6 +87,7 @@ def generateships(inventory, constraint):
                 score_keeper = {nation:False for nation in score_keeper}
 
         inventory.dict_space = fleet
+        print(inventory.dict_space)
         
         return inventory
 
