@@ -3,6 +3,9 @@ import math
 
 def calc_upperbound():
     """
+    This script used to calculate the most expensive way to transport packages
+    in the third cargolist.
+
     The theoretical upper bound for costs can be found when every package in the
     list is transported seperately with the most expensive ship in the fleet. 
 
@@ -10,11 +13,14 @@ def calc_upperbound():
     as well as the heaviest in terms of mass (20500). It's fuel to weight ratio 
     is 0.72.
 
+    Returns the upper bound of costs to transport the entire cargolist.
+
     Formulas:
-    fuel_weight = (Mass + Payload-mass) x FtW / (1-FtW) = F
-    fuel_costs = Base cost + math.ceil( fuel_weight x 1000 ) x 5
+    fuel_weight = (Mass + Payload-mass) x FtW / (1-FtW)
+    costs = Base cost + math.ceil(fuel_weight x 1000) x 5
     """
     
+    # verne atv attributes needed for the formula
     total_cost = 0
     mass = 20500
     base_cost = 1080

@@ -4,8 +4,10 @@ import isfull, shiploader
 
 def generateships(ships, cargolist, constraint):
     """
-    Script that generates a fleet of ships that is large enough to hold all
+    This script generates a fleet of ships that is large enough to hold all
     packages.
+
+    Returns a list of objects of type Spaceship.
 
     Takes three arguments:
 

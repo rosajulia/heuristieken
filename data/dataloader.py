@@ -2,10 +2,17 @@ import csv
 from classes import classes
 
 def load_data(ship_data, cargo_data):
-    """Loads a csv file as an ordered dict.
+    """
+    This script loads csv files containing information on the different 
+    spaceships and cargo lists.
 
-    Usage:
-    loaded_data = load_data('csv_data.csv')
+    Returns an object of type Inventory.
+
+    Take two arguments:
+
+        ship_data: Path to csv file containing the spaceship data.
+
+        cargo_data: Path to csv file containing the cargolist data.
     """
 
     ship_counter = 1
@@ -14,6 +21,8 @@ def load_data(ship_data, cargo_data):
     # open the csv file containing cargo list
     with open(cargo_data) as parcel_data:
         reader = csv.DictReader(parcel_data)
+
+        # write the csv rows to a list
         data_parcel = [r for r in reader]
 
     # create a list to hold all the parcel objects

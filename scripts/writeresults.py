@@ -16,8 +16,8 @@ import upperbounds as bounds
 
 def writeresults(solutions, algorithm, cargolist_no, constraint):
     """
-    Writes results to a csv file. A result is defined as a fleet with a parcel
-    distribution. Writes the following attributes:
+    This script writes results to a csv file. A result is defined as a fleet 
+    with a parcel distribution. Writes the following attributes:
         - (CSV-specific) solution id
         - Algorithm type
         - Hill Climber
