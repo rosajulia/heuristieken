@@ -57,31 +57,32 @@ def main():
     # start algorithm
     print('{}: Start algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
 
-    if args.a is "greedy":
+    if args.a == "greedy":
         solutions = greedyratio.greedy_ratio(inventory, repetitions)
-    elif args.a is "random":
+    elif args.a == "random":
         solutions = randomalgorithm.random_algorithm(inventory, repetitions)
-    else:
+    elif args.a == "bin":
         solutions = binpackvariations.binpack(inventory, args.b, args.p, repetitions)
 
     print('{}: Finished running {} times.'.format(datetime.datetime.now().strftime("%H:%M:%S"), args.i))
 
     # calculate best solution
     best_solution = best_solutions.solutions(solutions)
-    best_solution = best_solution[0]
+
+    result = best_solution[0]
     parcel_amount = best_solution[1]
     costs = best_solution[2]
 
     if args.hc == "yes":
-        hillsolution = hillclimber.hill_climber(best_solution, repetition_hillclimber)
+        hillsolution = hillclimber.hill_climber(result, repetition_hillclimber)
         best_solution = hillsolution
 
     # start visualisation with more than 4 ships
     if args.s == "no":   
-        d = visual.visual(args.s, best_solution)
+        d = visual.visual(args.s, result)
         return render_template("visual.html", d=d, parcel_amount=parcel_amount, costs=costs)
     else:
-        d = visual.visual(args.s, best_solution)
+        d = visual.visual(args.s, result)
         return render_template("terminal.html")
 
 if __name__ == "__main__":
