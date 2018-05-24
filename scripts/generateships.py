@@ -71,7 +71,7 @@ def generateships(inventory, constraint):
                 ship = random.choice(ships)
 
             # set the score keeper to taken
-            score_keeper.nation = True
+            score_keeper[ship.nation] = True
 
             # fill the ship with parcels
             temp_cargo = shiploader(ship, temp_cargo)
