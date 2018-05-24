@@ -1,6 +1,6 @@
 import random
 from classes import classes
-import isfull, shiploader
+from scripts import shiploader
 
 def generateships(inventory, constraint):
     """
@@ -36,7 +36,7 @@ def generateships(inventory, constraint):
             ship = random.choice(ships)
 
             # fill that ship with parcels
-            temp_cargo = shiploader(ship, temp_cargo)
+            temp_cargo = shiploader.shiploader(ship, temp_cargo)
 
             # append the filled ship to the fleet list
             fleet.append(ship)
@@ -74,7 +74,7 @@ def generateships(inventory, constraint):
             score_keeper[ship.nation] = True
 
             # fill the ship with parcels
-            temp_cargo = shiploader(ship, temp_cargo)
+            temp_cargo = shiploader.shiploader(ship, temp_cargo)
 
             # append the filled ship to the fleet list
             fleet.append(ship)
