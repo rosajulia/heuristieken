@@ -8,7 +8,7 @@ Ship parcels to the International Space Station (ISS) using 6 different types of
 Divide the parcels over the different ships to make it as cost efficient as possible.
 
 ## Structure of repository
-Our repository consists of the following files and folders:
+Our repository consists of the following files and folders: 
 * main.py: this file will run the program based on the entered command-line arguments, by calling all other files
   and functions.
 * Data: here you can find csv's containing our cargolists and features of the spaceships, as well as a script 
@@ -26,31 +26,31 @@ Our repository consists of the following files and folders:
 
 
 # Use of program
-For data visualisation installing matplotlib is required (pip install matplotlib).
-**Input**
-Usage: main.py [-h] [-c] [-s] [-p] [a] [-hc] [-i]
-
-Calculate the optimal organisation of a cargolist in spaceships
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -c, -cargo            choose a cargolist: 1, 2, 3 (int)
-  -s, -ships            more than 4 ships: yes or no (string)
-  -p, -politics         political constraints: yes or no (string)
-  -a, -algorithms       which algorithm: greedy or random (string)
-  -hc, -hillclimber     hillclimber: yes or no (string)
-  -i, -iterations       how many iterations (int)
-
-*Cargo* specifies which cargolist will be used to fill the ships. The *cargo* argument must be 1, 2 or 3. The default value for *cargo* is 1. 
-*Ships* will determine whether a fixed amount of 4 ships will be used or whether an infinite amount of other ships can be purchased. The argument for *ships* is the string 'yes' or 'no'. The default value for *ships* is 'no'. 
-*Politics* will specify if there are any political constraints to keep in consideration when running the code. This argument is only relevant when purchasing more ships than 4, so when argument *ships* is 'yes'. The *politics* argument takes the string 'yes' or 'no'. Default value for *politics* is 'no'. 
-*Algorithms* will decide which algorithm is used to pack the ships as efficient as possible. The two options are a greedy algorithm and a random algorithm. *Algorithms* takes a string as argument: 'greedy' or 'random'. Default value for *algorithms* is greedy.
-*Hillclimber* specifies whether the extra hillclimber algorithm will be used in addition to the algorithms specified by *algorithms*. It takes the string 'yes' or 'no' as argument. Default value for *hillclimber* is 'no'.
-*Iterations* will determine how many times the algorithms are run. It takes an integer as argument, with a default value of 5.
-
-**Output**
-The output of the program will be mainly visualised in a Flask-based html server. The output will show the best solution provided. When the *ships* argument is 'no', progress bars will show how full all 4 ships are based on mass and volume. A table for all ships will be provided, showing which parcels are in the ships. A total result table will show how many parcels in total are packed and what the costs are for this solution. When *ships* argument is 'yes', only the two tables are provided. 
-
+For data visualisation installing matplotlib is required (pip install matplotlib).<br />
+**Input**<br />
+Usage: main.py [-h] [-c] [-s] [-p] [a] [-hc] [-i]<br />
+<br />
+Calculate the optimal organisation of a cargolist in spaceships<br />
+<br />
+optional arguments:<br />
+  -h, --help            show this help message and exit<br />
+  -c, -cargo            choose a cargolist: 1, 2, 3 (int)<br />
+  -s, -ships            more than 4 ships: yes or no (string)<br />
+  -p, -politics         political constraints: yes or no (string)<br />
+  -a, -algorithms       which algorithm: greedy or random (string)<br />
+  -hc, -hillclimber     hillclimber: yes or no (string)<br />
+  -i, -iterations       how many iterations (int)<br />
+<br />
+*Cargo* specifies which cargolist will be used to fill the ships. The *cargo* argument must be 1, 2 or 3. The default value for *cargo* is 1. <br />
+*Ships* will determine whether a fixed amount of 4 ships will be used or whether an infinite amount of other ships can be purchased. The argument for *ships* is the string 'yes' or 'no'. The default value for *ships* is 'no'. <br />
+*Politics* will specify if there are any political constraints to keep in consideration when running the code. This argument is only relevant when purchasing more ships than 4, so when argument *ships* is 'yes'. The *politics* argument takes the string 'yes' or 'no'. Default value for *politics* is 'no'. <br />
+*Algorithms* will decide which algorithm is used to pack the ships as efficient as possible. The two options are a greedy algorithm and a random algorithm. *Algorithms* takes a string as argument: 'greedy' or 'random'. Default value for *algorithms* is greedy.<br />
+*Hillclimber* specifies whether the extra hillclimber algorithm will be used in addition to the algorithms specified by *algorithms*. It takes the string 'yes' or 'no' as argument. Default value for *hillclimber* is 'no'.<br />
+*Iterations* will determine how many times the algorithms are run. It takes an integer as argument, with a default value of 5.<br />
+<br />
+**Output**<br />
+The output of the program will be mainly visualised in a Flask-based html server. The output will show the best solution provided. When the *ships* argument is 'no', progress bars will show how full all 4 ships are based on mass and volume. A table for all ships will be provided, showing which parcels are in the ships. A total result table will show how many parcels in total are packed and what the costs are for this solution. When *ships* argument is 'yes', only the two tables are provided. <br />
+<br />
 In addition to the web-based visualisation, a graph computed by matplotlib will show the distribution of the solutions in a histogram.
 
 # Structure of main.py
