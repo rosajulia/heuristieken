@@ -5,7 +5,7 @@ import datetime
 from algorithms import randomalgorithm, greedyratio, hillclimber
 from data import dataloader
 from classes import classes
-from scripts import graph, helpers, best_solutions
+from scripts import graph, helpers, best_solutions, generateships
 from copy import copy, deepcopy
 from visualisation import visual
 
@@ -27,7 +27,7 @@ def main():
     parser.add_argument('-p', "-politics", help='Political constraints: yes or no', nargs='?', default='no', required=False)
     parser.add_argument('-a', "-algorithms", help='Algorithm: greedy or random', nargs='?', default='greedy', required=False)
     parser.add_argument('-hc', "-hillclimber", help='Hillclimber: yes or no', nargs='?', default='no', required=False)
-    parser.add_argument('-hci', "-hillclimber", help='Hillclimber: yes or no', nargs='?', default='950', required=False)
+    parser.add_argument('-hci', "-hc_iterations", help='Hillclimber: yes or no', nargs='?', default='950', required=False)
     parser.add_argument('-i', "-iterations", help="Iterations", nargs='?', default='5', required=False)
     args = parser.parse_args()
     
@@ -47,12 +47,12 @@ def main():
     repetitions = int(args.i)
     repetition_hillclimber = int(args.hci)
 
-    # if args.s == "no":
-    #     inventory.dict_space = inventory.dict_space[:4]
-    # else:
-    #     generateships.generateships(inventory, args.c, True)
+    if args.s == "no":
+        inventory.dict_space = inventory.dict_space[:4]
+    else:
+        generateships.generateships(inventory, args.c, True)
 
-    inventory.dict_space = inventory.dict_space[:4]
+    # inventory.dict_space = inventory.dict_space[:4]
 
     # start algorithm
     print('{}: Start algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
@@ -72,7 +72,7 @@ def main():
         hillsolution = hillclimber.hill_climber(best_solution[0], repetition_hillclimber, 0)
         best_solution = hillsolution
 
-    # start visualisation with more thand 4 ships
+    # start visualisation with more than 4 ships
     if args.s == "no":   
         d = visual.visual(best_solution)
         return render_template("visual.html", d=d)
