@@ -6,6 +6,9 @@ def fill_it_up(inventory):
     dict_parcel = inventory.dict_parcel
     parcel_amount = inventory.parcel_amount
 
+    print("invenpa", inventory.parcel_amount)
+    print("invenco", inventory.total_costs)
+
     amount_remaining_parcels = 0
     remaining_parcel_indices = []
     for parcel in dict_parcel:
@@ -45,8 +48,10 @@ def fill_it_up(inventory):
             parcel_cursor += 1
 
     inventory.parcel_amount = parcel_amount
+    print("aftpa", inventory.parcel_amount)
     # print(inventory.total_costs, type(inventory.total_costs))
     inventory.total_costs = inventory.calculate_costs()
+    print("aftco", inventory.total_costs)
     # print(inventory.total_costs, type(inventory))
 
     return inventory

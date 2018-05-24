@@ -53,13 +53,14 @@ def hill_climber(inventory, repetitions, current_repetition=0):
                             ship.current_volume -= parcel.volume
                             break
                     parcel.location = 0
+                    inventory_mid.parcel_amount -= 1
                     break
 
             # update lists of occupied and remaining parcels
             occupied_parcels.remove(parcel_id_to_remove)
             remaining_parcels.append(parcel_id_to_remove)
 
-
+    inventory_mid.total_costs = inventory_mid.calculate_costs()
     # call random_algorithm to fill with current situation as starting point
     # compare output inventory of random_algorithm.parcel_amount with earlier parcel_amount
     inventory_post = fillitup.fill_it_up(inventory_mid)
@@ -69,7 +70,7 @@ def hill_climber(inventory, repetitions, current_repetition=0):
     if inventory_post.parcel_amount > inventory_pre.parcel_amount:
         repetition_counter += 1
         if repetition_counter < repetitions:
-            print("again1")
+            print("again1", inventory_post.parcel_amount, inventory_pre.parcel_amount)
             return hill_climber(inventory_post, repetitions, repetition_counter)
         else:
             print("retpost1")
@@ -79,7 +80,7 @@ def hill_climber(inventory, repetitions, current_repetition=0):
     elif inventory_post.parcel_amount == inventory_pre.parcel_amount and inventory_post.total_costs < inventory_pre.total_costs:
         repetition_counter += 1
         if repetition_counter < repetitions:
-            print("again2")
+            print("again2", inventory_post.parcel_amount, inventory_pre.parcel_amount)
             return hill_climber(inventory_post, repetitions, repetition_counter)
         else:
             print("retpost2")
@@ -88,7 +89,7 @@ def hill_climber(inventory, repetitions, current_repetition=0):
     else:
         repetition_counter += 1
         if repetition_counter < repetitions:
-            print("againpre")
+            print("againpre", inventory_post.parcel_amount, inventory_pre.parcel_amount)
             return hill_climber(inventory_pre, repetitions, repetition_counter)
         else:
             print("retpre")

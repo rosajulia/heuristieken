@@ -207,7 +207,10 @@ def greedy_ratio(inventory, repetitions):
 
         for _ in range(len(shuffled_parcel_indices)):
             for ship in dict_space:
-                index  = shuffled_parcel_indices[parcel_cursor]
+                if parcel_cursor >= len(shuffled_parcel_indices):
+                    break
+                else:
+                    index  = shuffled_parcel_indices[parcel_cursor]
                 if (ship.current_weight + dict_parcel[index].weight <= ship.max_weight and \
                         ship.current_volume + dict_parcel[index].volume <= ship.max_volume):
 
