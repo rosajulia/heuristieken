@@ -33,13 +33,13 @@ Usage: main.py [-h] [-c] [-s] [-p] [a] [-hc] [-i]<br />
 Calculate the optimal organisation of a cargolist in spaceships<br />
 <br />
 optional arguments:<br />
-  -h, --help            show this help message and exit<br />
-  -c, -cargo            choose a cargolist: 1, 2, 3 (int)<br />
-  -s, -ships            more than 4 ships: yes or no (string)<br />
-  -p, -politics         political constraints: yes or no (string)<br />
-  -a, -algorithms       which algorithm: greedy or random (string)<br />
-  -hc, -hillclimber     hillclimber: yes or no (string)<br />
-  -i, -iterations       how many iterations (int)<br />
+  -h, --help &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           show this help message and exit<br />
+  -c, -cargo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           choose a cargolist: 1, 2, 3 (int)<br />
+  -s, -ships &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           more than 4 ships: yes or no (string)<br />
+  -p, -politics &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        political constraints: yes or no (string)<br />
+  -a, -algorithms &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      which algorithm: greedy or random (string)<br />
+  -hc, -hillclimber&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     hillclimber: yes or no (string)<br />
+  -i, -iterations &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      how many iterations (int)<br />
 <br />
 *Cargo* specifies which cargolist will be used to fill the ships. The *cargo* argument must be 1, 2 or 3. The default value for *cargo* is 1. <br />
 *Ships* will determine whether a fixed amount of 4 ships will be used or whether an infinite amount of other ships can be purchased. The argument for *ships* is the string 'yes' or 'no'. The default value for *ships* is 'no'. <br />
