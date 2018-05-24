@@ -11,7 +11,7 @@ def visual(best_solutions):
     """
 
     # visualize which ships contain which parcels in best solution(s)
-    for solution in best_solutions:
+    for solution in best_solutions[0]:
         solution_statement = helpers.visualizeParcelsPerShip(solution)
         for element in solution_statement:
             print(element)
@@ -35,5 +35,7 @@ def visual(best_solutions):
         d["volume" + str(i)] = volume_send
         d["total_amount" + str(i)] = len(solution_statement[i]["content"])
         d["parcels" + str(i)] = solution_statement[i]["content"]
+        d["total_parcels"] = best_solutions[1]
+        d["total_costs"] = best_solutions[2]
 
     return d

@@ -2,7 +2,7 @@
 
 import sys
 import datetime
-from algorithms import randomalgorithm, greedyratio
+from algorithms import randomalgorithm, greedyratio, hillclimber
 from data import dataloader
 from classes import classes
 from scripts import graph, helpers, best_solutions
@@ -45,6 +45,13 @@ def main():
     inventory = dataloader.load_data(ship_data, cargo_data)
     repetitions = int(args.i)
 
+    # if args.s == "no":
+    #     inventory.dict_space = inventory.dict_space[:4]
+    # else:
+    #     generateships.generateships(inventory, args.c, True)
+
+    inventory.dict_space = inventory.dict_space[:4]
+
     # start algorithm
     print('{}: Start algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
 
@@ -57,9 +64,11 @@ def main():
 
     # calculate best solution
     best_solution = best_solutions.solutions(solutions)
+    print(best_solution[0])
     
     if args.hc == "yes":
         hillsolution = hillclimber.hill_climber(best_solution[0], repetitions, 0)
+        best_solution = hillsolution
 
     # start visualisation with more than 4 ships
     if args.s == "no":   
