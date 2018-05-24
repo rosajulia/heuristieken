@@ -58,6 +58,6 @@ def load_data(ship_data, cargo_data):
     # store both lists
     data = [list_space, list_parcel]
     inventory = classes.Inventory(data[0], data[1])
-    print(inventory)
+    # print(inventory)
 
     return inventory

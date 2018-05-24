@@ -19,7 +19,7 @@ def solutions(solutions):
 
     # collect all parcel amounts in list and determine highest
     for solution in solutions:
-        print(solution.parcel_amount)
+        # print(solution.parcel_amount)
         parcel_amount_list.append(solution.parcel_amount)
     max_parcel_amount = max(parcel_amount_list)
 

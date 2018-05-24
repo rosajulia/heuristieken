@@ -5,8 +5,7 @@ from scripts import fillitup, helpers
 def hill_climber(inventory, repetitions):
 
     best_inventory = inventory
-    print(best_inventory)
-
+    
     for _ in range(repetitions):
 
         # keep track of how many manipulations have been performed

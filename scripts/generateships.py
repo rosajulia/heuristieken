@@ -48,9 +48,6 @@ def generateships(inventory, constraint):
         
         inventory.dict_space = deepcopy(fleet)
 
-        for ship in inventory.dict_space:
-            print(ship.id)
-
         return inventory
 
     # if constraints are active

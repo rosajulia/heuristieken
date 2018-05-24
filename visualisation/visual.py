@@ -11,8 +11,8 @@ def visual(ships, best_solution):
     """
     # visualize which ships contain which parcels in best solution(s)
     solution_statement = helpers.visualizeParcelsPerShip(best_solution)
-    for element in solution_statement:
-        print(element)
+    # for element in solution_statement:
+    #     print(element)
 
     # create dict for progress bars
     if ships == "no":   
