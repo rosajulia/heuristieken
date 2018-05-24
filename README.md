@@ -18,10 +18,11 @@ Our repository consists of the following files and folders:
   parcels over the ships; the Inventory class.
 * Algorithms: this is where our handwritten algorithms reside, currently those are a random algorithm, a combinatorial greedy/random
   algorithm, and a hill climber algorithm.
-* Scripts: the algorithms are supported by a series of files in this folder: graph.py supports a concise 
-  visualisation of the outcome of the algorithms, visual.html is used for a more elaborate visualisation, helpers.py 
+* Scripts: the algorithms are supported by a series of files in this folder: helpers.py 
   contains several smaller functions, generateships.py & shiploader.py are used to create a varying fleet of ships.
 * Calculations: calculations of for example the upper and lower bound of our score function (costs) are stored here.
+* Visualisation: this folder contains our visualisation functions, graph.py supports a concise 
+  visualisation of the outcome of the algorithms and visual.html, visual.py, visual.css, and terminal.html are used for a more elaborate visualisation, 
 * Other: other files, like our to do list + division of tasks.
 
 
