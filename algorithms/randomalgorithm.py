@@ -3,21 +3,33 @@ from helperscripts import helpers, updateship
 import time
 from copy import copy, deepcopy
 
-# create random solutions
 def random_algorithm(inventory, repetitions, constraint):
-    """Randomly fills spaceships with a cargo list.
+    """
+    Randomly fills spaceships with a cargo list.
+
     The first argument holds an object representing the format of a possible
     distribution of parcels over spaceships. The second argument indicates how
     often the algorithm should generate a solution.
 
+    Input:
+            takes three input arguments: the class Inventory containing all information
+            about the spaceships and parcels; the repetitions, how many iterations will be performed;
+            constraint: whether or not there is a political constraint.
+
+    Output: 
+            returns a list of instances of the class Inventory, containing the solutions from 
+            the algorithm. The solutions contain the total parcel amount and the costs. 
+
     Usage:
     randomalgorithm.random_algorithm(inventory, repetitions)
+
     """
 
     solutions = []
     solution_id = 0
-    for _ in range(repetitions):
 
+    for _ in range(repetitions):
+        # inititalize data values
         dict_parcel = inventory.dict_parcel
         dict_space = inventory.dict_space
         amount_of_ships = len(dict_space)
@@ -106,5 +118,5 @@ def random_algorithm(inventory, repetitions, constraint):
         solutions.append(deepcopy(inventory))
 
         solution_id += 1
-        
+
     return solutions

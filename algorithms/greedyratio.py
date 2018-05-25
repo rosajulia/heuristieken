@@ -4,10 +4,14 @@ from operator import itemgetter
 from copy import copy, deepcopy
 
 def greedy_ratio(inventory, repetitions, constraint):
-    """Greedy algorithm based on the weight-to-volume ratio of spaceships and parcels,
+    """
+    Greedy algorithm based on the weight-to-volume ratio of spaceships and parcels,
     and the assumption that low ratio ships are suitable transport for low ratio parcels
-    (and high ratio ships for high ratio parcels)."""
+    (and high ratio ships for high ratio parcels).
 
+    
+    
+    """
     # create list for final return of solutions
     solutions = []
     solution_id = 0
