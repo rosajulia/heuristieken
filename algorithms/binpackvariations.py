@@ -105,7 +105,6 @@ def binpack(inventory, packing_variation, repetitions):
 
                     # if the parcel fits in the ship
                     if dict_space[i].current_volume + parcel.volume <= dict_space[i].max_volume:
-
                         if dict_space[i].current_weight + parcel.weight <= dict_space[i].max_weight:
 
                             # calc the weight left as percentage of maximum
