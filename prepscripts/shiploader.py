@@ -35,7 +35,6 @@ def shiploader(ship, cargolist):
             temp_cargolist.remove(parcel)
         
         else:
-
             full = True
 
     return temp_cargolist

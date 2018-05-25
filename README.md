@@ -18,7 +18,7 @@ Our repository consists of the following files and folders:
   parcels over the ships; the Inventory class.
 * Algorithms: this is where our handwritten algorithms reside. Algorithms in this folder are: a random algorithm, a combinatorial greedy/random algorithm, a hillclimber, and an algorithm for binpacking variations.
 * Helperscripts: the algorithms residing here are used to support the algorithms. In this folder you will find helper.py, in which several smaller functions are defined, and fillitup and updateship, which are used for the packing of the ships.
-* Prepscripts: the functions in this folder play a role in the preparation of the fleet before the algorithms are ran. Generateships and shiploader are both files responsible for the generation of a fleet. 
+* Prepscripts: the functions in this folder play a role in the preparation of the fleet before the algorithms are ran. Generateships and shiploader are both files responsible for the generation of a fleet. Shipcost and upperbounds are functions important for the visualisation function writeresults.py.
 * Calculations: calculations of for example the upper and lower bound of our score function (costs) are stored here.
 * Visualisation: this folder contains our visualisation functions, graph.py supports a concise 
   visualisation of the outcome of the algorithms and visual.html, visual.py, visual.css, and terminal.html are used for a more elaborate visualisation.
@@ -50,13 +50,17 @@ optional arguments:<br />
   -hc, -hillclimber&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;use hillclimber<br />
   -hci, -hc_iterations&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hillclimber iterations: [int][default: 20]<br />
   -i, -iterations &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iterations [int][default: 5]<br />
+  -w, -write_csv &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write results to csv<br />
 <br />
 *Cargo* specifies which cargolist will be used to fill the ships. The *cargo* argument must be 1, 2 or 3. The default value for *cargo* is 1. <br />
 *Ships* will determine whether a fixed amount of 4 ships will be used or whether an infinite amount of other ships can be purchased. There is no argument for *ships*, it will return true when called. <br />
 *Politics* will specify if there are any political constraints to keep in consideration when running the code. This argument is only relevant when purchasing more ships than 4, so when argument *ships* is 'yes'. The *politics* argument takes no arguments and will return true when called. <br />
 *Algorithms* will decide which algorithm is used to pack the ships as efficient as possible. The two options are a greedy algorithm and a random algorithm. *Algorithms* takes a string as argument: 'greedy' or 'random'. Default value for *algorithms* is greedy.<br />
+*Bin variation* will pick a form a the bin-packing variation: first, best, or worst. Takes these three words as input argument. Default value for *bin_variation* is first.
 *Hillclimber* specifies whether the extra hillclimber algorithm will be used in addition to the algorithms specified by *algorithms*. It takes no argument as input and will return true when called.<br />
+*Hillclimber iterations* will determine how many times the hillclimber algorithm will run. It takes an integer as argument, with a default value of 20.<br />
 *Iterations* will determine how many times the algorithms are run. It takes an integer as argument, with a default value of 5.<br />
+*Write* will specify whether the results will be written to a csv file. *Write* will take no input arguments and will return true when called.<br/>
 <br />
 **Output**<br />
 The output of the program will be mainly visualised in a Flask-based html server. The output will show the best solution provided. When the *ships* argument is 'no', progress bars will show how full all 4 ships are based on mass and volume. A table for all ships will be provided, showing which parcels are in the ships. A total result table will show how many parcels in total are packed and what the costs are for this solution. When *ships* argument is 'yes', only the two tables are provided. <br />
