@@ -1,14 +1,15 @@
 import csv
 from classes import classes
 from statistics import mean
-import upperbounds as bounds
+from prepscripts import shiploader, upperbounds
 
 def write_results(solutions, args):
     """
     This script writes results to a csv file. A result is defined as a fleet 
     with a parcel distribution. It logs all command line arguments that are used
     for that run of the program and its results.
-    Takes eight arguments:
+
+    Takes one argument: a list of all input arguments provided in main.
     """
 
     infile = "data/results.csv"
@@ -42,11 +43,10 @@ def write_results(solutions, args):
 
                 # result variables
                 packages_n = solution.parcel_amount
-                total_costs = solution.calculate_costs()
-                total_costs_pct = round((total_costs / bounds.calc_upperbound()) * 100, 2)
+                total_costs = solution.calculate_costs(constr)
+                total_costs_pct = round((total_costs / upperbounds.calc_upperbound()) * 100, 2)
                 mass_pct = round(mean([(ship.current_weight / ship.max_weight) * 100 for ship in fleet]), 2)
                 volume_pct = round(mean([(ship.current_volume / ship.max_volume) * 100 for ship in fleet]), 2)
-
 
                 # write evey row in the csv
                 writer.writerow([id_counter, cargo, ships, constr, algo, b_var, hc, hc_n, iter_n, packages_n, total_costs, total_costs_pct, mass_pct, volume_pct])

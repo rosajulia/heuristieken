@@ -3,6 +3,28 @@ from copy import copy, deepcopy
 from helperscripts import fillitup, helpers, updateship
 
 def hill_climber(inventory, repetitions, constraint):
+    '''
+    Greedy algorithm based on the weight-to-volume ratio of spaceships and parcels,
+    and the assumption that low ratio ships are suitable transport for low ratio parcels
+    (and high ratio ships for high ratio parcels).
+
+    The algorithm first starts by dividing the spaceships ratio-based, using greedyhelper. 
+    It will continue by filling the low-ratio spaceship and high-ratio spaceship with corresponding
+    low- and high-ratio parcels. The other spaceships will be randomly filled.
+
+    Input:
+            takes three input arguments: the class Inventory containing all information
+            about the spaceships and parcels; the repetitions, how many iterations will be performed;
+            constraint: whether or not there is a political constraint.
+
+    Output: 
+            returns a list of instances of the class Inventory, containing the solutions from 
+            the algorithm which are better than the original provided solutions from the 
+            orther algorithms. The solutions contain the total parcel amount and the costs. 
+
+    Usage:
+    hillclimber.hill_climber(inventory, repetitions, constraint)    
+    '''
 
     best_inventory = inventory
     solutions = [best_inventory]
@@ -70,8 +92,5 @@ def hill_climber(inventory, repetitions, constraint):
 
         else:
             best_inventory = inventory_pre
-
-    for solution in solutions:
-        print("pa", solution.parcel_amount, solution.total_costs)
 
     return solutions
