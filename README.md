@@ -2,11 +2,6 @@
 Rebecca de Feijter, Jesse Haenen, Julia Jelgerhuis <br />
 Case: Space Freight <br />
 http://heuristieken.nl/wiki/index.php?title=Space_Freight </br>
-| Tables   |      Are      |  Cool |
-|----------|:-------------:|------:|
-| col 1 is |  left-aligned | $1600 |
-| col 2 is |    centered   |   $12 |
-| col 3 is | right-aligned |    $1 |
 
 # Main goal
 Ship parcels to the International Space Station (ISS) using 6 different types of spacecrafts.
@@ -32,13 +27,11 @@ Our repository consists of the following files and folders:
 
 ## Questions and commands of case
 The case Space Freight came with several questions to test your code. Below you will find these questions with their corresponding command line arguments. </br>
-Question | Commandline arguments
---- | ---  
-a. Cargolist 1 with 4 ships (focus on parcel amount)| python main.py 
-b. Cargolist 1 with 4 ships (focus on costs)| python main.py 
-c. Cargolist 2 with 4 ships | python main.py -c 2      
-d. Cargolist 3 with more ships (political constraints) | python main.py -c 3 -s -p 
-e. Cargolist 3 with more ships (no political constraints) | python main.py -c 3 -s 
+* a. Cargolist 1 with 4 ships (focus on parcel amount) --> python main.py 
+* b. Cargolist 1 with 4 ships (focus on costs) --> python main.py 
+* c. Cargolist 2 with 4 ships --> python main.py -c 2      
+* d. Cargolist 3 with more ships (political constraints) --> python main.py -c 3 -s -p 
+* e. Cargolist 3 with more ships (no political constraints) --> python main.py -c 3 -s 
 
 
 # Use of program
