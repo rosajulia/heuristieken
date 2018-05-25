@@ -90,7 +90,6 @@ def random_algorithm(inventory, repetitions):
                         dict_parcel[parcel_id - 1].location = dict_space[ship_counter - 1].id
 
                         parcel_amount += 1
-                        print("1", parcel_amount)
 
                 # set ship to full
                 dict_space[ship_counter - 1].full = True
@@ -101,8 +100,6 @@ def random_algorithm(inventory, repetitions):
                 if ship.full is True:
                     full_ships_counter += 1
 
-        # give unique solution_id
-        solution_id += 1
 
         # add parcel amount and total costs to solution (inventory object)
         inventory.parcel_amount = parcel_amount
@@ -110,6 +107,7 @@ def random_algorithm(inventory, repetitions):
 
         # collect all solutions in list for returning
         solutions.append(deepcopy(inventory))
-        print(parcel_amount)
+
+        solution_id += 1
 
     return solutions
