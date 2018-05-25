@@ -48,7 +48,6 @@ def write_results(solutions, args):
                 mass_pct = round(mean([(ship.current_weight / ship.max_weight) * 100 for ship in fleet]), 2)
                 volume_pct = round(mean([(ship.current_volume / ship.max_volume) * 100 for ship in fleet]), 2)
 
-
                 # write evey row in the csv
                 writer.writerow([id_counter, cargo, ships, constr, algo, b_var, hc, hc_n, iter_n, packages_n, total_costs, total_costs_pct, mass_pct, volume_pct])
 
