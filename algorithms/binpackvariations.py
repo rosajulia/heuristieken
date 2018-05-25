@@ -2,7 +2,7 @@ import operator
 from helperscripts import updateship as us
 from helperscripts import helpers
 
-def binpack(inventory, packing_variation, repetitions):
+def binpack(inventory, packing_variation, repetitions, constraint):
     """
     Algorithm for bin packing variations that adds an additional heuristic
     for packing the ships.
@@ -82,7 +82,7 @@ def binpack(inventory, packing_variation, repetitions):
                             parcel_amount += 1
 
             inventory.parcel_amount = parcel_amount
-            inventory.total_costs = inventory.calculate_costs()
+            inventory.total_costs = inventory.calculate_costs(constraint)
             solutions.append(inventory)
 
             return solutions

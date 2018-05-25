@@ -2,7 +2,7 @@ import random
 from copy import copy, deepcopy
 from helperscripts import fillitup, helpers, updateship
 
-def hill_climber(inventory, repetitions):
+def hill_climber(inventory, repetitions, constraint):
 
     best_inventory = inventory
 
@@ -52,10 +52,10 @@ def hill_climber(inventory, repetitions):
                 occupied_parcels.remove(parcel_id_to_remove)
                 remaining_parcels.append(parcel_id_to_remove)
 
-        inventory_mid.total_costs = inventory_mid.calculate_costs()
+        inventory_mid.total_costs = inventory_mid.calculate_costs(constraint)
 
         # compare output inventory of random_algorithm.parcel_amount with earlier parcel_amount
-        inventory_post = fillitup.fill_it_up(inventory_mid)
+        inventory_post = fillitup.fill_it_up(inventory_mid, constraint)
 
         # continue with hillclimber output if more parcels than before
         if inventory_post.parcel_amount > inventory_pre.parcel_amount:

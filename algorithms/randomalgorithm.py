@@ -4,7 +4,7 @@ import time
 from copy import copy, deepcopy
 
 # create random solutions
-def random_algorithm(inventory, repetitions):
+def random_algorithm(inventory, repetitions, constraint):
     """Randomly fills spaceships with a cargo list.
     The first argument holds an object representing the format of a possible
     distribution of parcels over spaceships. The second argument indicates how
@@ -24,8 +24,6 @@ def random_algorithm(inventory, repetitions):
         amount_of_parcels = len(dict_parcel)
         parcel_weight_max = inventory.maxParcelWeightVolume()[0]
         parcel_volume_max = inventory.maxParcelWeightVolume()[1]
-
-        print(amount_of_ships, amount_of_parcels)
 
         inventory.solution_id = solution_id
 
@@ -70,7 +68,6 @@ def random_algorithm(inventory, repetitions):
 
             # count parcels per solution
             parcel_amount += 1
-            print("0", parcel_amount)
 
             # note when ship is almost full
             if (dict_space[ship_counter - 1].current_weight >= dict_space[ship_counter - 1].max_weight - parcel_weight_max or
@@ -103,7 +100,7 @@ def random_algorithm(inventory, repetitions):
 
         # add parcel amount and total costs to solution (inventory object)
         inventory.parcel_amount = parcel_amount
-        inventory.total_costs = inventory.calculate_costs()
+        inventory.total_costs = inventory.calculate_costs(constraint)
 
         # collect all solutions in list for returning
         solutions.append(deepcopy(inventory))

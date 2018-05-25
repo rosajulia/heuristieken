@@ -2,8 +2,8 @@ body {
     background-color:rgb(237, 231, 231);
 }
 .title {
-    font-family: sans-serif; 
-    font-weight: bold; 
+    font-family: sans-serif;
+    font-weight: bold;
 }
 .text {
     font-family: sans-serif;
@@ -24,7 +24,13 @@ body {
   padding-left: 40px;
 }
 
-.below {
+.below-left {
+    width: 45%;
+    padding-left: 40px;
+}
+
+.below-right {
+    width: 55%;
     padding-left: 40px;
 }
 

@@ -64,11 +64,12 @@ class Inventory():
             volume_list.append(parcel.volume)
         return max(weight_list), max(volume_list)
 
-    def calculate_costs(self):
+    def calculate_costs(self, constraint):
         for ship in self.dict_space:
-            self.total_costs += ship.base_cost
-            self.total_costs += math.ceil((ship.mass + ship.current_weight) * \
-                                ship.ftw / (1 - ship.ftw) * 1000) * 5
+            if ship.current_weight != 0 and constraint is False:
+                    self.total_costs += ship.base_cost
+                    self.total_costs += math.ceil((ship.mass + ship.current_weight) * \
+                                        ship.ftw / (1 - ship.ftw) * 1000) * 5
         return self.total_costs
 
     def return_inventory(self):

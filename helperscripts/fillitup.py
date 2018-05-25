@@ -1,7 +1,7 @@
 from random import shuffle
 from helperscripts import updateship
 
-def fill_it_up(inventory):
+def fill_it_up(inventory, constraint):
 
     dict_space = inventory.dict_space
     dict_parcel = inventory.dict_parcel
@@ -40,6 +40,6 @@ def fill_it_up(inventory):
             parcel_cursor += 1
 
     inventory.parcel_amount = parcel_amount
-    inventory.total_costs = inventory.calculate_costs()
+    inventory.total_costs = inventory.calculate_costs(constraint)
 
     return inventory
