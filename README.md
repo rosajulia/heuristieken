@@ -26,7 +26,7 @@ Our repository consists of the following files and folders:
 * Other: other files, like our to do list + division of tasks.
 
 ## Questions and commands of case
-The case Space Freight came with several questions to test your code. Below you will find these questions with their corresponding command line arguments. 
+The case Space Freight came with several questions to test your code. Below you will find these questions with their corresponding command line arguments. </br>
 Question | Commandline arguments
 --- | ---  
 a. Cargolist 1 with 4 ships (focus on parcel amount)| python main.py 
