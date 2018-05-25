@@ -94,8 +94,8 @@ def main():
         # write results to csv with hillclimber results
         if args.w is True:
             writeresults.write_results(hillsolution, args_list)
-    
-    # write results to csv 
+
+    # write results to csv
     if args.w is True:
         writeresults.write_results(solutions, args_list)
 
