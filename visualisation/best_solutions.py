@@ -44,5 +44,3 @@ def solutions(solutions):
     print("Corresponding costs: {}". format(min_costs))
 
     return best_solutions[0], max_parcel_amount, min_costs
-
-

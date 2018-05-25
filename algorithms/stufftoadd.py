@@ -2,6 +2,7 @@ Clean To do list:
 -	Readme:
 
 !!NB: Progress bars op html hoeven niet progress bars te heten
+    o   volgorde iterations enzo kan logischer 
     o	Defaults aangeven in overzichtje
     o	Requirements.txt maken
     o	Ergens ff melden dat we html5 gebruiken (meer van dit soort dingen?)
