@@ -65,11 +65,11 @@ def main():
     print('{}: Start algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
 
     if args.a == "greedy":
-        solutions = greedyratio.greedy_ratio(inventory, repetitions)
+        solutions = greedyratio.greedy_ratio(inventory, repetitions, args.p)
     elif args.a == "random":
-        solutions = randomalgorithm.random_algorithm(inventory, repetitions)
+        solutions = randomalgorithm.random_algorithm(inventory, repetitions, args.p)
     elif args.a == "bin":
-        solutions = binpackvariations.binpack(inventory, args.b, repetitions)
+        solutions = binpackvariations.binpack(inventory, args.b, repetitions, args.p)
 
     print('{}: Finished running {} times.'.format(datetime.datetime.now().strftime("%H:%M:%S"), args.i))
 
@@ -81,16 +81,16 @@ def main():
     costs = best_solution[2]
 
     if args.hc is True:
-        hillsolution = hillclimber.hill_climber(result, repetition_hillclimber)
+        hillsolution = hillclimber.hill_climber(result, repetition_hillclimber, args.p)
         best_solution = hillsolution
+
+    d = visual.visual(len(inventory.dict_space), result)
 
     # start visualisation with more than 4 ships
     if args.s is False:   
-        d = visual.visual(args.s, result)
         return render_template("visual.html", d=d, parcel_amount=parcel_amount, costs=costs)
     else:
-        d = visual.visual(args.s, result)
-        return render_template("terminal.html")
+        return render_template("terminal.html", d=d, parcel_amount=parcel_amount, costs=costs)
 
 if __name__ == "__main__":
     app.run(debug=True)

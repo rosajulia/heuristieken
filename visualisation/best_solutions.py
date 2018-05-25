@@ -20,7 +20,7 @@ def solutions(solutions):
     for solution in solutions:
         parcel_amount_list.append(solution.parcel_amount)
     max_parcel_amount = max(parcel_amount_list)
-    graph.barchart(parcel_amount_list)
+    graph.barchart_parcels(parcel_amount_list)
 
     # continue with solutions with max parcel amount
     parcel_checked_solutions = []
@@ -32,6 +32,7 @@ def solutions(solutions):
     for solution in parcel_checked_solutions:
         costs_list.append(solution.total_costs)
     min_costs = min(costs_list)
+    graph.barchart_costs(costs_list)
 
     # save solution(s) with lowest cost
     best_solutions = []
