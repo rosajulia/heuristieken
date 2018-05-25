@@ -1,7 +1,12 @@
 # Heuristieken
 Rebecca de Feijter, Jesse Haenen, Julia Jelgerhuis <br />
 Case: Space Freight <br />
-http://heuristieken.nl/wiki/index.php?title=Space_Freight
+http://heuristieken.nl/wiki/index.php?title=Space_Freight </br>
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
 
 # Main goal
 Ship parcels to the International Space Station (ISS) using 6 different types of spacecrafts.
