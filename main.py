@@ -14,9 +14,6 @@ from flask import Flask, render_template, Response, jsonify
 import time
 import argparse
 
-# necessary for this script: pip install matplotlib
-# future ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
-
 app = Flask(__name__, template_folder="visualisation")
 
 
@@ -88,6 +85,11 @@ def main():
         result = best_solution[0]
         parcel_amount = best_solution[1]
         costs = best_solution[2]
+
+        writeresults(hillsolution)
+    
+    else:
+        writeresults(solutions)
 
     d = visual.visual(len(inventory.dict_space), result)
 
