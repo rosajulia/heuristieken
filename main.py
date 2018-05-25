@@ -88,10 +88,10 @@ def main():
         parcel_amount = best_solution[1]
         costs = best_solution[2]
 
-        writeresults(hillsolution)
+    #     writeresults(hillsolution)
     
-    else:
-        writeresults(solutions)
+    # else:
+    #     writeresults(solutions)
 
     d = visual.visual(len(inventory.dict_space), result)
 
