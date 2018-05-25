@@ -1,11 +1,14 @@
 import random
 from copy import copy, deepcopy
 from helperscripts import fillitup, helpers, updateship
+from algorithms import annealinghelper
 
 def hill_climber(inventory, repetitions, constraint):
 
     best_inventory = inventory
     solutions = [best_inventory]
+    current_repetition = 0
+    maxTemp = 100
 
     for _ in range(repetitions):
         # save initial inventory to compare manipulated inventory with
@@ -69,9 +72,17 @@ def hill_climber(inventory, repetitions, constraint):
             best_inventory = inventory_post
 
         else:
-            best_inventory = inventory_pre
+            temp = annealinghelper.decrease_temperature(maxTemp, repetitions, current_repetition)
+            acceptance_chance = annealinghelper.calculate_acceptance_chance(inventory_pre.total_costs, inventory_post.total_costs, temp)
+            acceptance_request = random()
+            print(acceptance_request)
+            if acceptance_request <= acceptance_chance:
+                best_inventory = inventory_post
+                print("accept")
+            else:
+                best_inventory = inventory_pre
+                print("reject")
 
-    for solution in solutions:
-        print("pa", solution.parcel_amount, solution.total_costs)
+        current_repetition += 1
 
     return solutions

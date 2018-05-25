@@ -4,3 +4,10 @@ sol_id,cargolist,ships,constr,algo,b_var,hc,hc_n,iter_n,packages_n,total_costs,t
 2,1,False,False,greedy,first,False,20,5,79,7945159605,2.39,88.15,87.09
 3,1,False,False,greedy,first,False,20,5,79,9925578275,2.98,85.41,87.82
 4,1,False,False,greedy,first,False,20,5,79,11911064305,3.58,86.84,88.13
+sol_id,cargolist,ships,constr,algo,b_var,hc,hc_n,iter_n,packages_n,total_costs,total_costs_pct,mass_pct,volume_pct
+sol_id,cargolist,ships,constr,algo,b_var,hc,hc_n,iter_n,packages_n,total_costs,total_costs_pct,mass_pct,volume_pct
+0,1,False,False,greedy,first,False,20,5,79,1984516895,0.6,86.91,86.77
+1,1,False,False,greedy,first,False,20,5,80,1986394080,0.6,88.04,87.63
+2,1,False,False,greedy,first,False,20,5,78,1983615960,0.6,86.58,86.78
+3,1,False,False,greedy,first,False,20,5,79,1983800780,0.6,85.87,86.8
+4,1,False,False,greedy,first,False,20,5,80,1985160095,0.6,86.96,87.94

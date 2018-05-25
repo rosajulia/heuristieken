@@ -106,5 +106,5 @@ def random_algorithm(inventory, repetitions, constraint):
         solutions.append(deepcopy(inventory))
 
         solution_id += 1
-
+        
     return solutions

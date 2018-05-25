@@ -8,10 +8,10 @@ def solutions(solutions):
 
     Take one argument:
 
-        solutions: List of instances of Inventory class as result
-        from on of the algorithms.
-    """
+        solutions: a tuple containing the best solution as Inventory
+        class, the maximum parcel amount, and the minimum costs.
 
+    """
     # create empty lists to store solution parameters
     costs_list = []
     parcel_amount_list = []
