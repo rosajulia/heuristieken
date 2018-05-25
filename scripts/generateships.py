@@ -25,12 +25,8 @@ def generateships(inventory, constraint):
 
     fleet = []
     ships = inventory.dict_space
-<<<<<<< HEAD
     temp_cargo = deepcopy(inventory.dict_parcel)
-=======
-    temp_cargo = inventory.dict_parcel
     ship_counter = 1
->>>>>>> d89860746d9e199d2459e36699efa25c9be2e710
 
     # if any number of ships can be used
     if constraint == False:

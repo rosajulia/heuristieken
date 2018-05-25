@@ -59,15 +59,14 @@ def writeresults(solutions, algorithm, cargolist_no, constraint):
                 sol_id = id_counter
                 # ALGORITHM
                 # CARGOLIST
-                # NUMBER OF PACKAGES
+                n_packages = solution.parcel_amount
                 total_costs = solution.calculate_costs()
                 total_costs_pct = total_costs / bounds.calc_upperbound()
                 mass_filled_pct = mean([ship.current_weight for ship in fleet])
                 volume_filled_pct = mean([ship.current_volume for ship in fleet])
 
                 # write evey row in the csv
-                writer.writerow(sol_id, total_costs, total_costs_pct,\
-                                mass_filled_pct, volume_filled_pct)
+                writer.writerow(sol_id, n_packages, total_costs, total_costs_pct, mass_filled_pct, volume_filled_pct)
 
                 id_counter += 1
 

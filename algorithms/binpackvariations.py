@@ -127,8 +127,6 @@ def binpack(inventory, packing_variation, constraint, repetitions):
             inventory.total_costs = inventory.calculate_costs
             solutions.append(inventory)
 
-
-
         # script for best-fit
         elif packing_variation.lower() == "worst":
 
@@ -168,7 +166,9 @@ def binpack(inventory, packing_variation, constraint, repetitions):
             inventory.parcel_amount = parcel_amount
             inventory.total_costs = inventory.calculate_costs
             solutions.append(inventory)
-        
+
+            
+
         else:
 
             # error handler for incorrect argument packing_variation
