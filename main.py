@@ -5,9 +5,10 @@ import datetime
 from algorithms import randomalgorithm, greedyratio, hillclimber, binpackvariations
 from data import dataloader
 from classes import classes
-from scripts import graph, helpers, best_solutions, generateships
+from helperscripts import helpers
+from prepscripts import generateships
 from copy import copy, deepcopy
-from visualisation import visual
+from visualisation import visual, graph, best_solutions
 
 from flask import Flask, render_template, Response, jsonify
 import time

@@ -1,7 +1,6 @@
 import operator
-from scripts import generateships as gs
-from scripts import updateship as us
-from scripts import helpers
+from helperscripts import updateship as us
+from helperscripts import helpers
 
 def binpack(inventory, packing_variation, constraint, repetitions):
     """
