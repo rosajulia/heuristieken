@@ -8,14 +8,13 @@ from classes import classes
 from helperscripts import helpers
 from prepscripts import generateships
 from copy import copy, deepcopy
-from visualisation import visual, graph, best_solutions
+from visualisation import visual, graph, best_solutions, writeresults
 
 from flask import Flask, render_template, Response, jsonify
 import time
 import argparse
 
 app = Flask(__name__, template_folder="visualisation")
-
 
 @app.route("/")
 def main():
@@ -45,6 +44,9 @@ def main():
     print("Hillclimber iterations: %s" % int(args.hci))
     print("Political constraints: %s" % args.p)
     print("Bin variation: %s" % args.b)
+
+    # save command line args
+    args_list = [args.c, args.s, args.p, args.a, args.b, args.hc, args.hci, args.i]
 
     # load data
     ship_data = "data/spacecrafts.csv"
