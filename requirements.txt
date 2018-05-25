@@ -1,0 +1,10 @@
+#
+####### requirements.txt #######
+#
+###### Requirements with Version Specifiers ######
+#   See https://www.python.org/dev/peps/pep-0440/#version-specifiers
+Flask==1.0.2
+Jinja2==2.10
+matplotlib==2.2.2
+numpy==1.14.3
+#

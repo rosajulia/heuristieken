@@ -35,9 +35,9 @@ def fill_low_ratio_ships(lowest_ratio_type, low_type_counter, length_dict_parcel
 
     return [dict_space, dict_parcel, parcel_amount]
 
+
 def fill_high_ratio_ships(length_dict_space, length_dict_parcel, high_type_counter, parcel_amount, dict_space, dict_parcel, parcel_weight_max, parcel_volume_max, highest_ratio_type):
     """Fills ships of the highest ratio type in the current selection with parcels with the highest ratios in the cargolist"""
-
 
     full_ships_counter = 0
     parcel_cursor = length_dict_parcel - 1
@@ -70,7 +70,6 @@ def fill_high_ratio_ships(length_dict_space, length_dict_parcel, high_type_count
 
 def fill_middle_ratio_ships(dict_parcel, length_dict_parcel, low_distributed_parcels, high_distributed_parcels, length_dict_space, dict_space, parcel_amount, low_type_counter, high_type_counter, parcel_weight_max, parcel_volume_max, lowest_ratio_type, highest_ratio_type):
     """Fills ships with middle ratio types in the current selection with parcels with the middle ratios in the cargolist"""
-
 
     number_of_remaining_ships = length_dict_space - low_type_counter - high_type_counter
 
@@ -121,14 +120,12 @@ def fill_middle_ratio_ships(dict_parcel, length_dict_parcel, low_distributed_par
     # determine still remaining parcels
     shuffled_parcel_indices = shuffled_parcel_indices[parcel_cursor:]
 
-
     return [dict_space, dict_parcel, parcel_amount, shuffled_parcel_indices]
 
 
 def squeeze_in_extra_parcels(shuffled_parcel_indices, dict_space, dict_parcel, parcel_amount):
     """Adds not yet distributed parcels to the ships in the inventory where possible"""
 
-    full_ships_counter = 0
     parcel_cursor = 0
 
     # loop over remaining parcels

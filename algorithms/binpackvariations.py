@@ -2,7 +2,7 @@ import operator
 from helperscripts import updateship as us
 from helperscripts import helpers
 
-def binpack(inventory, packing_variation, constraint, repetitions):
+def binpack(inventory, packing_variation, repetitions):
     """
     Algorithm for bin packing variations that adds an additional heuristic
     for packing the ships.
@@ -45,9 +45,9 @@ def binpack(inventory, packing_variation, constraint, repetitions):
         nonnegative integer values.
     """
 
-    # check for correct user input
-    if type(constraint) != bool:
-        raise TypeError("Expected boolean for arg constraint")
+    # # check for correct user input
+    # if type(constraint) != bool:
+    #     raise TypeError("Expected boolean for arg constraint")
 
     solutions = []
     parcel_amount = 0

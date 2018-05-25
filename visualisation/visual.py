@@ -1,4 +1,4 @@
-from scripts import helpers
+from helperscripts import helpers
 
 def visual(ships, best_solution):
 

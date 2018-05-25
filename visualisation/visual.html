@@ -37,7 +37,13 @@ body {
   padding-left: 40px;
 }
 
-.below {
+.below-left {
+    width: 45%;
+    padding-left: 40px;
+}
+
+.below-right {
+    width: 55%;
     padding-left: 40px;
 }
 
@@ -146,10 +152,14 @@ table, th, td {
                             </tr>
                         </tbody>
                         </table>
+                        <h3 class="title">Space Freight - Graph</h3>
+                        <h5>Graph showing distribution of parcel amount across all solutions</h5>
+                        <img src="{{url_for('static', filename='graph.png')}}" />
 
        </div>
     </div>
-    <div class="column below">
+    <div class="row-below">
+    <div class="column below-left">
             <h3 class="title">Space Freight - Table per ship</h3>
             <table class="table table-striped table-dark">
                 <thead>
@@ -189,6 +199,10 @@ table, th, td {
                     </tbody>
                     </table>
                 </div>
+                <div class="column below-right">
+                    </div>
+                    </div>
+
 
 </body>
 </html>

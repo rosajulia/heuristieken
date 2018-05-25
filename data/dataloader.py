@@ -42,8 +42,6 @@ def load_data(ship_data, cargo_data):
     # create a list to hold spaceship objects
     list_space = []
 
-    # hieronder splitsen met if obv meegegeven command-line argument over 4 of oneindig schepen
-    # if 4:
     # create spaceship objects and append to the list
     for ship in data_space:
         spaceship_info = classes.Spaceship(ship_counter, ship["type"], ship["nation"], ship["mass"], ship["payload mass"], ship["payload volume"], ship["base cost"], ship["ftw"])
@@ -53,11 +51,8 @@ def load_data(ship_data, cargo_data):
         ship_counter += 1
         list_space.append(spaceship_info)
 
-    # if oneindig: jesse's nieuwe generateships.py aanroepen met constraints of niet, met list_parcel)
-
     # store both lists
     data = [list_space, list_parcel]
     inventory = classes.Inventory(data[0], data[1])
-    # print(inventory)
 
     return inventory

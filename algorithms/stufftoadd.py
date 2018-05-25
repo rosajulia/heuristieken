@@ -5,10 +5,13 @@ Clean To do list:
     o	Defaults aangeven in overzichtje
     o	Requirements.txt maken
     o	Ergens ff melden dat we html5 gebruiken (meer van dit soort dingen?)
+        - in readme bij visualisatie doen (voor elk mapje readme maken)
     o	Upper en lower bounds (en state space?) ergens noemen
+        - VRAGEN AAN BRAM MORGEN OF DAT MOET
     o	Aangeven voor welke subcases je welke command line arguments moet aanroepen (misschien zo doen dat je gewoon kan kopieëren?)
     o	Per algoritme een beschrijving van wat het doet
-    o	Other mapje weggooien (?)
+        - in readme bij elk mapje doen
+    # o	Other mapje weggooien (?)
     o	Mapje experimentatie aanmaken”
         	Een beschrijving van het experiment/onderzoeksvraag
         	Grafiekjes
