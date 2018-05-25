@@ -28,7 +28,7 @@ def linegraph(results_costs, results_parcels):
     fig, ax1 = plt.subplots()
 
     color = 'tab:red'
-    ax1.set_xlabel('solutions')
+    ax1.set_xlabel('solution number')
     ax1.set_ylabel('costs', color=color)
     ax1.plot(results_costs, color=color)
     ax1.tick_params(axis='y', labelcolor=color)
