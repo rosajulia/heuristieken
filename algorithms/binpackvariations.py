@@ -12,32 +12,32 @@ def binpack(inventory, packing_variation, constraint, repetitions):
 
     Takes three arguments:
 
-        inventory: Must contain an inventory object that contains a list 
-        with ship objects and a list with parcel objects that need to be 
+        inventory: Must contain an inventory object that contains a list
+        with ship objects and a list with parcel objects that need to be
         packed.
-        
-        packing-variation: Specify heuristic to apply in the process of 
+
+        packing-variation: Specify heuristic to apply in the process of
         packing ships
 
             "first" - First-fit decreasing:
             Finds the first available ship in which the parcel can be placed.
             Parcels are sorted by volume (descending).
-            
+
             "best" - Best-fit decreasing:
-            Finds the ship in which the parcel can be placed and that has the 
+            Finds the ship in which the parcel can be placed and that has the
             least volume left after placing the parcel.
             Parcels are sorted by volume (descending).
-            
+
             "worst" - Worst-fit decreasing:
             Finds the ship in which the parcel can be placed and that has
             the most volume left after placing the parcel.
             Parcels are sorted by volume (descending).
 
-        constraint: Specify whether to apply the diplomatic constraint in 
+        constraint: Specify whether to apply the diplomatic constraint in
         generating a dict_space to carry the parcels. Takes boolean.
 
-            True: Applies diplomatic constraint when generating dict_space where 
-            the difference in the number of ship each nation sends cannot be 
+            True: Applies diplomatic constraint when generating dict_space where
+            the difference in the number of ship each nation sends cannot be
             larger than 1.
 
             False: No constraints; dict_spaces will be generated at random.
@@ -45,22 +45,21 @@ def binpack(inventory, packing_variation, constraint, repetitions):
         repetitions: Specify the number of times the algorithm will run. Takes
         nonnegative integer values.
     """
-    
+
     # check for correct user input
     if type(constraint) != bool:
-        raise TypeError("Expected boolean for arg contraint")
+        raise TypeError("Expected boolean for arg constraint")
 
     solutions = []
     parcel_amount = 0
 
     for _ in range(repetitions):
-        
+
         dict_space = inventory.dict_space
         dict_parcel = inventory.dict_parcel
 
         dict_space = [helpers.reset(element) for element in dict_space]
         dict_parcel = [helpers.resetParcel(element) for element in dict_parcel]
-
 
         # script for first-fit variation
         if packing_variation.lower() == "first":
@@ -80,12 +79,14 @@ def binpack(inventory, packing_variation, constraint, repetitions):
 
                             # update the parcel and ship attribures
                             parcel.location = ship.id
-                            ship = us.updateship(ship, parcel, "+")
+                            ship = us.update_ship(ship, parcel, "+")
                             parcel_amount += 1
 
             inventory.parcel_amount = parcel_amount
             inventory.total_costs = inventory.calculate_costs()
             solutions.append(inventory)
+
+            return solutions
 
         # script for best-fit
         elif packing_variation.lower() == "best":
@@ -120,12 +121,14 @@ def binpack(inventory, packing_variation, constraint, repetitions):
 
                 # update the parcel and ship attributes
                 parcel.location = dict_space[best_fit_index].id
-                dict_space[best_fit_index] = us.updateship(dict_space[best_fit_index], parcel, "+")
+                dict_space[best_fit_index] = us.update_ship(dict_space[best_fit_index], parcel, "+")
                 parcel_amount += 1
 
             inventory.parcel_amount = parcel_amount
-            inventory.total_costs = inventory.calculate_costs
+            inventory.total_costs = inventory.calculate_costs()
             solutions.append(inventory)
+
+            return solutions
 
         # script for best-fit
         elif packing_variation.lower() == "worst":
@@ -160,16 +163,15 @@ def binpack(inventory, packing_variation, constraint, repetitions):
 
                 # update the parcel and ship attributes
                 parcel.location = dict_space[worst_fit_index].id
-                dict_space[worst_fit_index] = us.updateship(dict_space[worst_fit_index], parcel, "+")
+                dict_space[worst_fit_index] = us.update_ship(dict_space[worst_fit_index], parcel, "+")
                 parcel_amount += 1
 
             inventory.parcel_amount = parcel_amount
-            inventory.total_costs = inventory.calculate_costs
+            inventory.total_costs = inventory.calculate_costs()
             solutions.append(inventory)
 
-            
+            return solutions
 
         else:
-
             # error handler for incorrect argument packing_variation
             raise TypeError("Enter 'first', 'best' or 'worst' for command line arg packing_variation.")

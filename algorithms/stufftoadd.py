@@ -1,63 +1,56 @@
-# command-line arguments
-    # welke cargolist
-    # 4 of oneindig schepen
-    # constraints of niet
-    # welk algoritme
-    # hoe vaak
+Clean To do list:
+-	Readme:
+    o	Defaults aangeven in overzichtje
+    o	Requirements.txt maken
+    o	Ergens ff melden dat we html5 gebruiken (meer van dit soort dingen?)
+    o	Upper en lower bounds (en state space?) ergens noemen
+    o	Aangeven voor welke subcases je welke command line arguments moet aanroepen (misschien zo doen dat je gewoon kan kopieëren?)
+    o	Per algoritme een beschrijving van wat het doet
+    o	Other mapje weggooien (?)
+    o	Mapje experimentatie aanmaken”
+        	Een beschrijving van het experiment/onderzoeksvraag
+        	Grafiekjes
+        	Conclusie die je eruit trekt
+    o	Scripts mapje opdelen:
+        	Dingen die voorbereidend zijn
+        	Dingen die tijdens de algoritmes gebruikt worden
 
-# inventory
-    # moet daar niet iets anders in, in classes?
+-	Code:
+    o	Greedy opschonen naar kleinere functies
+    o	Greedy checken op correcte scores
+    o	Hillclimber checken op correcte scores
+    o	Random opschonen naar kleinere functies
+    o	Binpack opschonen naar kleinere functies?
+    o	Alle andere ff bekijken
+    o	Style:
+        	Snakecase functienamen
+        	[“ eruit voor .
+        	== eruit voor is
+        	Docstrings inhoudelijk checken
+        	Docstrings aanvullen
+        	Comments toevoegen/aanvullen/aanpassen
+    o	Keuze laten maken voor wel of geen visualisatie
+    o	Keuze laten maken voor wel of niet naar csv schrijven
+    o	Reset functies verplaatsen van helpers naar inventory class
+        	Aanroepen aanpassen
+        	Readme aanpassen
 
-# hillclimber
-    # use remainder of shuffles list from greedy
-    # change in greedy:
-        # instead of pop, add to other list (occupied parcels)
-        # include these lists? or recreate in hillclimber based on parcel locations
-    # choose:
-        # random amount to remove
-        # random parcel id's to remove
-    # chosen numbers
-        # --> change location to 0
-        # --> add numbers to remainder list
-        # --> adjust current weights and volumes
-    # fill randomly until full (reuse code of other algorithms)
-        # --> change parcel locations
-        # --> add numbers to occupied list
-        # --> adjust current weights and volumes
-    # consider outcome costs
-        # higher ==> use this inventory as new starting point
-        # lower ==> ignore and start over from current best starting point
-
-    # should return inventory
-
-
-# greedy suitable for variety of ships:
-    # add ratio of ships to class
-    # sort list of generated ships based on ratio
-    # sort cargolist on ratio
-    # consider lowest type of ship
-        # loop over (or back and forth) ships of type with lowest ratio
-        # fill with lowest ratio parcels
-        # same for highest
-        # decide whether to do the same with next lowest ratio ships and next highest ratio ships
-        # randomly divide oarcels over middle ships
-    # start hill climbing (or something else)
-
-    # greedy should return an object of type inventory?
-        # (random ook)
-        # inventory id?
-
-
-# generate random ships (considering constraint or not)
-    # first couple of rounds can be looped instead of random
-    # upon creating ship, fill randomly with parcels until full
-    # create new ship and repeat until all parcel location != 0
-    # to consider restraint: keep track of counter per nation
-# either:
-    # clear all parcel locations and fill again but now with greedyratio
-    # or climb hill with current random outcome as starting point
-
-
-
-# experimentatie
-    # wat is invloed van ftw?
+-	Verder:
+    o	Schip zonder lading (weight = 0) niet meerekenen in de kosten
+        	Alleen als politieke constraint het toelaat
+        	Eventueel 50 van allemaal aanmaken en dan steeds lege weggooien ipv nu “op maat aanmaken” in generateships
+    o	Csv verhaal aanroepen vanuit main
+        	Obv command line yes or no
+        	Files die nu los staan in mapje zetten
+    o	Hillclimber parametriseren met verschillende aantallen pakketjes te removen
+    o	Simulated annealing schrijven
+        	Toevoegen aan hillclimber:
+            •	T (temperatuur) met decline functie
+            •	0 en 1 zijn kosten van de pre en de post oplossing
+            •	Als beter:
+    o	Accepteren
+            •	Als niet beter:
+                o	Annealing aan?
+                    	Ja: f(0,1,T) geeft acceptatiegrens -> random getal genereren en kijken of accepted -> temperatuur aanpassen
+    o	Experimentatie bedenken, checken bij Bram, en doen
+    o   Calculations opschonen

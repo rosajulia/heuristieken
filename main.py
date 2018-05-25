@@ -2,7 +2,7 @@
 
 import sys
 import datetime
-from algorithms import randomalgorithm, greedyratio, hillclimber
+from algorithms import randomalgorithm, greedyratio, hillclimber, binpackvariations
 from data import dataloader
 from classes import classes
 from scripts import graph, helpers, best_solutions, generateships
@@ -18,28 +18,31 @@ import argparse
 
 app = Flask(__name__, template_folder="visualisation")
 
+
 @app.route("/")
 def main():
     # initialize command-line arguments
     parser = argparse.ArgumentParser(description='Calculate the optimal organisation of a cargolist in spaceships')
-    parser.add_argument('-c', "-cargo", help='Cargolist: 1, 2, 3', nargs='?', default='1', required=False)
-    parser.add_argument('-s', "-ships", help='More than 4 ships: yes or no', nargs='?', default='no', required=False)
-    parser.add_argument('-p', "-politics", help='Political constraints: true or false', nargs='?', default='False', required=False)
-    parser.add_argument('-a', "-algorithms", help='Algorithm: greedy or random', nargs='?', default='greedy', required=False)
-    parser.add_argument('-hc', "-hillclimber", help='Hillclimber: yes or no', nargs='?', default='no', required=False)
-    parser.add_argument('-hci', "-hc_iterations", help='Hillclimber: yes or no', nargs='?', default='20', required=False)
-    parser.add_argument('-i', "-iterations", help="Iterations", nargs='?', default='5', required=False)
+    parser.add_argument('-c', "-cargo", help='Cargolist: 1, 2, 3 [default: 1]', nargs='?', default='1', required=False)
+    parser.add_argument('-s', "-ships", help='More than 4 ships: yes or no [default: no]', nargs='?', default='no', required=False)
+    parser.add_argument('-p', "-politics", help='Political constraints: true or false [default: false]', nargs='?', default='False', required=False)
+    parser.add_argument('-a', "-algorithms", help='Algorithm: greedy, random, bin [default: greedy]', nargs='?', default='greedy', required=False)
+    parser.add_argument('-b', "-bin_variation", help='Bin-packing variation: first, best, worst [default: first]', nargs='?', default='first', required=False)
+    parser.add_argument('-hc', "-hillclimber", help='Hillclimber: yes or no [default: yes]', nargs='?', default='no', required=False)
+    parser.add_argument('-hci', "-hc_iterations", help='Hillclimber iteration: int [default: 20]', nargs='?', default='20', required=False)
+    parser.add_argument('-i', "-iterations", help="Iterations: int [default: 5]", nargs='?', default='5', required=False)
     args = parser.parse_args()
-    
+
     # show values
-    print ("Cargolist: %i" % int(args.c))
-    print ("More than 4 ships: %s" % args.s)
-    print ("Political defaultraints: %s" % args.p)
-    print ("Algorithm: %s" % args.a)
-    print ("Hillclimber: %s" % args.hc)
-    print ("Hillclimber iterations: %s" % int(args.hci))
-    print ("Iterations: %i" % int(args.i))
-    
+    print("Cargolist: %i" % int(args.c))
+    print("More than 4 ships: %s" % args.s)
+    print("Political constraints: %s" % bool(args.p))
+    print("Bin variation: %s" % args.b)
+    print("Algorithm: %s" % args.a)
+    print("Hillclimber: %s" % args.hc)
+    print("Hillclimber iterations: %s" % int(args.hci))
+    print("Iterations: %i" % int(args.i))
+
     # load data
     ship_data = "data/spacecrafts.csv"
     cargo_data = "data/CargoList%s.csv" % args.c
@@ -52,31 +55,35 @@ def main():
     else:
         generateships.generateships(inventory, args.p)
 
-    # inventory.dict_space = inventory.dict_space[:4]
-
     # start algorithm
     print('{}: Start algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
 
     if args.a == "greedy":
         solutions = greedyratio.greedy_ratio(inventory, repetitions)
-    else:
+    elif args.a == "random":
         solutions = randomalgorithm.random_algorithm(inventory, repetitions)
+    elif args.a == "bin":
+        solutions = binpackvariations.binpack(inventory, args.b, args.p, repetitions)
 
     print('{}: Finished running {} times.'.format(datetime.datetime.now().strftime("%H:%M:%S"), args.i))
 
     # calculate best solution
     best_solution = best_solutions.solutions(solutions)
-    
+
+    result = best_solution[0]
+    parcel_amount = best_solution[1]
+    costs = best_solution[2]
+
     if args.hc == "yes":
-        hillsolution = hillclimber.hill_climber(best_solution[0], repetition_hillclimber)
+        hillsolution = hillclimber.hill_climber(result, repetition_hillclimber)
         best_solution = hillsolution
 
     # start visualisation with more than 4 ships
-    if args.s == "no":   
-        d = visual.visual(args.s, best_solution)
-        return render_template("visual.html", d=d)
+    if args.s == "no":
+        d = visual.visual(args.s, result)
+        return render_template("visual.html", d=d, parcel_amount=parcel_amount, costs=costs)
     else:
-        d = visual.visual(args.s, best_solution)
+        d = visual.visual(args.s, result)
         return render_template("terminal.html")
 
 if __name__ == "__main__":

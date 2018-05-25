@@ -1,4 +1,4 @@
-def updateship(ship, parcel, method):
+def update_ship(ship, parcel, method):
     """
     This script updates the attributes of a ship when a parcel is stored in it.
 
@@ -14,7 +14,7 @@ def updateship(ship, parcel, method):
             "+": Selecting this method will pack ships by ADDING parcels to the
             ship, and updating its current weight appropriately.
 
-            "-": Selecting this method will unpack ships by REMOVING parcels 
+            "-": Selecting this method will unpack ships by REMOVING parcels
             from the ship, and updating its current weight appropriately.
     """
 
