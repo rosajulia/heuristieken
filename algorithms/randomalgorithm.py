@@ -21,7 +21,7 @@ def random_algorithm(inventory, repetitions, constraint):
             the algorithm. The solutions contain the total parcel amount and the costs. 
 
     Usage:
-    randomalgorithm.random_algorithm(inventory, repetitions)
+    randomalgorithm.random_algorithm(inventory, repetitions, constraint)
 
     """
 

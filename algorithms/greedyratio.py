@@ -9,8 +9,21 @@ def greedy_ratio(inventory, repetitions, constraint):
     and the assumption that low ratio ships are suitable transport for low ratio parcels
     (and high ratio ships for high ratio parcels).
 
-    
-    
+    The algorithm first starts by dividing the spaceships ratio-based, using greedyhelper. 
+    It will continue by filling the low-ratio spaceship and high-ratio spaceship with corresponding
+    low- and high-ratio parcels. The other spaceships will be randomly filled.
+
+    Input:
+            takes three input arguments: the class Inventory containing all information
+            about the spaceships and parcels; the repetitions, how many iterations will be performed;
+            constraint: whether or not there is a political constraint.
+
+    Output: 
+            returns a list of instances of the class Inventory, containing the solutions from 
+            the algorithm. The solutions contain the total parcel amount and the costs. 
+
+    Usage:
+    greedyratio.greedy_ratio(inventory, repetitions, constraint)            
     """
     # create list for final return of solutions
     solutions = []
