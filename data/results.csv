@@ -1,0 +1,6 @@
+sol_id,cargolist,ships,constr,algo,b_var,hc,hc_n,iter_n,packages_n,total_costs,total_costs_pct,mass_pct,volume_pct
+0,1,False,False,greedy,first,False,20,5,80,3970011620,1.19,87.27,87.5
+1,1,False,False,greedy,first,False,20,5,79,5957146640,1.79,87.77,87.4
+2,1,False,False,greedy,first,False,20,5,79,7945159605,2.39,88.15,87.09
+3,1,False,False,greedy,first,False,20,5,79,9925578275,2.98,85.41,87.82
+4,1,False,False,greedy,first,False,20,5,79,11911064305,3.58,86.84,88.13
