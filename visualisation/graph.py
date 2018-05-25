@@ -3,7 +3,6 @@ import os
 
 
 def barchart(results):
-
     # plot solutions in histogram
     plt.hist(results, color="red", align="right")
     plt.title = ("Solutions")
