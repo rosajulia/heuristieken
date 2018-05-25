@@ -55,7 +55,7 @@ def hill_climber(inventory, repetitions, constraint):
         inventory_mid.total_costs = inventory_mid.calculate_costs(constraint)
 
         # compare output inventory of random_algorithm.parcel_amount with earlier parcel_amount
-        inventory_post = fillitup.fill_it_up(inventory_mid)
+        inventory_post = fillitup.fill_it_up(inventory_mid, constraint)
 
         # continue with hillclimber output if more parcels than before
         if inventory_post.parcel_amount > inventory_pre.parcel_amount:

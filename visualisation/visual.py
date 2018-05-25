@@ -28,7 +28,7 @@ def visual(ships, best_solution):
         weight_send = format(weight, '.2f')
         volume_send = format(volume, '.2f')
 
-        d["weight" + str(0) + str(i)] = weight_send
+        d["weight" + str(i)] = weight_send
         d["volume" + str(i)] = volume_send
         d["total_amount" + str(i)] = len(solution_statement[i]["content"])
         d["parcels" + str(i)] = solution_statement[i]["content"]
