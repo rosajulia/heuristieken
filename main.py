@@ -82,7 +82,7 @@ def main():
     if args.hc is True:
         hillsolution = hillclimber.hill_climber(result, repetition_hillclimber, args.p) 
         print("Results after hillclimber:")       
-        best_solution = best_solutions.solutions([hillsolution])
+        best_solution = best_solutions.solutions(hillsolution)
         
         result = best_solution[0]
         parcel_amount = best_solution[1]
