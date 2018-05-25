@@ -40,14 +40,14 @@ def main():
     args = parser.parse_args()
 
     # show values
+    print("Algorithm: %s" % args.a)
+    print("Iterations: %i" % int(args.i))
     print("Cargolist: %i" % int(args.c))
     print("More than 4 ships: %s" % args.s)
-    print("Political constraints: %s" % args.p)
-    print("Bin variation: %s" % args.b)
-    print("Algorithm: %s" % args.a)
     print("Hillclimber: %s" % args.hc)
     print("Hillclimber iterations: %s" % int(args.hci))
-    print("Iterations: %i" % int(args.i))
+    print("Political constraints: %s" % args.p)
+    print("Bin variation: %s" % args.b)
 
     # load data
     ship_data = "data/spacecrafts.csv"
