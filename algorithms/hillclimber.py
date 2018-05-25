@@ -71,4 +71,7 @@ def hill_climber(inventory, repetitions, constraint):
         else:
             best_inventory = inventory_pre
 
+    for solution in solutions:
+        print("pa", solution.parcel_amount, solution.total_costs)
+
     return solutions

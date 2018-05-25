@@ -65,6 +65,7 @@ class Inventory():
         return max(weight_list), max(volume_list)
 
     def calculate_costs(self, constraint):
+        self.total_costs = 0
         for ship in self.dict_space:
             if ship.current_weight != 0 and constraint is False:
                     self.total_costs += ship.base_cost

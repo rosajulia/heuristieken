@@ -80,18 +80,18 @@ def main():
     costs = best_solution[2]
 
     if args.hc is True:
-        hillsolution = hillclimber.hill_climber(result, repetition_hillclimber, args.p) 
-        print("Results after hillclimber:")       
-        best_solution = best_solutions.solutions([hillsolution])
-        
+        hillsolution = hillclimber.hill_climber(result, repetition_hillclimber, args.p)
+        print("Results after hillclimber:")
+        best_solution = best_solutions.solutions(hillsolution)
+
         result = best_solution[0]
         parcel_amount = best_solution[1]
         costs = best_solution[2]
 
-        writeresults(hillsolution)
-    
-    else:
-        writeresults(solutions)
+        # writeresults(hillsolution)
+
+    # else:
+    #     writeresults(solutions)
 
     d = visual.visual(len(inventory.dict_space), result)
 
