@@ -1,9 +1,9 @@
 # Heuristieken
 Rebecca de Feijter, Jesse Haenen, Julia Jelgerhuis <br />
 Case: Space Freight <br />
-http://heuristieken.nl/wiki/index.php?title=Space_Freight
+http://heuristieken.nl/wiki/index.php?title=Space_Freight </br>
 
-## Main goal
+# Main goal
 Ship parcels to the International Space Station (ISS) using 6 different types of spacecrafts.
 Divide the parcels over the different ships to make it as cost efficient as possible.
 
@@ -16,15 +16,23 @@ Our repository consists of the following files and folders:
 * Classes: this folder contains the data structure that is the foundation of our program. Two classes - namely 
   Parcels and Spaceships - are used, as well as a class including all useful features of a suggested distribution of
   parcels over the ships; the Inventory class.
-* Algorithms: this is where our handwritten algorithms reside, currently those are a random algorithm, a combinatorial greedy/random
-  algorithm, and a hill climber algorithm.
-* Scripts: the algorithms are supported by a series of files in this folder: helpers.py 
-  contains several smaller functions, generateships.py & shiploader.py are used to create a varying fleet of ships.
+* Algorithms: this is where our handwritten algorithms reside. Algorithms in this folder are: a random algorithm, a combinatorial greedy/random algorithm, a hillclimber, and an algorithm for binpacking variations.
+* Helperscripts: the algorithms residing here are used to support the algorithms. In this folder you will find helper.py, in which several smaller functions are defined, and fillitup and updateship, which are used for the packing of the ships.
+* Prepscripts: the functions in this folder play a role in the preparation of the fleet before the algorithms are ran. Generateships and shiploader are both files responsible for the generation of a fleet. 
 * Calculations: calculations of for example the upper and lower bound of our score function (costs) are stored here.
 * Visualisation: this folder contains our visualisation functions, graph.py supports a concise 
-  visualisation of the outcome of the algorithms and visual.html, visual.py, visual.css, and terminal.html are used for a more elaborate visualisation, 
-* Other: other files, like our to do list + division of tasks.
+  visualisation of the outcome of the algorithms and visual.html, visual.py, visual.css, and terminal.html are used for a more elaborate visualisation.
+ * Static: a folder requested by the Flask web application to store images. Graph.py will save the graph in this folder, which will later be used for html visualisation. 
+You can see the readme's in the seperate folder for more information about the files residing there. 
 
+## Questions and commands of case
+The case Space Freight came with several questions to test your code. Below you will find these questions with their corresponding command line arguments. </br>
+* a. Cargolist 1 with 4 ships (focus on parcel amount) --> python main.py 
+* b. Cargolist 1 with 4 ships (focus on costs) --> python main.py 
+* c. Cargolist 2 with 4 ships --> python main.py -c 2      
+* d. Cargolist 3 with more ships (political constraints) --> python main.py -c 3 -s -p 
+* e. Cargolist 3 with more ships (no political constraints) --> python main.py -c 3 -s </br>
+Optional: *algorithms* and *hillclimber* are optional arguments, see Use of program to check the arguments.
 
 # Use of program
 **Input**<br />
