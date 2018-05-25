@@ -1,15 +1,24 @@
-# import matplotlib
-# matplotlib.use('Agg')
-# from matplotlib import pyplot
-
-# import matplotlib.pyplot as plt
-# matplotlib.pyplot.use('Agg')
-
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 def barchart_parcels(results):
+    """
+    Plots barchart showing results parcel-based
+
+    Take one argument:
+
+        results: a list of the best Inventory instances 
+        per iteration.
+    
+    Output:
+        
+        a barchart showing the distribution of the maximum parcel amount
+        over all solutions. On the x-axis the frequency is displayed in 
+        height of the chart, and on the y-axis you can see the parcel amount
+        in integers.
+
+    """
     # plot solutions in histogram
     plt.hist(results, color="red", align="right")
     plt.title = ("Solutions")

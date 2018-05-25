@@ -33,6 +33,7 @@ def main():
                         type=int, required=False)
     parser.add_argument("-i", "-iterations", help="Iterations: int [default: 5]", nargs='?', default='5', type = int, \
                         required=False)
+    parser.add_argument("-w", "-write_csv", help="Write results to csv", action="store_true")
     args = parser.parse_args()
 
     # show values
@@ -44,6 +45,7 @@ def main():
     print("Hillclimber iterations: %s" % int(args.hci))
     print("Political constraints: %s" % args.p)
     print("Bin variation: %s" % args.b)
+    print("Write results to csv: %s" % args.w)
 
     # save command line args
     args_list = [args.c, args.s, args.p, args.a, args.b, args.hc, args.hci, args.i]
@@ -79,6 +81,7 @@ def main():
     parcel_amount = best_solution[1]
     costs = best_solution[2]
 
+    # start hillclimber and replace solution with hillclimber solution
     if args.hc is True:
         hillsolution = hillclimber.hill_climber(result, repetition_hillclimber, args.p)
         print("Results after hillclimber: ")
@@ -88,14 +91,18 @@ def main():
         parcel_amount = best_solution[1]
         costs = best_solution[2]
 
-    #     writeresults(hillsolution)
+        # write results to csv with hillclimber results
+        if args.w is True:
+            writeresults.write_results(hillsolution, args_list)
+    
+    # write results to csv 
+    if args.w is True:
+        writeresults.write_results(solutions, args_list)
 
-    # else:
-    #     writeresults(solutions)
-
+    # create dict for visualisation
     d = visual.visual(len(inventory.dict_space), result)
 
-    # start visualisation with more than 4 ships
+    # start visualisation depending on amount of ships
     if args.s is False:
         return render_template("visual.html", d=d, parcel_amount=parcel_amount, costs=costs)
     else:
