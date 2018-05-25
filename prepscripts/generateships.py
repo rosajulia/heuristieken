@@ -1,6 +1,6 @@
 import random
 from classes import classes
-from scripts import shiploader
+from prepscripts import shiploader
 from copy import copy, deepcopy
 
 def generateships(inventory, constraint):
@@ -14,12 +14,12 @@ def generateships(inventory, constraint):
 
         inventory: Must contain object of type inventory.
 
-        constraint: 
-            True: Setting constraint to True will generate ships given that 
-            nations must send an equal number of ships. The difference in the 
-            number of ships each nation sends cannot be larger than one. 
-            
-            False: Setting constraint to False will disregard any diplomatic 
+        constraint:
+            True: Setting constraint to True will generate ships given that
+            nations must send an equal number of ships. The difference in the
+            number of ships each nation sends cannot be larger than one.
+
+            False: Setting constraint to False will disregard any diplomatic
             constraints and will generate a fleet of ships at random.
     """
 
@@ -45,7 +45,7 @@ def generateships(inventory, constraint):
             fleet.append(ship)
 
             ship_counter += 1
-        
+
         inventory.dict_space = deepcopy(fleet)
 
         return inventory
@@ -94,7 +94,5 @@ def generateships(inventory, constraint):
                 score_keeper = {nation:False for nation in score_keeper}
 
         inventory.dict_space = fleet
-        
-        return inventory
 
-            
+        return inventory

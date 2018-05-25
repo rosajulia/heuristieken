@@ -1,4 +1,4 @@
-from scripts import updateship
+from helperscripts import updateship
 from random import shuffle
 
 def fill_low_ratio_ships(lowest_ratio_type, low_type_counter, length_dict_parcel, dict_space, dict_parcel, parcel_weight_max, parcel_volume_max):

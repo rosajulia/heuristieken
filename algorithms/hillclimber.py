@@ -1,6 +1,6 @@
 import random
 from copy import copy, deepcopy
-from scripts import fillitup, helpers, updateship
+from helperscripts import fillitup, helpers, updateship
 
 def hill_climber(inventory, repetitions):
 

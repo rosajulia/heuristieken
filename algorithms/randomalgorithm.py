@@ -1,5 +1,5 @@
 import random
-from scripts import helpers, updateship
+from helperscripts import helpers, updateship
 import time
 from copy import copy, deepcopy
 
@@ -14,8 +14,12 @@ def random_algorithm(inventory, repetitions):
     randomalgorithm.random_algorithm(inventory, repetitions)
     """
 
+    # create list for final return of solutions
     solutions = []
+
+    # give unique solution_id
     solution_id = 0
+
     for _ in range(repetitions):
 
         dict_parcel = inventory.dict_parcel
@@ -24,8 +28,6 @@ def random_algorithm(inventory, repetitions):
         amount_of_parcels = len(dict_parcel)
         parcel_weight_max = inventory.maxParcelWeightVolume()[0]
         parcel_volume_max = inventory.maxParcelWeightVolume()[1]
-
-        inventory.solution_id = solution_id
 
         # which of the ships is currently being filled
         ship_counter = 1
@@ -63,9 +65,10 @@ def random_algorithm(inventory, repetitions):
             dict_parcel[add_ID - 1].location = dict_space[ship_counter - 1].id
 
             # update spaceships current weight and volume
-            dict_space[ship_counter - 1] = updateship.update_ship(dict_space[ship_counter - 1], dict_parcel[add_ID - 1], "+")
+            dict_space[ship_counter - 1] = updateship.update_ship(dict_space[ship_counter - 1], \
+                        	                dict_parcel[add_ID - 1], "+")
 
-            # count parcels per solution
+            # keep track of parcels per solution
             parcel_amount += 1
 
             # note when ship is almost full
@@ -77,14 +80,16 @@ def random_algorithm(inventory, repetitions):
 
                     if (dict_space[ship_counter - 1].current_weight + dict_parcel[parcel_id - 1].weight <= dict_space[ship_counter - 1].max_weight and \
                         dict_space[ship_counter - 1].current_volume + dict_parcel[parcel_id - 1].volume <= dict_space[ship_counter - 1].max_volume):
-
-                        dict_space[ship_counter - 1] = updateship.update_ship(dict_space[ship_counter - 1], dict_parcel[parcel_id - 1], "+")
+                        
+                        dict_space[ship_counter - 1] = updateship.update_ship(dict_space[ship_counter - 1], \
+                        	                dict_parcel[parcel_id - 1], "+")
 
                         shuffled_list.remove(parcel_id)
 
                         dict_parcel[parcel_id - 1].location = dict_space[ship_counter - 1].id
 
                         parcel_amount += 1
+                        print(parcel_amount)
 
                 # set ship to full
                 dict_space[ship_counter - 1].full = True
@@ -95,15 +100,14 @@ def random_algorithm(inventory, repetitions):
                 if ship.full is True:
                     full_ships_counter += 1
 
-        # give unique solution_id
-        solution_id += 1
-
-        # add parcel amount and total costs to solution (inventory object)
+        # update inventory object and add to solutions list
+        inventory.solution_id = solution_id
         inventory.parcel_amount = parcel_amount
         inventory.total_costs = inventory.calculate_costs()
 
         # collect all solutions in list for returning
         solutions.append(deepcopy(inventory))
 
+        solution_id += 1
 
     return solutions

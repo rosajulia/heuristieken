@@ -1,4 +1,4 @@
-from scripts import helpers
+from helperscripts import helpers
 
 def visual(ships, best_solution):
 
@@ -11,11 +11,9 @@ def visual(ships, best_solution):
     """
     # visualize which ships contain which parcels in best solution(s)
     solution_statement = helpers.visualizeParcelsPerShip(best_solution)
-    # for element in solution_statement:
-    #     print(element)
 
     # create dict for progress bars
-    if ships == "no":
+    if ships is False:
         d = {}
         for i in range(4):
             current_weight = best_solution.dict_space[i].current_weight

@@ -1,5 +1,5 @@
 from copy import copy, deepcopy
-from visualisation import visual
+from visualisation import visual, graph
 
 def solutions(solutions):
 
@@ -21,6 +21,7 @@ def solutions(solutions):
         # print(solution.parcel_amount)
         parcel_amount_list.append(solution.parcel_amount)
     max_parcel_amount = max(parcel_amount_list)
+    graph.barchart(parcel_amount_list)
 
     # continue with solutions with max parcel amount
     parcel_checked_solutions = []

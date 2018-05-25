@@ -1,8 +1,7 @@
 import random
-from scripts import helpers
+from helperscripts import helpers, updateship
 from operator import itemgetter
 from copy import copy, deepcopy
-from scripts import updateship
 from algorithms import greedyhelper
 
 def greedy_ratio(inventory, repetitions):
@@ -12,6 +11,7 @@ def greedy_ratio(inventory, repetitions):
 
     # create list for final return of solutions
     solutions = []
+    solution_id = 0
 
     dict_space = inventory.dict_space
     length_dict_space = len(dict_space)
@@ -89,8 +89,11 @@ def greedy_ratio(inventory, repetitions):
         parcel_amount = add_extra_parcels[2]
 
         # update solution and add to solutions list for final return
+        inventory.solution_id = solution_id
         inventory.parcel_amount = parcel_amount
         inventory.total_costs = inventory.calculate_costs()
         solutions.append(deepcopy(inventory))
+
+        solution_id += 1
 
     return solutions

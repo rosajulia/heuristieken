@@ -1,5 +1,5 @@
 from random import shuffle
-from scripts import updateship
+from helperscripts import updateship
 
 def fill_it_up(inventory):
 
