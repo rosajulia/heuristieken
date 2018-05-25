@@ -31,8 +31,8 @@ The case Space Freight came with several questions to test your code. Below you 
 * b. Cargolist 1 with 4 ships (focus on costs) --> python main.py 
 * c. Cargolist 2 with 4 ships --> python main.py -c 2      
 * d. Cargolist 3 with more ships (political constraints) --> python main.py -c 3 -s -p 
-* e. Cargolist 3 with more ships (no political constraints) --> python main.py -c 3 -s 
-
+* e. Cargolist 3 with more ships (no political constraints) --> python main.py -c 3 -s </br>
+Optional: *algorithms* and *hillclimber* are optional arguments, see Use of program to check the arguments.
 
 # Use of program
 **Input**<br />
