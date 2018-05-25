@@ -5,6 +5,7 @@ from helperscripts import fillitup, helpers, updateship
 def hill_climber(inventory, repetitions, constraint):
 
     best_inventory = inventory
+    solutions = [best_inventory]
 
     for _ in range(repetitions):
         # save initial inventory to compare manipulated inventory with
@@ -59,11 +60,15 @@ def hill_climber(inventory, repetitions, constraint):
 
         # continue with hillclimber output if more parcels than before
         if inventory_post.parcel_amount > inventory_pre.parcel_amount:
+            solutions.append(deepcopy(inventory_post))
             best_inventory = inventory_post
 
         # continue with hillclimber output if same amount of parcels but cheaper
         elif inventory_post.parcel_amount == inventory_pre.parcel_amount and inventory_post.total_costs < inventory_pre.total_costs:
+            solutions.append(deepcopy(inventory_post))
             best_inventory = inventory_post
+
         else:
             best_inventory = inventory_pre
-    return best_inventory
+
+    return solutions
