@@ -14,9 +14,6 @@ from flask import Flask, render_template, Response, jsonify
 import time
 import argparse
 
-# necessary for this script: pip install matplotlib
-# future ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
-
 app = Flask(__name__, template_folder="visualisation")
 
 
@@ -87,7 +84,7 @@ def main():
     d = visual.visual(len(inventory.dict_space), result)
 
     # start visualisation with more than 4 ships
-    if args.s is False:   
+    if args.s is False:
         return render_template("visual.html", d=d, parcel_amount=parcel_amount, costs=costs)
     else:
         return render_template("terminal.html", d=d, parcel_amount=parcel_amount, costs=costs)
