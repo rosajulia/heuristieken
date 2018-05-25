@@ -69,7 +69,6 @@ def greedy_ratio(inventory, repetitions):
             dict_parcel = high_filled[1]
             parcel_amount = high_filled[2]
 
-
         # determine amount of distributed parcels with high ratios
         high_distributed_parcels = parcel_amount - low_distributed_parcels
 
