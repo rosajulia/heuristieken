@@ -45,14 +45,11 @@ def binpack(inventory, packing_variation, repetitions, constraint):
         nonnegative integer values.
     """
 
-    # # check for correct user input
-    # if type(constraint) != bool:
-    #     raise TypeError("Expected boolean for arg constraint")
-
     solutions = []
-    parcel_amount = 0
 
     for _ in range(repetitions):
+
+        parcel_amount = 0
 
         dict_space = inventory.dict_space
         dict_parcel = inventory.dict_parcel
@@ -64,22 +61,26 @@ def binpack(inventory, packing_variation, repetitions, constraint):
         if packing_variation.lower() == "first":
 
             # store parcel attributes
-            dict_parcel = sorted(dict_parcel, key=operator.attrgetter("volume"), reverse=True)
+            dict_parcel = sorted(dict_parcel, key=operator.attrgetter("volume"), reverse=False)
 
             # loop over every parcel in the cargolist
             for parcel in dict_parcel:
 
-                # for every ship
-                for ship in dict_space:
+                # keep track of the FIRST ship in which the parcel fits
+                first_fit_index = 0
 
-                    # try to fit the parcel in the first available ship
-                    if ship.current_volume + parcel.volume <= ship.max_volume:
-                        if ship.current_weight + parcel.weight <= ship.max_weight:
+                # find the first ship with enough room
+                for i in range(len(dict_space)):
 
-                            # update the parcel and ship attribures
-                            parcel.location = ship.id
-                            ship = us.update_ship(ship, parcel, "+")
-                            parcel_amount += 1
+                    if dict_space[i].current_volume + parcel.volume <= dict_space[i].max_volume:
+                        if dict_space[i].current_weight + parcel.weight <= dict_space[i].max_weight:
+
+                            first_fit_index = i
+
+                # update the parcel and ship attributes
+                parcel.location = dict_space[first_fit_index].id
+                dict_space[first_fit_index] = us.update_ship(dict_space[first_fit_index], parcel, "+")
+                parcel_amount += 1
 
             inventory.parcel_amount = parcel_amount
             inventory.total_costs = inventory.calculate_costs(constraint)
@@ -91,7 +92,7 @@ def binpack(inventory, packing_variation, repetitions, constraint):
         elif packing_variation.lower() == "best":
 
             # store parcel attributes and sort descending by volume
-            dict_parcel = sorted(dict_parcel, key=operator.attrgetter("volume"), reverse=True)
+            dict_parcel = sorted(dict_parcel, key=operator.attrgetter("volume"), reverse=False)
 
             # loop over every parcel in the parcel dict
             for parcel in dict_parcel:
@@ -108,13 +109,13 @@ def binpack(inventory, packing_variation, repetitions, constraint):
                         if dict_space[i].current_weight + parcel.weight <= dict_space[i].max_weight:
 
                             # calc the weight left as percentage of maximum
-                            weight_left = dict_space[i].max_volume - (dict_space[i].current_volume + parcel.volume) / dict_space[i].max_volume
+                            volume_left = (dict_space[i].max_volume - (dict_space[i].current_volume + parcel.volume)) / dict_space[i].max_volume
 
                             # check if that ship is a better fit
-                            if weight_left < best_fit:
+                            if volume_left < best_fit:
 
                                 # store the best fit
-                                best_fit = weight_left
+                                best_fit = volume_left
                                 best_fit_index = i
 
                 # update the parcel and ship attributes
@@ -123,7 +124,7 @@ def binpack(inventory, packing_variation, repetitions, constraint):
                 parcel_amount += 1
 
             inventory.parcel_amount = parcel_amount
-            inventory.total_costs = inventory.calculate_costs()
+            inventory.total_costs = inventory.calculate_costs(constraint)
             solutions.append(inventory)
 
             return solutions
@@ -150,13 +151,13 @@ def binpack(inventory, packing_variation, repetitions, constraint):
                         if dict_space[i].current_weight + parcel.weight <= dict_space[i].max_weight:
 
                             # calc the weight left as percentage of maximum
-                            weight_left = dict_space[i].max_volume - (dict_space[i].current_volume + parcel.volume) / dict_space[i].max_volume
+                            volume_left = (dict_space[i].max_volume - (dict_space[i].current_volume + parcel.volume)) / dict_space[i].max_volume
 
                             # check if that ship is a worse fit
-                            if weight_left > worst_fit:
+                            if volume_left > worst_fit:
 
                                 # store the worst fit
-                                worst_fit = weight_left
+                                worst_fit = volume_left
                                 worst_fit_index = i
 
                 # update the parcel and ship attributes
@@ -165,7 +166,7 @@ def binpack(inventory, packing_variation, repetitions, constraint):
                 parcel_amount += 1
 
             inventory.parcel_amount = parcel_amount
-            inventory.total_costs = inventory.calculate_costs()
+            inventory.total_costs = inventory.calculate_costs(constraint)
             solutions.append(inventory)
 
             return solutions
