@@ -1,7 +1,9 @@
 Clean To do list:
 -	Readme:
-    # o	Defaults aangeven in overzichtje
-    # o	Requirements.txt maken
+
+!!NB: Progress bars op html hoeven niet progress bars te heten
+    o	Defaults aangeven in overzichtje
+    o	Requirements.txt maken
     o	Ergens ff melden dat we html5 gebruiken (meer van dit soort dingen?)
         - in readme bij visualisatie doen (voor elk mapje readme maken)
     o	Upper en lower bounds (en state space?) ergens noemen
@@ -21,6 +23,7 @@ Clean To do list:
 -	Code:
     o	Greedy opschonen naar kleinere functies
     o	Greedy checken op correcte scores
+    o	Hillclimber checken op correcte scores
     o	Random opschonen naar kleinere functies
     o	Binpack opschonen naar kleinere functies?
     o	Alle andere ff bekijken
@@ -55,3 +58,4 @@ Clean To do list:
                 o	Annealing aan?
                     	Ja: f(0,1,T) geeft acceptatiegrens -> random getal genereren en kijken of accepted -> temperatuur aanpassen
     o	Experimentatie bedenken, checken bij Bram, en doen
+    o   Calculations opschonen

@@ -5,9 +5,10 @@ import datetime
 from algorithms import randomalgorithm, greedyratio, hillclimber, binpackvariations
 from data import dataloader
 from classes import classes
-from scripts import graph, helpers, best_solutions, generateships
+from helperscripts import helpers
+from prepscripts import generateships
 from copy import copy, deepcopy
-from visualisation import visual
+from visualisation import visual, graph, best_solutions
 
 from flask import Flask, render_template, Response, jsonify
 import time
@@ -17,6 +18,7 @@ import argparse
 # future ref: https://www.tutorialspoint.com/python/python_command_line_arguments.htm
 
 app = Flask(__name__, template_folder="visualisation")
+
 
 @app.route("/")
 def main():
@@ -36,7 +38,7 @@ def main():
     parser.add_argument("-i", "-iterations", help="Iterations: int [default: 5]", nargs='?', default='5', type = int, \
                         required=False)
     args = parser.parse_args()
-    
+
     # show values
     print("Cargolist: %i" % int(args.c))
     print("More than 4 ships: %s" % args.s)
@@ -46,7 +48,7 @@ def main():
     print("Hillclimber: %s" % args.hc)
     print("Hillclimber iterations: %s" % int(args.hci))
     print("Iterations: %i" % int(args.i))
-    
+
     # load data
     ship_data = "data/spacecrafts.csv"
     cargo_data = "data/CargoList%s.csv" % args.c

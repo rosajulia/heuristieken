@@ -27,26 +27,27 @@ Our repository consists of the following files and folders:
 
 
 # Use of program
-For data visualisation installing matplotlib is required (pip install matplotlib).<br /><br />
 **Input**<br />
-Usage: main.py [-h] [-c] [-s] [-p] [a] [-hc] [-i]<br />
+Usage: main.py [-h] [-c [int]] [-s] [-p] [-a [str]] [-b [str]] [-hc] [-hci [int]] [-i [i]]<br />
 <br />
 Calculate the optimal organisation of a cargolist in spaceships<br />
 <br />
 optional arguments:<br />
   -h, --help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;show this help message and exit<br />
-  -c, -cargo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;choose a cargolist: 1, 2, 3 (int)<br />
-  -s, -ships &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;more than 4 ships: yes or no (string)<br />
-  -p, -politics &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;political constraints: yes or no (string)<br />
-  -a, -algorithms &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;which algorithm: greedy or random (string)<br />
-  -hc, -hillclimber&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hillclimber: yes or no (string)<br />
-  -i, -iterations &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;how many iterations (int)<br />
+  -c, -cargo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cargolist: 1, 2, 3 [int][default: 1]<br />
+  -s, -ships &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;use more ships than 4<br />
+  -p, -politics &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;use political constraints<br />
+  -a, -algorithms &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;which algorithm: greedy, random, or bin [str][default: greedy]<br />
+  -b, -bin_variation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bin-packing variation: first, best, or worst [str][default: first]<br />
+  -hc, -hillclimber&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;use hillclimber<br />
+  -hci, -hc_iterations&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hillclimber iterations: [int][default: 20]<br />
+  -i, -iterations &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iterations [int][default: 5]<br />
 <br />
 *Cargo* specifies which cargolist will be used to fill the ships. The *cargo* argument must be 1, 2 or 3. The default value for *cargo* is 1. <br />
-*Ships* will determine whether a fixed amount of 4 ships will be used or whether an infinite amount of other ships can be purchased. The argument for *ships* is the string 'yes' or 'no'. The default value for *ships* is 'no'. <br />
-*Politics* will specify if there are any political constraints to keep in consideration when running the code. This argument is only relevant when purchasing more ships than 4, so when argument *ships* is 'yes'. The *politics* argument takes the string 'yes' or 'no'. Default value for *politics* is 'no'. <br />
+*Ships* will determine whether a fixed amount of 4 ships will be used or whether an infinite amount of other ships can be purchased. There is no argument for *ships*, it will return true when called. <br />
+*Politics* will specify if there are any political constraints to keep in consideration when running the code. This argument is only relevant when purchasing more ships than 4, so when argument *ships* is 'yes'. The *politics* argument takes no arguments and will return true when called. <br />
 *Algorithms* will decide which algorithm is used to pack the ships as efficient as possible. The two options are a greedy algorithm and a random algorithm. *Algorithms* takes a string as argument: 'greedy' or 'random'. Default value for *algorithms* is greedy.<br />
-*Hillclimber* specifies whether the extra hillclimber algorithm will be used in addition to the algorithms specified by *algorithms*. It takes the string 'yes' or 'no' as argument. Default value for *hillclimber* is 'no'.<br />
+*Hillclimber* specifies whether the extra hillclimber algorithm will be used in addition to the algorithms specified by *algorithms*. It takes no argument as input and will return true when called.<br />
 *Iterations* will determine how many times the algorithms are run. It takes an integer as argument, with a default value of 5.<br />
 <br />
 **Output**<br />
