@@ -29,6 +29,7 @@ def fill_low_ratio_ships(lowest_ratio_type, low_type_counter, length_dict_parcel
 
                 parcel_cursor += 1
 
+            full_ships_counter = 0
             for ship in dict_space:
                 if ship.type is lowest_ratio_type and ship.full is True:
                     full_ships_counter += 1
@@ -61,6 +62,7 @@ def fill_high_ratio_ships(length_dict_space, length_dict_parcel, high_type_count
 
                 parcel_cursor -= 1
 
+            full_ships_counter = 0
             for ship in dict_space:
                 if ship.type is highest_ratio_type and ship.full is True:
                     full_ships_counter += 1
@@ -102,7 +104,7 @@ def fill_middle_ratio_ships(dict_parcel, length_dict_parcel, low_distributed_par
 
                 # find corresponding parcel and add it to ship
                 for parcel in dict_parcel:
-                    if dict_parcel.index(parcel) is parcel_index_to_add:
+                    if dict_parcel.index(parcel) == parcel_index_to_add:
                         dict_parcel[parcel_index_to_add].location = dict_space[i].id
                         dict_space[i] = updateship.update_ship(dict_space[i], dict_parcel[parcel_index_to_add], "+")
                         parcel_amount += 1
@@ -113,6 +115,7 @@ def fill_middle_ratio_ships(dict_parcel, length_dict_parcel, low_distributed_par
                             dict_space[i].current_volume >= dict_space[i].max_volume - parcel_volume_max):
                     dict_space[i].full = True
 
+            full_ships_counter = 0
             for ship in dict_space:
                 if ship.type != lowest_ratio_type and ship.type != highest_ratio_type and ship.full is True:
                     full_ships_counter += 1

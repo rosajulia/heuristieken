@@ -32,8 +32,6 @@ def visual(ships, best_solution):
             d["volume" + str(i)] = volume_send
             d["total_amount" + str(i)] = len(solution_statement[i]["content"])
             d["parcels" + str(i)] = solution_statement[i]["content"]
-            # d["total_parcels"] = best_solution[1]
-            # d["total_costs"] = best_solution[2]
 
         return d
     else:
