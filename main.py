@@ -61,7 +61,7 @@ def main():
         generateships.generateships(inventory, args.p)
 
     # start algorithm
-    print('{}: Start algorithm...'.format(datetime.datetime.now().strftime("%H:%M:%S")))
+    print("{}: Start algorithm...".format(datetime.datetime.now().strftime("%H:%M:%S")))
 
     if args.a == "greedy":
         solutions = greedyratio.greedy_ratio(inventory, repetitions, args.p)
@@ -70,7 +70,7 @@ def main():
     elif args.a == "bin":
         solutions = binpackvariations.binpack(inventory, args.b, repetitions, args.p)
 
-    print('{}: Finished running {} times.'.format(datetime.datetime.now().strftime("%H:%M:%S"), args.i))
+    print("{}: Finished running {} times.".format(datetime.datetime.now().strftime("%H:%M:%S"), args.i))
 
     # calculate best solution
     best_solution = best_solutions.solutions(solutions)
@@ -81,7 +81,7 @@ def main():
 
     if args.hc is True:
         hillsolution = hillclimber.hill_climber(result, repetition_hillclimber, args.p) 
-        print("Results after hillclimber:")       
+        print("Results after hillclimber: ")       
         best_solution = best_solutions.solutions([hillsolution])
         
         result = best_solution[0]
