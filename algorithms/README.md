@@ -3,15 +3,45 @@ Folder contains all our algorithms.
 The algorithms used are: a greedy/random algorithm, a random algorithm, a hillclimber, and an algorithm for bin-packing variations.
 
 ## binpackingvariations.py
-In best_solutions.py, the best solution of an iteration is calculated.
-This is done by selecting the solution with the highest amount of parcels stored,
-and finding the lowest costs with this solution. Furthermore, the graph function is called here,
-with all costs and all parcel amounts. Print statements show this results.</br>
-* Input: solutions: a list containing all solutions as Inventory
-        class provided by the algorithm which was run. An exception on the rule
-        is when the hillclimber is run, then solutions will only show the improved
-        solutions when compared to the solutions ran with the normal algorithms. <br/>
-* Output: print statements in the terminal showing the highest parcel amount and lowest corresponding costs. Function returns a tuple containing the best solution from all the solutions (result), with the corresponding parcel amount and costs.
+    Algorithm for bin packing variations that adds an additional heuristic
+    for packing the ships.</br>
+
+    Returns list of inventory objects.</br>
+
+    Takes three arguments:</br>
+
+        *inventory: Must contain an inventory object that contains a list
+        with ship objects and a list with parcel objects that need to be
+        packed.
+
+        *packing-variation: Specify heuristic to apply in the process of
+        packing ships</br>
+
+            "first" - First-fit decreasing:</br>
+            Finds the first available ship in which the parcel can be placed.
+            Parcels are sorted by volume (descending).</br>
+</br>
+            "best" - Best-fit decreasing:</br>
+            Finds the ship in which the parcel can be placed and that has the
+            least volume left after placing the parcel.
+            Parcels are sorted by volume (descending).</br>
+</br>
+            "worst" - Worst-fit decreasing:</br>
+            Finds the ship in which the parcel can be placed and that has
+            the most volume left after placing the parcel.
+            Parcels are sorted by volume (descending).</br>
+</br>
+        *constraint: Specify whether to apply the diplomatic constraint in
+        generating a dict_space to carry the parcels. Takes boolean.</br>
+</br>
+            True: Applies diplomatic constraint when generating dict_space where
+            the difference in the number of ship each nation sends cannot be
+            larger than 1.</br>
+</br>
+            False: No constraints; dict_spaces will be generated at random.</br>
+
+        *repetitions: Specify the number of times the algorithm will run. Takes
+        nonnegative integer values.
 
 ## randomalgorithm.py
  Randomly fills spaceships with a cargo list.</br>
