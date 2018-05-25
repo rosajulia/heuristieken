@@ -85,7 +85,7 @@ def main():
     if args.hc is True:
         hillsolution = hillclimber.hill_climber(result, repetition_hillclimber, args.p)
         print("Results after hillclimber: ")
-        best_solution = best_solutions.solutions([hillsolution])
+        best_solution = best_solutions.solutions(hillsolution)
 
         result = best_solution[0]
         parcel_amount = best_solution[1]
@@ -94,8 +94,8 @@ def main():
         # write results to csv with hillclimber results
         if args.w is True:
             writeresults.write_results(hillsolution, args_list)
-    
-    # write results to csv 
+
+    # write results to csv
     if args.w is True:
         writeresults.write_results(solutions, args_list)
 

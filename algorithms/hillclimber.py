@@ -7,7 +7,9 @@ def hill_climber(inventory, repetitions, constraint):
 
     best_inventory = inventory
     solutions = [best_inventory]
-    current_repetition = 0
+
+    # simulated annealing parameters
+    current_repetition = 1
     maxTemp = 100
 
     for _ in range(repetitions):
@@ -72,17 +74,23 @@ def hill_climber(inventory, repetitions, constraint):
             best_inventory = inventory_post
 
         else:
+            # changes for simulated annealing
             temp = annealinghelper.decrease_temperature(maxTemp, repetitions, current_repetition)
             acceptance_chance = annealinghelper.calculate_acceptance_chance(inventory_pre.total_costs, inventory_post.total_costs, temp)
-            acceptance_request = random()
+            print("ac", acceptance_chance)
+            acceptance_request = random.uniform(0, 1)
+            print("ar", acceptance_request)
             print(acceptance_request)
             if acceptance_request <= acceptance_chance:
                 best_inventory = inventory_post
                 print("accept")
             else:
+
+                # de regel hieronder moet bij sim ann een tabje naar voren
                 best_inventory = inventory_pre
                 print("reject")
 
+        # deze mag weg als geen sim ann
         current_repetition += 1
 
     return solutions

@@ -10,6 +10,7 @@
 
 import random
 import math
+import numpy
 
 def decrease_temperature(maxTemp, iterations, current_iteration):
 
@@ -19,9 +20,9 @@ def decrease_temperature(maxTemp, iterations, current_iteration):
 
 def calculate_acceptance_chance(previous_score, new_score, temp):
 
-    score_difference = new_score - previous_score
+    score_difference = abs(new_score - previous_score)
 
-    acceptance_chance = math.exp(score_difference / temp)
+    acceptance_chance = numpy.exp(score_difference / temp)
 
     return acceptance_chance
 
