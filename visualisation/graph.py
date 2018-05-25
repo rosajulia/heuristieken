@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import os
 
 def barchart_parcels(results):
     # plot solutions in histogram
