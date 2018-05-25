@@ -1,8 +1,7 @@
 import random
-from helperscripts import helpers, updateship
+from helperscripts import helpers, updateship, greedyhelper
 from operator import itemgetter
 from copy import copy, deepcopy
-from algorithms import greedyhelper
 
 def greedy_ratio(inventory, repetitions, constraint):
     """Greedy algorithm based on the weight-to-volume ratio of spaceships and parcels,
