@@ -109,7 +109,6 @@ def random_algorithm(inventory, repetitions, constraint):
                 if ship.full is True:
                     full_ships_counter += 1
 
-
         # add parcel amount and total costs to solution (inventory object)
         inventory.parcel_amount = parcel_amount
         inventory.total_costs = inventory.calculate_costs(constraint)

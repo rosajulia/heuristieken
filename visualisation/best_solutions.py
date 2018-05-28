@@ -29,6 +29,8 @@ def solutions(solutions):
         costs_graph_list.append(solution.total_costs)
     max_parcel_amount = max(parcel_amount_list)
 
+    print(parcel_amount_list)
+
     # continue with solutions with max parcel amount
     parcel_checked_solutions = []
     for solution in solutions:
