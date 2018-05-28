@@ -86,6 +86,7 @@ def hill_climber(inventory, repetitions, constraint):
             best_inventory = inventory_post
 
         else:
+            solutions.append(deepcopy(inventory_pre))
             best_inventory = inventory_pre
 
     return solutions
