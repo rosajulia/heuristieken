@@ -67,10 +67,16 @@ class Inventory():
     def calculate_costs(self, constraint):
         self.total_costs = 0
         for ship in self.dict_space:
-            if ship.current_weight != 0 and constraint is False:
-                    self.total_costs += ship.base_cost
-                    self.total_costs += math.ceil((ship.mass + ship.current_weight) * \
-                                        ship.ftw / (1 - ship.ftw) * 1000) * 5
+            if constraint is True: 
+                self.total_costs += ship.base_cost
+                self.total_costs += math.ceil((ship.mass + ship.current_weight) * \
+                                    ship.ftw / (1 - ship.ftw) * 1000) * 5
+                                    
+            else:
+                if ship.current_weight != 0:
+                        self.total_costs += ship.base_cost
+                        self.total_costs += math.ceil((ship.mass + ship.current_weight) * \
+                                            ship.ftw / (1 - ship.ftw) * 1000) * 5
         return self.total_costs
 
     def return_inventory(self):
