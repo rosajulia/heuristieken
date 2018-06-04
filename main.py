@@ -61,7 +61,7 @@ def main():
         inventory.dict_space = inventory.dict_space[:4]
     else:
         generateships.generateships(inventory, args.p)
-
+    
     # start algorithm
     print("{}: Start algorithm...".format(datetime.datetime.now().strftime("%H:%M:%S")))
 

@@ -52,10 +52,8 @@ def generateships(inventory, constraint):
 
     # if constraints are active
     else:
-
         # keep the score for the number of ships each nation has
         score_keeper = {}
-
         # make a dict to store scores for nations
         for ship in ships:
 
@@ -69,12 +67,12 @@ def generateships(inventory, constraint):
         while len(temp_cargo) > 0:
 
             # pick a random ship from the list
-            ship = random.choice(ships)
+            ship = deepcopy(random.choice(ships))
             ship.id = ship_counter
 
             # keep picking a random ship while keeping scores even
             while score_keeper[ship.nation] == True:
-                ship = random.choice(ships)
+                ship = deepcopy(random.choice(ships))
 
             # set the score keeper to taken
             score_keeper[ship.nation] = True
@@ -93,6 +91,6 @@ def generateships(inventory, constraint):
                 # reset the score keeper
                 score_keeper = {nation:False for nation in score_keeper}
 
-        inventory.dict_space = fleet
+        inventory.dict_space = deepcopy(fleet)
 
         return inventory
