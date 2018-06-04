@@ -4,7 +4,7 @@ import csv
 # filename = "data/1randomhc.csv"
 # filename = "data/1greedy.csv"
 # filename = "data/1greedyhc.csv"
-filename = "data/2random.csv"
+filename = "data/3binbesthc.csv"
 
 with open(filename, "r") as infile:
     reader = csv.reader(infile, delimiter=",")
@@ -30,9 +30,9 @@ with open(filename, "r") as infile:
         costs_list.append(float(row[10]))
     
     print("Iterations of results: {}".format(iterations))
-    print("Average packages: {}".format(total_packages / (iterations * 2)))
+    print("Average packages: {}".format(total_packages / (5102)))
     print("Max packages: {}".format(max_packages))
-    print("Average costs: {}".format(total_costs / (iterations * 2)))
+    print("Average costs: {}".format(total_costs / (5102)))
     print("Minimum costs: {}".format(min(costs_list)))
 
 
